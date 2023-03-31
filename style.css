@@ -1,271 +1,184 @@
-* {
-    box-sizing: border-box;
-  }
-  
-  body {
-    margin: 0;
-    font-family: "Hiragino Kaku Gothic ProN";
-  }
-  
-  a {
-    text-decoration: none;
-  }
-  
-  .container {
-    width: 100%;
-    padding: 0 15px;
-    margin: 0 auto;
-  }
-  
-  .top-wrapper {
-    padding: 180px 0 100px 0;
-    background-image: url(top.png);
-    background-size: cover;
-    color: white;
-    text-align: center;
-  }
-  
-  .top-wrapper h1 {
-    opacity: 0.7;
-    font-size: 45px;
-    letter-spacing: 5px;
-  }
-  
-  .top-wrapper p {
-    opacity: 0.7;
-    font-size: 16px;
-    margin-bottom: 40px;
-  }
-  
-  .btn-wrapper {
-    text-align: center;
-  }
-  
-  .btn-wrapper p {
-    margin-bottom: 20px;
-  }
-  
-  .signup {
-    background-color: #239b76;
-  }
-  
-  .facebook {
-    background-color: #3b5998;
-    margin-right: 10px;
-  }
-  
-  .twitter {
-    background-color: #55acee;
-  }
-  
-  .btn {
-    padding: 8px 24px;
-    color: white;
-    display: inline-block;
-    opacity: 0.8;
-    border-radius: 4px;
-    text-align: center;
-  }
-  
-  .btn:hover {
-    opacity: 1;
-  }
-  
-  .fa {
-    margin-right: 5px;
-  }
-  
-  header {
-    height: 65px;
-    width: 100%;
-    background-color: rgba(34,49,52,0.9);
-    position :fixed;
-    top: 0;
-    z-index: 10;
-  }
-  
-  .logo {
-    width: 124px;
-    margin-top: 20px;
-  }
-  
-  .header-left {
+@import url(http://fonts.googleapis.com/earlyaccess/notosansjapanese.css);
+
+body {
+    font-family: 'Noto Sans Japanese', sans-serif;
+    font-weight: 200;
+    font-size: 120%;
+    /*background: #F7F7F7 url(pattern.png) fixed;*/
+    color: #555;
+}
+
+.container {width: 978px; margin: 0 auto;}
+.grid1, .grid2, .grid3, .grid4, .grid5, .grid6, .grid7, .grid8, .grid9, .grid10, .grid11,
+.project, .project2, .project3, .project4, .project0, .logo, grid4block {
     float: left;
-  }
-  
-  .header-right {
-    float: right;
-    margin-right: -25px;
-  }
-  
-  .header-right a {
-    line-height: 65px;
-    padding: 0 25px;
-    color: white;
+    display: inline;
+    margin-left: 30px;
+}
+
+.grid1 { width: 54px }
+.grid2 { width: 138px }
+.grid3 { width: 222px }
+.grid4 { width: 306px }
+.grid5 { width: 390px }
+.grid6 { width: 474px }
+.grid7 { width: 558px }
+.grid8 { width: 642px }
+.grid9 { width: 726px }
+.grid10 { width: 810px }
+.grid11 { width: 894px }
+.first {margin-left: 0; clear: left;}
+
+.clearfix:after {
+    visibility: hidden;
     display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}
+
+
+.title {
+	font-weight: 100;
+  font-size: 10ex;
+  margin-top:0px;
+  margin-bottom:0px;
+}
+
+.subtitle {
+	font-weight: 100;
+  margin-top:0px;
+  margin-bottom:0px;
+}
+
+.rits {
+  font-weight: 400;
+  color: Darkred;
+
+}
+
+#nav_red {
+    font-weight: 200;
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#nav_red ul {
+    background: #cfcfcf;
+    height: 40px;
+    list-style: none;
+}
+
+#nav_red li {
     float: left;
-    transition: all 0.5s;
-  }
-  
-  .header-right a:hover {
-    background-color: rgba(255,255,255,0.3);
-  }
-  
-  .lesson-wrapper {
-    height: 580px;
-    padding-bottom: 80px;
-    padding-left: 5%;
-    padding-right: 5%;
-    background-color: #f7f7f7;
+    padding: 0;
+    width:138px;
+}
+
+#nav_red li a {
+    background: #cfcfcf;
+    display: block;
     text-align: center;
-  }
-  
-  .heading {
-    padding-top: 80px;
-    padding-bottom: 50px;
-    color: #5f5d60;
-  }
-  
-  .heading h2 {
-    font-weight: normal;
-  }
-  
-  .lesson {
-    float: left;
-    width: 25%;
-  }
-  
-  .lesson-icon {
-    position: relative;
-  }
-  
-  .lesson-icon p {
+    text-decoration: none;
+    color: #333;
+    line-height: 40px;
+    padding: 0 25px;
+}
+
+#nav_red li a:hover {
+    text-decoration: none;
+    background: Darkred;
+    color: #FFF;
+}
+
+#nav_red li ul {
     position: absolute;
-    top: 37%;
-    width: 100%;
-    color: white;
-  }
-  
-  .text-contents {
-    width: 80%;
-    display: inline-block;
-    margin-top: 15px;
-    font-size: 13px;
-    color: #b3aeb5;
-  }
-  
-  .heading h3 {
-    font-weight: normal;
-  }
-  
-  .message-wrapper {
-    border-bottom: 1px solid #eee;
-    padding-bottom: 80px;
-    text-align: center;
-  }
-  
-  .message {
-    padding: 15px 40px;
-    background-color: #5dca88;
-    cursor: pointer;
-    box-shadow: 0px 7px #1a7940;
-  }
-  
-  .message:active {
-    position: relative;
-    top: 7px;
-    box-shadow: none;
-  }
-  
-  footer img {
-    width: 125px;
-  }
-  
-  footer p {
-    color: #b3aeb5;
-    font-size: 12px;
-  }
-  
-  footer {
-    padding-top: 30px;
-    padding-bottom: 20px;
-  }
-  
-  .menu-icon {
-    color: white;
-    float: right;
-    font-size: 25px;
-    padding: 21px 0;
+    background: #222;
     display: none;
+    height: auto;
+    width: 138px;
+    z-index: 2;
+}
+
+ul #nav_red li.current {
+  background: #000;
+}
+
+dl.plan dt {
+    float: left;
+    width: 8em;
+    padding: 0 0 0 2px;
+    font-weight: normal;
+    /*color: DarkOrange;*/
+    font-size: 80%;
+}
+dl.plan dd {
+    margin-left: 8em;
+    margin-bottom: .2em;
+    padding: 0 0 5px 20px;
+    font-size: 80%;
+}
+
+dl.place dt {
+    float: left;
+    width: 6em;
+    padding: 0 0 0 2px;
+    font-weight: normal;
+    color: Darkred;
+}
+dl.place dd {
+    margin-left: 6em;
+    margin-bottom: .2em;
+    padding: 0 0 5px 10px;
+}
+
+dl.profile dt {
+    float: left;
+    width: 8em;
+    padding: 0 0 0 2px;
+    font-weight: normal;
+    color: DarkRed;
+}
+
+dl.profile dd {
+    margin-left: 6em;
+    margin-bottom: .2em;
+    padding: 0 0 5px 10px;
+}
+
+.btn {
+	background: #EEE;
+	border: 2px dotted #CCC;
+	color: #111;
+	width: 100px;
+	padding: 10px 0;
+}
+
+.midashi {
+  border-bottom:2px dotted Darkred;
+  border-left:10px solid Darkred;
+  padding:7px;
+}
+
+.top {
+  border-top: 1px solid #d3381c;
+  border-bottom: 1px solid #d3381c;padding:7px;
+}
+
+.red{
+  color: #fff;
+  font-weight: 400;
+  background:DarkRed;
+  border: solid;
+  border-color:Darkred;
   }
-  
-  .clear {
-    clear: left;
-  }
-  
-  @media all and (max-width: 1000px) {
-    .lesson {
-      width: 50%;
-      margin-bottom: 50px;
-    }
-  
-    .lesson-wrapper {
-      height: 990px;
-    }
-  
-    footer {
-      text-align: center;
-    }
-  }
-  
-  @media all and (max-width: 750px) {
-    .top-wrapper h1 {
-      font-size: 32px;
-    }
-  
-    .heading h2 {
-      font-size: 20px;
-    }
-  }
-  
-  @media all and (max-width: 670px) {
-    .header-right {
-      display: none;
-    }
-  
-    .menu-icon {
-      display: block;
-    }
-  
-    .top-wrapper .btn {
-      width: 100%;
-    }
-  
-    .twitter {
-      margin-top: 10px;
-    }
-  
-    .top-wrapper {
-      text-align: left;
-    }
-  
-    .top-wrapper h1 {
-      font-size: 24px;
-    }
-  
-    .top-wrapper p {
-      font-size: 14px;
-    }
-  
-    .lesson {
-      width: 100%;
-    }
-  
-    .lesson-wrapper {
-      height: 1700px;
-    }
-  
-    .message-wrapper .btn {
-      width: 100%;
-    }
-  }
+.redline{
+  border: solid;
+  border-color:Darkred;
+}
+
+.twitter {
+  color:#00aced ;
+}
