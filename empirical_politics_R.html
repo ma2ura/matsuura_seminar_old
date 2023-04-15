@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.280">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="松浦総一">
+
+<title>Rによる計量政治学の勉強</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="empirical_politics_R_files/libs/clipboard/clipboard.min.js"></script>
+<script src="empirical_politics_R_files/libs/quarto-html/quarto.js"></script>
+<script src="empirical_politics_R_files/libs/quarto-html/popper.min.js"></script>
+<script src="empirical_politics_R_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="empirical_politics_R_files/libs/quarto-html/anchor.min.js"></script>
+<link href="empirical_politics_R_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="empirical_politics_R_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="empirical_politics_R_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="empirical_politics_R_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="empirical_politics_R_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="empirical_politics_R_files/libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<script src="empirical_politics_R_files/libs/plotly-binding-4.10.1/plotly.js"></script>
+<script src="empirical_politics_R_files/libs/typedarray-0.1/typedarray.min.js"></script>
+<script src="empirical_politics_R_files/libs/jquery-3.5.1/jquery.min.js"></script>
+<link href="empirical_politics_R_files/libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="empirical_politics_R_files/libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="empirical_politics_R_files/libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="empirical_politics_R_files/libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#第0章-プレゼミとは" id="toc-第0章-プレゼミとは" class="nav-link active" data-scroll-target="#第0章-プレゼミとは">第0章 プレゼミとは？</a>
+  <ul class="collapse">
+  <li><a href="#なぜr" id="toc-なぜr" class="nav-link" data-scroll-target="#なぜr">なぜR？</a></li>
+  <li><a href="#ms-excelだとダメなの" id="toc-ms-excelだとダメなの" class="nav-link" data-scroll-target="#ms-excelだとダメなの">MS Excelだとダメなの？</a></li>
+  <li><a href="#rでどんなことができる" id="toc-rでどんなことができる" class="nav-link" data-scroll-target="#rでどんなことができる">Rでどんなことができる？</a>
+  <ul class="collapse">
+  <li><a href="#キレイなグラフが書ける" id="toc-キレイなグラフが書ける" class="nav-link" data-scroll-target="#キレイなグラフが書ける">1. キレイなグラフが書ける。</a></li>
+  <li><a href="#楽にデータ操作ができる" id="toc-楽にデータ操作ができる" class="nav-link" data-scroll-target="#楽にデータ操作ができる">2. 楽にデータ操作ができる</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section">3.</a></li>
+  </ul></li>
+  <li><a href="#動くグラフも作れる" id="toc-動くグラフも作れる" class="nav-link" data-scroll-target="#動くグラフも作れる">動くグラフも作れる。</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Rによる計量政治学の勉強</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>松浦総一 </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+
+</div>
+<section id="第0章-プレゼミとは" class="level1">
+<h1>第0章 プレゼミとは？</h1>
+<p>松浦プレゼミ2023では、データに強い経営学部生となるため、データ分析のツールとしてもはやデファクトスタンダードとなっている(いいすぎ)プログラミング言語<strong>R</strong>を使って、様々な分析を行うためのスキルの修得を目指します。 株価データや会計データ、POSデータといったデータベース以外にも、自分で集めたアンケートのデータや、Webスクレイピングで集めたデータなど、様々なデータを分析することができるスキルは、会計・ファイナンスだけでなく、組織、戦略、マーケティングと様々な分野で役に立つはずです。</p>
+<section id="なぜr" class="level2">
+<h2 class="anchored" data-anchor-id="なぜr">なぜR？</h2>
+<p><strong>メリット</strong></p>
+<ul>
+<li><strong>無料</strong></li>
+<li>学習しやすい・教材たくさん</li>
+<li>卒業後も使える (大学で購入しているSPSSとかStataは買うと高い)</li>
+<li>なんかかっこいい</li>
+</ul>
+<p><strong>デメリット</strong></p>
+<ul>
+<li>データを命令文で操作するので、見た目にわかりにくい。</li>
+<li>マウスではなくキーボードで文字を入力してデータを操作するので、キーボード入力に慣れてないと辛い。</li>
+<li>R言語の文法と単語を覚えなきゃいけない</li>
+</ul>
+</section>
+<section id="ms-excelだとダメなの" class="level2">
+<h2 class="anchored" data-anchor-id="ms-excelだとダメなの">MS Excelだとダメなの？</h2>
+<p>メリット</p>
+<ul>
+<li>みんな使ってる。</li>
+<li>就職しても使いそう</li>
+<li>画面の表示が理解しやすい</li>
+</ul>
+<p>デメリット</p>
+<ul>
+<li>有料 (立命館大学生のうちは無料で利用可能)</li>
+<li>マウスで何度もポチポチしないと何も出来ない</li>
+<li>過去のExcelファイルを見て、自分が何をしたのか思い出せない</li>
+<li>アプリが思い、すぐ強制終了する</li>
+<li>グラフのデザインが悪い</li>
+</ul>
+<!-- MS Excelは非常に役立つツールです。
+ただ、データが大きくなるとExcelでは読み込めなくなる(Excelは縦に1,048,576行、横に16,384列が上限)が、RやPythonはPCのスペックに依存するものの、もっといける。
+
+またExcelでグラフを作成しようとすると、メニューからグラフを選び、グラフの元となるデータを選択しといったように、メニューを何度もクリックすることになる。その結果、1週間後に同じグラフを作ろうと思っても、どうやって作ったのか思い出せなかったり、ちょっとデータを追加して新しいグラフを作ろうとすると、またいろんなところをポチポチする必要があり、再現可能性が低い。 -->
+</section>
+<section id="rでどんなことができる" class="level2">
+<h2 class="anchored" data-anchor-id="rでどんなことができる">Rでどんなことができる？</h2>
+<section id="キレイなグラフが書ける" class="level3">
+<h3 class="anchored" data-anchor-id="キレイなグラフが書ける">1. キレイなグラフが書ける。</h3>
+<p><code>iris</code>という有名なデータを使って、グラフを作ってみます。<code>iris</code>は「あやめ」という花の花びらとがく片の長さと幅の4項目と3種類のあやめの分類名の1項目の合計5項目が150件収録されているデータベースです。Rには練習用にもともと入っているので、読み込んでみます。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(iris) <span class="co"># 最初の6行だけ</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1          5.1         3.5          1.4         0.2  setosa
+2          4.9         3.0          1.4         0.2  setosa
+3          4.7         3.2          1.3         0.2  setosa
+4          4.6         3.1          1.5         0.2  setosa
+5          5.0         3.6          1.4         0.2  setosa
+6          5.4         3.9          1.7         0.4  setosa</code></pre>
+</div>
+</div>
+<p>このように、<code>Sepal.Length</code>、<code>Sepal.Width</code>、<code>Petal.Length</code>、<code>Petal.Width</code>、<code>Species</code>という5つの項目が入っていることが分かります。Sepalは花びらで、Petalはがく片です。まず花びらの長さ<code>Sepal.Length</code>の平均を求めてみましょう。平均を返す関数は<code>mean()</code>です。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(iris<span class="sc">$</span>Sepal.Length)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5.843333</code></pre>
+</div>
+</div>
+<p>あやめの花びらの長さの平均は、5.8433333であることが分かりました。簡単ですね。 次に、あやめの種類を表す<code>Species</code>にはどんな種類があるのか見てみましょう。 <code>Species</code>に入っている種類を確認するには、<code>table()</code>関数を使ってみます。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(iris<span class="sc">$</span>Species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    setosa versicolor  virginica 
+        50         50         50 </code></pre>
+</div>
+</div>
+<p>あやめの種類には、setosa、versicolor, virginicaがあり、それぞれ50個のデータがあることが分かります。</p>
+<p>では次にグラフを作成してみます。 最初に、花びらの長さのヒストグラムを書いてみます。 ここでは、非常に便利かつ簡単に美しいグラフを作成できるggplot2パッケージを使うために、<code>tidyverse</code>パッケージを導入します。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("tidyverse") # 1回だけ実行</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(iris) <span class="sc">+</span> <span class="fu">aes</span>(Sepal.Length) <span class="sc">+</span> </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_histogram</span>()</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(g)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="empirical_politics_R_files/figure-html/graph_hist_sepal-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>地味なので、グラフを雑誌Economist風にしてみます。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">theme_economist</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="empirical_politics_R_files/figure-html/hist_economist-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>いい感じです。 次は花びらの長さと幅の散布図を書いてみます。 <code>ggplot2</code>で散布図を書くためには、<code>aes()</code>で<span class="math inline">x</span>軸と<span class="math inline">y</span>軸を指定し、<code>geom_point()</code>で散布図を指定する。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris) <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Sepal.Width) <span class="sc">+</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">theme_economist</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="empirical_politics_R_files/figure-html/graph_sepal-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>カテゴリーを表す変数を<code>group</code>と<code>colour</code>で指定すると、カテゴリーごとにグループ化して、色分けもしてくれます。ここでは花の種類を表す変数である<code>Species</code>ごとに色分けしてみます。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris) <span class="sc">+</span> <span class="co"># データセットirisを指定</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="co"># x軸 花びらの幅</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> Sepal.Width, <span class="co"># y軸　花びらの幅</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">group =</span> Species, <span class="co"># あやめの種類ごとにグループ</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">color =</span> Species <span class="co"># あやめの種類ごとに色分け</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>      ) <span class="sc">+</span> </span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="co"># 散布図を指定</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme_economist</span>() <span class="co"># テーマをEconomistに</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="empirical_politics_R_files/figure-html/graph_species-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="楽にデータ操作ができる" class="level3">
+<h3 class="anchored" data-anchor-id="楽にデータ操作ができる">2. 楽にデータ操作ができる</h3>
+</section>
+<section id="section" class="level3">
+<h3 class="anchored" data-anchor-id="section">3.</h3>
+</section>
+</section>
+<section id="動くグラフも作れる" class="level2">
+<h2 class="anchored" data-anchor-id="動くグラフも作れる">動くグラフも作れる。</h2>
+<p>グラフを動かせる。 <code>plotly</code>パッケージを使えば簡単。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(iris) <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Sepal.Width) <span class="sc">+</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">theme_economist</span>()</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplotly</span>(g)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-85cdbcee42b037fd1094" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-85cdbcee42b037fd1094">{"x":{"data":[{"x":[5.1,4.9,4.7,4.6,5,5.4,4.6,5,4.4,4.9,5.4,4.8,4.8,4.3,5.8,5.7,5.4,5.1,5.7,5.1,5.4,5.1,4.6,5.1,4.8,5,5,5.2,5.2,4.7,4.8,5.4,5.2,5.5,4.9,5,5.5,4.9,4.4,5.1,5,4.5,4.4,5,5.1,4.8,5.1,4.6,5.3,5,7,6.4,6.9,5.5,6.5,5.7,6.3,4.9,6.6,5.2,5,5.9,6,6.1,5.6,6.7,5.6,5.8,6.2,5.6,5.9,6.1,6.3,6.1,6.4,6.6,6.8,6.7,6,5.7,5.5,5.5,5.8,6,5.4,6,6.7,6.3,5.6,5.5,5.5,6.1,5.8,5,5.6,5.7,5.7,6.2,5.1,5.7,6.3,5.8,7.1,6.3,6.5,7.6,4.9,7.3,6.7,7.2,6.5,6.4,6.8,5.7,5.8,6.4,6.5,7.7,7.7,6,6.9,5.6,7.7,6.3,6.7,7.2,6.2,6.1,6.4,7.2,7.4,7.9,6.4,6.3,6.1,7.7,6.3,6.4,6,6.9,6.7,6.9,5.8,6.8,6.7,6.7,6.3,6.5,6.2,5.9],"y":[3.5,3,3.2,3.1,3.6,3.9,3.4,3.4,2.9,3.1,3.7,3.4,3,3,4,4.4,3.9,3.5,3.8,3.8,3.4,3.7,3.6,3.3,3.4,3,3.4,3.5,3.4,3.2,3.1,3.4,4.1,4.2,3.1,3.2,3.5,3.6,3,3.4,3.5,2.3,3.2,3.5,3.8,3,3.8,3.2,3.7,3.3,3.2,3.2,3.1,2.3,2.8,2.8,3.3,2.4,2.9,2.7,2,3,2.2,2.9,2.9,3.1,3,2.7,2.2,2.5,3.2,2.8,2.5,2.8,2.9,3,2.8,3,2.9,2.6,2.4,2.4,2.7,2.7,3,3.4,3.1,2.3,3,2.5,2.6,3,2.6,2.3,2.7,3,2.9,2.9,2.5,2.8,3.3,2.7,3,2.9,3,3,2.5,2.9,2.5,3.6,3.2,2.7,3,2.5,2.8,3.2,3,3.8,2.6,2.2,3.2,2.8,2.8,2.7,3.3,3.2,2.8,3,2.8,3,2.8,3.8,2.8,2.8,2.6,3,3.4,3.1,3,3.1,3.1,3.1,2.7,3.2,3.3,3,2.5,3,3.4,3],"text":["Sepal.Length: 5.1<br />Sepal.Width: 3.5","Sepal.Length: 4.9<br />Sepal.Width: 3.0","Sepal.Length: 4.7<br />Sepal.Width: 3.2","Sepal.Length: 4.6<br />Sepal.Width: 3.1","Sepal.Length: 5.0<br />Sepal.Width: 3.6","Sepal.Length: 5.4<br />Sepal.Width: 3.9","Sepal.Length: 4.6<br />Sepal.Width: 3.4","Sepal.Length: 5.0<br />Sepal.Width: 3.4","Sepal.Length: 4.4<br />Sepal.Width: 2.9","Sepal.Length: 4.9<br />Sepal.Width: 3.1","Sepal.Length: 5.4<br />Sepal.Width: 3.7","Sepal.Length: 4.8<br />Sepal.Width: 3.4","Sepal.Length: 4.8<br />Sepal.Width: 3.0","Sepal.Length: 4.3<br />Sepal.Width: 3.0","Sepal.Length: 5.8<br />Sepal.Width: 4.0","Sepal.Length: 5.7<br />Sepal.Width: 4.4","Sepal.Length: 5.4<br />Sepal.Width: 3.9","Sepal.Length: 5.1<br />Sepal.Width: 3.5","Sepal.Length: 5.7<br />Sepal.Width: 3.8","Sepal.Length: 5.1<br />Sepal.Width: 3.8","Sepal.Length: 5.4<br />Sepal.Width: 3.4","Sepal.Length: 5.1<br />Sepal.Width: 3.7","Sepal.Length: 4.6<br />Sepal.Width: 3.6","Sepal.Length: 5.1<br />Sepal.Width: 3.3","Sepal.Length: 4.8<br />Sepal.Width: 3.4","Sepal.Length: 5.0<br />Sepal.Width: 3.0","Sepal.Length: 5.0<br />Sepal.Width: 3.4","Sepal.Length: 5.2<br />Sepal.Width: 3.5","Sepal.Length: 5.2<br />Sepal.Width: 3.4","Sepal.Length: 4.7<br />Sepal.Width: 3.2","Sepal.Length: 4.8<br />Sepal.Width: 3.1","Sepal.Length: 5.4<br />Sepal.Width: 3.4","Sepal.Length: 5.2<br />Sepal.Width: 4.1","Sepal.Length: 5.5<br />Sepal.Width: 4.2","Sepal.Length: 4.9<br />Sepal.Width: 3.1","Sepal.Length: 5.0<br />Sepal.Width: 3.2","Sepal.Length: 5.5<br />Sepal.Width: 3.5","Sepal.Length: 4.9<br />Sepal.Width: 3.6","Sepal.Length: 4.4<br />Sepal.Width: 3.0","Sepal.Length: 5.1<br />Sepal.Width: 3.4","Sepal.Length: 5.0<br />Sepal.Width: 3.5","Sepal.Length: 4.5<br />Sepal.Width: 2.3","Sepal.Length: 4.4<br />Sepal.Width: 3.2","Sepal.Length: 5.0<br />Sepal.Width: 3.5","Sepal.Length: 5.1<br />Sepal.Width: 3.8","Sepal.Length: 4.8<br />Sepal.Width: 3.0","Sepal.Length: 5.1<br />Sepal.Width: 3.8","Sepal.Length: 4.6<br />Sepal.Width: 3.2","Sepal.Length: 5.3<br />Sepal.Width: 3.7","Sepal.Length: 5.0<br />Sepal.Width: 3.3","Sepal.Length: 7.0<br />Sepal.Width: 3.2","Sepal.Length: 6.4<br />Sepal.Width: 3.2","Sepal.Length: 6.9<br />Sepal.Width: 3.1","Sepal.Length: 5.5<br />Sepal.Width: 2.3","Sepal.Length: 6.5<br />Sepal.Width: 2.8","Sepal.Length: 5.7<br />Sepal.Width: 2.8","Sepal.Length: 6.3<br />Sepal.Width: 3.3","Sepal.Length: 4.9<br />Sepal.Width: 2.4","Sepal.Length: 6.6<br />Sepal.Width: 2.9","Sepal.Length: 5.2<br />Sepal.Width: 2.7","Sepal.Length: 5.0<br />Sepal.Width: 2.0","Sepal.Length: 5.9<br />Sepal.Width: 3.0","Sepal.Length: 6.0<br />Sepal.Width: 2.2","Sepal.Length: 6.1<br />Sepal.Width: 2.9","Sepal.Length: 5.6<br />Sepal.Width: 2.9","Sepal.Length: 6.7<br />Sepal.Width: 3.1","Sepal.Length: 5.6<br />Sepal.Width: 3.0","Sepal.Length: 5.8<br />Sepal.Width: 2.7","Sepal.Length: 6.2<br />Sepal.Width: 2.2","Sepal.Length: 5.6<br />Sepal.Width: 2.5","Sepal.Length: 5.9<br />Sepal.Width: 3.2","Sepal.Length: 6.1<br />Sepal.Width: 2.8","Sepal.Length: 6.3<br />Sepal.Width: 2.5","Sepal.Length: 6.1<br />Sepal.Width: 2.8","Sepal.Length: 6.4<br />Sepal.Width: 2.9","Sepal.Length: 6.6<br />Sepal.Width: 3.0","Sepal.Length: 6.8<br />Sepal.Width: 2.8","Sepal.Length: 6.7<br />Sepal.Width: 3.0","Sepal.Length: 6.0<br />Sepal.Width: 2.9","Sepal.Length: 5.7<br />Sepal.Width: 2.6","Sepal.Length: 5.5<br />Sepal.Width: 2.4","Sepal.Length: 5.5<br />Sepal.Width: 2.4","Sepal.Length: 5.8<br />Sepal.Width: 2.7","Sepal.Length: 6.0<br />Sepal.Width: 2.7","Sepal.Length: 5.4<br />Sepal.Width: 3.0","Sepal.Length: 6.0<br />Sepal.Width: 3.4","Sepal.Length: 6.7<br />Sepal.Width: 3.1","Sepal.Length: 6.3<br />Sepal.Width: 2.3","Sepal.Length: 5.6<br />Sepal.Width: 3.0","Sepal.Length: 5.5<br />Sepal.Width: 2.5","Sepal.Length: 5.5<br />Sepal.Width: 2.6","Sepal.Length: 6.1<br />Sepal.Width: 3.0","Sepal.Length: 5.8<br />Sepal.Width: 2.6","Sepal.Length: 5.0<br />Sepal.Width: 2.3","Sepal.Length: 5.6<br />Sepal.Width: 2.7","Sepal.Length: 5.7<br />Sepal.Width: 3.0","Sepal.Length: 5.7<br />Sepal.Width: 2.9","Sepal.Length: 6.2<br />Sepal.Width: 2.9","Sepal.Length: 5.1<br />Sepal.Width: 2.5","Sepal.Length: 5.7<br />Sepal.Width: 2.8","Sepal.Length: 6.3<br />Sepal.Width: 3.3","Sepal.Length: 5.8<br />Sepal.Width: 2.7","Sepal.Length: 7.1<br />Sepal.Width: 3.0","Sepal.Length: 6.3<br />Sepal.Width: 2.9","Sepal.Length: 6.5<br />Sepal.Width: 3.0","Sepal.Length: 7.6<br />Sepal.Width: 3.0","Sepal.Length: 4.9<br />Sepal.Width: 2.5","Sepal.Length: 7.3<br />Sepal.Width: 2.9","Sepal.Length: 6.7<br />Sepal.Width: 2.5","Sepal.Length: 7.2<br />Sepal.Width: 3.6","Sepal.Length: 6.5<br />Sepal.Width: 3.2","Sepal.Length: 6.4<br />Sepal.Width: 2.7","Sepal.Length: 6.8<br />Sepal.Width: 3.0","Sepal.Length: 5.7<br />Sepal.Width: 2.5","Sepal.Length: 5.8<br />Sepal.Width: 2.8","Sepal.Length: 6.4<br />Sepal.Width: 3.2","Sepal.Length: 6.5<br />Sepal.Width: 3.0","Sepal.Length: 7.7<br />Sepal.Width: 3.8","Sepal.Length: 7.7<br />Sepal.Width: 2.6","Sepal.Length: 6.0<br />Sepal.Width: 2.2","Sepal.Length: 6.9<br />Sepal.Width: 3.2","Sepal.Length: 5.6<br />Sepal.Width: 2.8","Sepal.Length: 7.7<br />Sepal.Width: 2.8","Sepal.Length: 6.3<br />Sepal.Width: 2.7","Sepal.Length: 6.7<br />Sepal.Width: 3.3","Sepal.Length: 7.2<br />Sepal.Width: 3.2","Sepal.Length: 6.2<br />Sepal.Width: 2.8","Sepal.Length: 6.1<br />Sepal.Width: 3.0","Sepal.Length: 6.4<br />Sepal.Width: 2.8","Sepal.Length: 7.2<br />Sepal.Width: 3.0","Sepal.Length: 7.4<br />Sepal.Width: 2.8","Sepal.Length: 7.9<br />Sepal.Width: 3.8","Sepal.Length: 6.4<br />Sepal.Width: 2.8","Sepal.Length: 6.3<br />Sepal.Width: 2.8","Sepal.Length: 6.1<br />Sepal.Width: 2.6","Sepal.Length: 7.7<br />Sepal.Width: 3.0","Sepal.Length: 6.3<br />Sepal.Width: 3.4","Sepal.Length: 6.4<br />Sepal.Width: 3.1","Sepal.Length: 6.0<br />Sepal.Width: 3.0","Sepal.Length: 6.9<br />Sepal.Width: 3.1","Sepal.Length: 6.7<br />Sepal.Width: 3.1","Sepal.Length: 6.9<br />Sepal.Width: 3.1","Sepal.Length: 5.8<br />Sepal.Width: 2.7","Sepal.Length: 6.8<br />Sepal.Width: 3.2","Sepal.Length: 6.7<br />Sepal.Width: 3.3","Sepal.Length: 6.7<br />Sepal.Width: 3.0","Sepal.Length: 6.3<br />Sepal.Width: 2.5","Sepal.Length: 6.5<br />Sepal.Width: 3.0","Sepal.Length: 6.2<br />Sepal.Width: 3.4","Sepal.Length: 5.9<br />Sepal.Width: 3.0"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":31.9402241594022,"r":13.2835201328352,"b":38.5222083852221,"l":43.1714404317144},"plot_bgcolor":"transparent","paper_bgcolor":"rgba(213,228,235,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[4.12,8.08],"tickmode":"array","ticktext":["5","6","7","8"],"tickvals":[5,6,7,8],"categoryorder":"array","categoryarray":["5","6","7","8"],"nticks":null,"ticks":"outside","tickcolor":"rgba(0,0,0,1)","ticklen":-6.6417600664176,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.531340805313408,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"y","title":{"text":"Sepal.Length","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[1.88,4.52],"tickmode":"array","ticktext":["2.0","2.5","3.0","3.5","4.0","4.5"],"tickvals":[2,2.5,3,3.5,4,4.5],"categoryorder":"array","categoryarray":["2.0","2.5","3.0","3.5","4.0","4.5"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":-6.6417600664176,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":1.16230801162308,"zeroline":false,"anchor":"x","title":{"text":"Sepal.Width","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":"transparent","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(0,0,0,1)","family":"","size":18.2648401826484}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"1d306963542c":{"x":{},"y":{},"type":"scatter"}},"cur_data":"1d306963542c","visdat":{"1d306963542c":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
