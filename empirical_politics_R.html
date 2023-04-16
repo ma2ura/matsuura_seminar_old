@@ -8,7 +8,7 @@
 
 <meta name="author" content="松浦 総一">
 
-<title>プレゼミの紹介</title>
+<title>松浦プレゼミの紹介</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -155,7 +155,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">プレゼミの紹介</h1>
+<h1 class="title">松浦プレゼミの紹介</h1>
 </div>
 
 
@@ -279,44 +279,53 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="empirical_politics_R_files/figure-html/graph_hist_sepal_bin30-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>地味なので、グラフを雑誌Economist風にしてみます。</p>
+<p>グラフが黒くて見づらいので、デザインをいじってみます。 <code>geom_histogram()</code>関数の中で、線を黒、中を薄青色に指定します。</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">theme_economist</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(iris) <span class="sc">+</span> <span class="fu">aes</span>(Sepal.Length) <span class="sc">+</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_histogram</span>(<span class="at">color=</span><span class="st">"black"</span>, <span class="at">fill=</span><span class="st">"lightblue"</span>,<span class="at">binwidth =</span> .<span class="dv">5</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(g)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="empirical_politics_R_files/figure-html/graph_hist_sepal_color-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>背景が地味なので、グラフを雑誌Economist風にしてみます。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">theme_economist_white</span>() <span class="sc">+</span> <span class="fu">scale_colour_economist</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="empirical_politics_R_files/figure-html/hist_economist-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>いい感じです。 次は花びらの長さと幅の散布図を書いてみます。 <code>ggplot2</code>で散布図を書くためには、<code>aes()</code>で<span class="math inline">x</span>軸と<span class="math inline">y</span>軸を指定し、<code>geom_point()</code>で散布図を指定する。</p>
+<p>次は花びらの長さと幅の散布図を書いてみます。 <code>ggplot2</code>で散布図を書くためには、<code>aes()</code>で<span class="math inline">x</span>軸と<span class="math inline">y</span>軸を指定し、<code>geom_point()</code>で散布図を指定する。</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris) <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Sepal.Width) <span class="sc">+</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">theme_economist</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris) <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Sepal.Width) <span class="sc">+</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">theme_economist</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="empirical_politics_R_files/figure-html/graph_sepal-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>カテゴリーを表す変数を<code>group</code>と<code>colour</code>で指定すると、カテゴリーごとにグループ化して、色分けもしてくれます。ここでは花の種類を表す変数である<code>Species</code>ごとに色分けしてみます。</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris) <span class="sc">+</span> <span class="co"># データセットirisを指定</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="co"># x軸 花びらの幅</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> Sepal.Width, <span class="co"># y軸　花びらの幅</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">group =</span> Species, <span class="co"># あやめの種類ごとにグループ</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">color =</span> Species <span class="co"># あやめの種類ごとに色分け</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>      ) <span class="sc">+</span> </span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="co"># 散布図を指定</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme_economist</span>() <span class="co"># テーマをEconomistに</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris) <span class="sc">+</span> <span class="co"># データセットirisを指定</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="co"># x軸 花びらの幅</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> Sepal.Width, <span class="co"># y軸　花びらの幅</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">group =</span> Species, <span class="co"># あやめの種類ごとにグループ</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">color =</span> Species <span class="co"># あやめの種類ごとに色分け</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>      ) <span class="sc">+</span> </span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="co"># 散布図を指定</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme_economist</span>() <span class="co"># テーマをEconomistに</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="empirical_politics_R_files/figure-html/graph_species-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>操作できるグラフも作れます。 <code>plotly</code>パッケージを使えば簡単です。</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(iris) <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Sepal.Width) <span class="sc">+</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">theme_economist</span>()</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplotly</span>(g)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(iris) <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Sepal.Width) <span class="sc">+</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">theme_economist</span>()</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplotly</span>(g)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div class="plotly html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-7ec1640a19e357579a9e" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-7ec1640a19e357579a9e">{"x":{"data":[{"x":[5.1,4.9,4.7,4.6,5,5.4,4.6,5,4.4,4.9,5.4,4.8,4.8,4.3,5.8,5.7,5.4,5.1,5.7,5.1,5.4,5.1,4.6,5.1,4.8,5,5,5.2,5.2,4.7,4.8,5.4,5.2,5.5,4.9,5,5.5,4.9,4.4,5.1,5,4.5,4.4,5,5.1,4.8,5.1,4.6,5.3,5,7,6.4,6.9,5.5,6.5,5.7,6.3,4.9,6.6,5.2,5,5.9,6,6.1,5.6,6.7,5.6,5.8,6.2,5.6,5.9,6.1,6.3,6.1,6.4,6.6,6.8,6.7,6,5.7,5.5,5.5,5.8,6,5.4,6,6.7,6.3,5.6,5.5,5.5,6.1,5.8,5,5.6,5.7,5.7,6.2,5.1,5.7,6.3,5.8,7.1,6.3,6.5,7.6,4.9,7.3,6.7,7.2,6.5,6.4,6.8,5.7,5.8,6.4,6.5,7.7,7.7,6,6.9,5.6,7.7,6.3,6.7,7.2,6.2,6.1,6.4,7.2,7.4,7.9,6.4,6.3,6.1,7.7,6.3,6.4,6,6.9,6.7,6.9,5.8,6.8,6.7,6.7,6.3,6.5,6.2,5.9],"y":[3.5,3,3.2,3.1,3.6,3.9,3.4,3.4,2.9,3.1,3.7,3.4,3,3,4,4.4,3.9,3.5,3.8,3.8,3.4,3.7,3.6,3.3,3.4,3,3.4,3.5,3.4,3.2,3.1,3.4,4.1,4.2,3.1,3.2,3.5,3.6,3,3.4,3.5,2.3,3.2,3.5,3.8,3,3.8,3.2,3.7,3.3,3.2,3.2,3.1,2.3,2.8,2.8,3.3,2.4,2.9,2.7,2,3,2.2,2.9,2.9,3.1,3,2.7,2.2,2.5,3.2,2.8,2.5,2.8,2.9,3,2.8,3,2.9,2.6,2.4,2.4,2.7,2.7,3,3.4,3.1,2.3,3,2.5,2.6,3,2.6,2.3,2.7,3,2.9,2.9,2.5,2.8,3.3,2.7,3,2.9,3,3,2.5,2.9,2.5,3.6,3.2,2.7,3,2.5,2.8,3.2,3,3.8,2.6,2.2,3.2,2.8,2.8,2.7,3.3,3.2,2.8,3,2.8,3,2.8,3.8,2.8,2.8,2.6,3,3.4,3.1,3,3.1,3.1,3.1,2.7,3.2,3.3,3,2.5,3,3.4,3],"text":["Sepal.Length: 5.1<br />Sepal.Width: 3.5","Sepal.Length: 4.9<br />Sepal.Width: 3.0","Sepal.Length: 4.7<br />Sepal.Width: 3.2","Sepal.Length: 4.6<br />Sepal.Width: 3.1","Sepal.Length: 5.0<br />Sepal.Width: 3.6","Sepal.Length: 5.4<br />Sepal.Width: 3.9","Sepal.Length: 4.6<br />Sepal.Width: 3.4","Sepal.Length: 5.0<br />Sepal.Width: 3.4","Sepal.Length: 4.4<br />Sepal.Width: 2.9","Sepal.Length: 4.9<br />Sepal.Width: 3.1","Sepal.Length: 5.4<br />Sepal.Width: 3.7","Sepal.Length: 4.8<br />Sepal.Width: 3.4","Sepal.Length: 4.8<br />Sepal.Width: 3.0","Sepal.Length: 4.3<br />Sepal.Width: 3.0","Sepal.Length: 5.8<br />Sepal.Width: 4.0","Sepal.Length: 5.7<br />Sepal.Width: 4.4","Sepal.Length: 5.4<br />Sepal.Width: 3.9","Sepal.Length: 5.1<br />Sepal.Width: 3.5","Sepal.Length: 5.7<br />Sepal.Width: 3.8","Sepal.Length: 5.1<br />Sepal.Width: 3.8","Sepal.Length: 5.4<br />Sepal.Width: 3.4","Sepal.Length: 5.1<br />Sepal.Width: 3.7","Sepal.Length: 4.6<br />Sepal.Width: 3.6","Sepal.Length: 5.1<br />Sepal.Width: 3.3","Sepal.Length: 4.8<br />Sepal.Width: 3.4","Sepal.Length: 5.0<br />Sepal.Width: 3.0","Sepal.Length: 5.0<br />Sepal.Width: 3.4","Sepal.Length: 5.2<br />Sepal.Width: 3.5","Sepal.Length: 5.2<br />Sepal.Width: 3.4","Sepal.Length: 4.7<br />Sepal.Width: 3.2","Sepal.Length: 4.8<br />Sepal.Width: 3.1","Sepal.Length: 5.4<br />Sepal.Width: 3.4","Sepal.Length: 5.2<br />Sepal.Width: 4.1","Sepal.Length: 5.5<br />Sepal.Width: 4.2","Sepal.Length: 4.9<br />Sepal.Width: 3.1","Sepal.Length: 5.0<br />Sepal.Width: 3.2","Sepal.Length: 5.5<br />Sepal.Width: 3.5","Sepal.Length: 4.9<br />Sepal.Width: 3.6","Sepal.Length: 4.4<br />Sepal.Width: 3.0","Sepal.Length: 5.1<br />Sepal.Width: 3.4","Sepal.Length: 5.0<br />Sepal.Width: 3.5","Sepal.Length: 4.5<br />Sepal.Width: 2.3","Sepal.Length: 4.4<br />Sepal.Width: 3.2","Sepal.Length: 5.0<br />Sepal.Width: 3.5","Sepal.Length: 5.1<br />Sepal.Width: 3.8","Sepal.Length: 4.8<br />Sepal.Width: 3.0","Sepal.Length: 5.1<br />Sepal.Width: 3.8","Sepal.Length: 4.6<br />Sepal.Width: 3.2","Sepal.Length: 5.3<br />Sepal.Width: 3.7","Sepal.Length: 5.0<br />Sepal.Width: 3.3","Sepal.Length: 7.0<br />Sepal.Width: 3.2","Sepal.Length: 6.4<br />Sepal.Width: 3.2","Sepal.Length: 6.9<br />Sepal.Width: 3.1","Sepal.Length: 5.5<br />Sepal.Width: 2.3","Sepal.Length: 6.5<br />Sepal.Width: 2.8","Sepal.Length: 5.7<br />Sepal.Width: 2.8","Sepal.Length: 6.3<br />Sepal.Width: 3.3","Sepal.Length: 4.9<br />Sepal.Width: 2.4","Sepal.Length: 6.6<br />Sepal.Width: 2.9","Sepal.Length: 5.2<br />Sepal.Width: 2.7","Sepal.Length: 5.0<br />Sepal.Width: 2.0","Sepal.Length: 5.9<br />Sepal.Width: 3.0","Sepal.Length: 6.0<br />Sepal.Width: 2.2","Sepal.Length: 6.1<br />Sepal.Width: 2.9","Sepal.Length: 5.6<br />Sepal.Width: 2.9","Sepal.Length: 6.7<br />Sepal.Width: 3.1","Sepal.Length: 5.6<br />Sepal.Width: 3.0","Sepal.Length: 5.8<br />Sepal.Width: 2.7","Sepal.Length: 6.2<br />Sepal.Width: 2.2","Sepal.Length: 5.6<br />Sepal.Width: 2.5","Sepal.Length: 5.9<br />Sepal.Width: 3.2","Sepal.Length: 6.1<br />Sepal.Width: 2.8","Sepal.Length: 6.3<br />Sepal.Width: 2.5","Sepal.Length: 6.1<br />Sepal.Width: 2.8","Sepal.Length: 6.4<br />Sepal.Width: 2.9","Sepal.Length: 6.6<br />Sepal.Width: 3.0","Sepal.Length: 6.8<br />Sepal.Width: 2.8","Sepal.Length: 6.7<br />Sepal.Width: 3.0","Sepal.Length: 6.0<br />Sepal.Width: 2.9","Sepal.Length: 5.7<br />Sepal.Width: 2.6","Sepal.Length: 5.5<br />Sepal.Width: 2.4","Sepal.Length: 5.5<br />Sepal.Width: 2.4","Sepal.Length: 5.8<br />Sepal.Width: 2.7","Sepal.Length: 6.0<br />Sepal.Width: 2.7","Sepal.Length: 5.4<br />Sepal.Width: 3.0","Sepal.Length: 6.0<br />Sepal.Width: 3.4","Sepal.Length: 6.7<br />Sepal.Width: 3.1","Sepal.Length: 6.3<br />Sepal.Width: 2.3","Sepal.Length: 5.6<br />Sepal.Width: 3.0","Sepal.Length: 5.5<br />Sepal.Width: 2.5","Sepal.Length: 5.5<br />Sepal.Width: 2.6","Sepal.Length: 6.1<br />Sepal.Width: 3.0","Sepal.Length: 5.8<br />Sepal.Width: 2.6","Sepal.Length: 5.0<br />Sepal.Width: 2.3","Sepal.Length: 5.6<br />Sepal.Width: 2.7","Sepal.Length: 5.7<br />Sepal.Width: 3.0","Sepal.Length: 5.7<br />Sepal.Width: 2.9","Sepal.Length: 6.2<br />Sepal.Width: 2.9","Sepal.Length: 5.1<br />Sepal.Width: 2.5","Sepal.Length: 5.7<br />Sepal.Width: 2.8","Sepal.Length: 6.3<br />Sepal.Width: 3.3","Sepal.Length: 5.8<br />Sepal.Width: 2.7","Sepal.Length: 7.1<br />Sepal.Width: 3.0","Sepal.Length: 6.3<br />Sepal.Width: 2.9","Sepal.Length: 6.5<br />Sepal.Width: 3.0","Sepal.Length: 7.6<br />Sepal.Width: 3.0","Sepal.Length: 4.9<br />Sepal.Width: 2.5","Sepal.Length: 7.3<br />Sepal.Width: 2.9","Sepal.Length: 6.7<br />Sepal.Width: 2.5","Sepal.Length: 7.2<br />Sepal.Width: 3.6","Sepal.Length: 6.5<br />Sepal.Width: 3.2","Sepal.Length: 6.4<br />Sepal.Width: 2.7","Sepal.Length: 6.8<br />Sepal.Width: 3.0","Sepal.Length: 5.7<br />Sepal.Width: 2.5","Sepal.Length: 5.8<br />Sepal.Width: 2.8","Sepal.Length: 6.4<br />Sepal.Width: 3.2","Sepal.Length: 6.5<br />Sepal.Width: 3.0","Sepal.Length: 7.7<br />Sepal.Width: 3.8","Sepal.Length: 7.7<br />Sepal.Width: 2.6","Sepal.Length: 6.0<br />Sepal.Width: 2.2","Sepal.Length: 6.9<br />Sepal.Width: 3.2","Sepal.Length: 5.6<br />Sepal.Width: 2.8","Sepal.Length: 7.7<br />Sepal.Width: 2.8","Sepal.Length: 6.3<br />Sepal.Width: 2.7","Sepal.Length: 6.7<br />Sepal.Width: 3.3","Sepal.Length: 7.2<br />Sepal.Width: 3.2","Sepal.Length: 6.2<br />Sepal.Width: 2.8","Sepal.Length: 6.1<br />Sepal.Width: 3.0","Sepal.Length: 6.4<br />Sepal.Width: 2.8","Sepal.Length: 7.2<br />Sepal.Width: 3.0","Sepal.Length: 7.4<br />Sepal.Width: 2.8","Sepal.Length: 7.9<br />Sepal.Width: 3.8","Sepal.Length: 6.4<br />Sepal.Width: 2.8","Sepal.Length: 6.3<br />Sepal.Width: 2.8","Sepal.Length: 6.1<br />Sepal.Width: 2.6","Sepal.Length: 7.7<br />Sepal.Width: 3.0","Sepal.Length: 6.3<br />Sepal.Width: 3.4","Sepal.Length: 6.4<br />Sepal.Width: 3.1","Sepal.Length: 6.0<br />Sepal.Width: 3.0","Sepal.Length: 6.9<br />Sepal.Width: 3.1","Sepal.Length: 6.7<br />Sepal.Width: 3.1","Sepal.Length: 6.9<br />Sepal.Width: 3.1","Sepal.Length: 5.8<br />Sepal.Width: 2.7","Sepal.Length: 6.8<br />Sepal.Width: 3.2","Sepal.Length: 6.7<br />Sepal.Width: 3.3","Sepal.Length: 6.7<br />Sepal.Width: 3.0","Sepal.Length: 6.3<br />Sepal.Width: 2.5","Sepal.Length: 6.5<br />Sepal.Width: 3.0","Sepal.Length: 6.2<br />Sepal.Width: 3.4","Sepal.Length: 5.9<br />Sepal.Width: 3.0"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":31.9402241594022,"r":13.2835201328352,"b":38.5222083852221,"l":43.1714404317144},"plot_bgcolor":"transparent","paper_bgcolor":"rgba(213,228,235,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[4.12,8.08],"tickmode":"array","ticktext":["5","6","7","8"],"tickvals":[5,6,7,8],"categoryorder":"array","categoryarray":["5","6","7","8"],"nticks":null,"ticks":"outside","tickcolor":"rgba(0,0,0,1)","ticklen":-6.6417600664176,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.531340805313408,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"y","title":{"text":"Sepal.Length","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[1.88,4.52],"tickmode":"array","ticktext":["2.0","2.5","3.0","3.5","4.0","4.5"],"tickvals":[2,2.5,3,3.5,4,4.5],"categoryorder":"array","categoryarray":["2.0","2.5","3.0","3.5","4.0","4.5"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":-6.6417600664176,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":1.16230801162308,"zeroline":false,"anchor":"x","title":{"text":"Sepal.Width","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":"transparent","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(0,0,0,1)","family":"","size":18.2648401826484}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"44944a193989":{"x":{},"y":{},"type":"scatter"}},"cur_data":"44944a193989","visdat":{"44944a193989":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div class="plotly html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-9483039a9890fd5ca6aa" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-9483039a9890fd5ca6aa">{"x":{"data":[{"x":[5.1,4.9,4.7,4.6,5,5.4,4.6,5,4.4,4.9,5.4,4.8,4.8,4.3,5.8,5.7,5.4,5.1,5.7,5.1,5.4,5.1,4.6,5.1,4.8,5,5,5.2,5.2,4.7,4.8,5.4,5.2,5.5,4.9,5,5.5,4.9,4.4,5.1,5,4.5,4.4,5,5.1,4.8,5.1,4.6,5.3,5,7,6.4,6.9,5.5,6.5,5.7,6.3,4.9,6.6,5.2,5,5.9,6,6.1,5.6,6.7,5.6,5.8,6.2,5.6,5.9,6.1,6.3,6.1,6.4,6.6,6.8,6.7,6,5.7,5.5,5.5,5.8,6,5.4,6,6.7,6.3,5.6,5.5,5.5,6.1,5.8,5,5.6,5.7,5.7,6.2,5.1,5.7,6.3,5.8,7.1,6.3,6.5,7.6,4.9,7.3,6.7,7.2,6.5,6.4,6.8,5.7,5.8,6.4,6.5,7.7,7.7,6,6.9,5.6,7.7,6.3,6.7,7.2,6.2,6.1,6.4,7.2,7.4,7.9,6.4,6.3,6.1,7.7,6.3,6.4,6,6.9,6.7,6.9,5.8,6.8,6.7,6.7,6.3,6.5,6.2,5.9],"y":[3.5,3,3.2,3.1,3.6,3.9,3.4,3.4,2.9,3.1,3.7,3.4,3,3,4,4.4,3.9,3.5,3.8,3.8,3.4,3.7,3.6,3.3,3.4,3,3.4,3.5,3.4,3.2,3.1,3.4,4.1,4.2,3.1,3.2,3.5,3.6,3,3.4,3.5,2.3,3.2,3.5,3.8,3,3.8,3.2,3.7,3.3,3.2,3.2,3.1,2.3,2.8,2.8,3.3,2.4,2.9,2.7,2,3,2.2,2.9,2.9,3.1,3,2.7,2.2,2.5,3.2,2.8,2.5,2.8,2.9,3,2.8,3,2.9,2.6,2.4,2.4,2.7,2.7,3,3.4,3.1,2.3,3,2.5,2.6,3,2.6,2.3,2.7,3,2.9,2.9,2.5,2.8,3.3,2.7,3,2.9,3,3,2.5,2.9,2.5,3.6,3.2,2.7,3,2.5,2.8,3.2,3,3.8,2.6,2.2,3.2,2.8,2.8,2.7,3.3,3.2,2.8,3,2.8,3,2.8,3.8,2.8,2.8,2.6,3,3.4,3.1,3,3.1,3.1,3.1,2.7,3.2,3.3,3,2.5,3,3.4,3],"text":["Sepal.Length: 5.1<br />Sepal.Width: 3.5","Sepal.Length: 4.9<br />Sepal.Width: 3.0","Sepal.Length: 4.7<br />Sepal.Width: 3.2","Sepal.Length: 4.6<br />Sepal.Width: 3.1","Sepal.Length: 5.0<br />Sepal.Width: 3.6","Sepal.Length: 5.4<br />Sepal.Width: 3.9","Sepal.Length: 4.6<br />Sepal.Width: 3.4","Sepal.Length: 5.0<br />Sepal.Width: 3.4","Sepal.Length: 4.4<br />Sepal.Width: 2.9","Sepal.Length: 4.9<br />Sepal.Width: 3.1","Sepal.Length: 5.4<br />Sepal.Width: 3.7","Sepal.Length: 4.8<br />Sepal.Width: 3.4","Sepal.Length: 4.8<br />Sepal.Width: 3.0","Sepal.Length: 4.3<br />Sepal.Width: 3.0","Sepal.Length: 5.8<br />Sepal.Width: 4.0","Sepal.Length: 5.7<br />Sepal.Width: 4.4","Sepal.Length: 5.4<br />Sepal.Width: 3.9","Sepal.Length: 5.1<br />Sepal.Width: 3.5","Sepal.Length: 5.7<br />Sepal.Width: 3.8","Sepal.Length: 5.1<br />Sepal.Width: 3.8","Sepal.Length: 5.4<br />Sepal.Width: 3.4","Sepal.Length: 5.1<br />Sepal.Width: 3.7","Sepal.Length: 4.6<br />Sepal.Width: 3.6","Sepal.Length: 5.1<br />Sepal.Width: 3.3","Sepal.Length: 4.8<br />Sepal.Width: 3.4","Sepal.Length: 5.0<br />Sepal.Width: 3.0","Sepal.Length: 5.0<br />Sepal.Width: 3.4","Sepal.Length: 5.2<br />Sepal.Width: 3.5","Sepal.Length: 5.2<br />Sepal.Width: 3.4","Sepal.Length: 4.7<br />Sepal.Width: 3.2","Sepal.Length: 4.8<br />Sepal.Width: 3.1","Sepal.Length: 5.4<br />Sepal.Width: 3.4","Sepal.Length: 5.2<br />Sepal.Width: 4.1","Sepal.Length: 5.5<br />Sepal.Width: 4.2","Sepal.Length: 4.9<br />Sepal.Width: 3.1","Sepal.Length: 5.0<br />Sepal.Width: 3.2","Sepal.Length: 5.5<br />Sepal.Width: 3.5","Sepal.Length: 4.9<br />Sepal.Width: 3.6","Sepal.Length: 4.4<br />Sepal.Width: 3.0","Sepal.Length: 5.1<br />Sepal.Width: 3.4","Sepal.Length: 5.0<br />Sepal.Width: 3.5","Sepal.Length: 4.5<br />Sepal.Width: 2.3","Sepal.Length: 4.4<br />Sepal.Width: 3.2","Sepal.Length: 5.0<br />Sepal.Width: 3.5","Sepal.Length: 5.1<br />Sepal.Width: 3.8","Sepal.Length: 4.8<br />Sepal.Width: 3.0","Sepal.Length: 5.1<br />Sepal.Width: 3.8","Sepal.Length: 4.6<br />Sepal.Width: 3.2","Sepal.Length: 5.3<br />Sepal.Width: 3.7","Sepal.Length: 5.0<br />Sepal.Width: 3.3","Sepal.Length: 7.0<br />Sepal.Width: 3.2","Sepal.Length: 6.4<br />Sepal.Width: 3.2","Sepal.Length: 6.9<br />Sepal.Width: 3.1","Sepal.Length: 5.5<br />Sepal.Width: 2.3","Sepal.Length: 6.5<br />Sepal.Width: 2.8","Sepal.Length: 5.7<br />Sepal.Width: 2.8","Sepal.Length: 6.3<br />Sepal.Width: 3.3","Sepal.Length: 4.9<br />Sepal.Width: 2.4","Sepal.Length: 6.6<br />Sepal.Width: 2.9","Sepal.Length: 5.2<br />Sepal.Width: 2.7","Sepal.Length: 5.0<br />Sepal.Width: 2.0","Sepal.Length: 5.9<br />Sepal.Width: 3.0","Sepal.Length: 6.0<br />Sepal.Width: 2.2","Sepal.Length: 6.1<br />Sepal.Width: 2.9","Sepal.Length: 5.6<br />Sepal.Width: 2.9","Sepal.Length: 6.7<br />Sepal.Width: 3.1","Sepal.Length: 5.6<br />Sepal.Width: 3.0","Sepal.Length: 5.8<br />Sepal.Width: 2.7","Sepal.Length: 6.2<br />Sepal.Width: 2.2","Sepal.Length: 5.6<br />Sepal.Width: 2.5","Sepal.Length: 5.9<br />Sepal.Width: 3.2","Sepal.Length: 6.1<br />Sepal.Width: 2.8","Sepal.Length: 6.3<br />Sepal.Width: 2.5","Sepal.Length: 6.1<br />Sepal.Width: 2.8","Sepal.Length: 6.4<br />Sepal.Width: 2.9","Sepal.Length: 6.6<br />Sepal.Width: 3.0","Sepal.Length: 6.8<br />Sepal.Width: 2.8","Sepal.Length: 6.7<br />Sepal.Width: 3.0","Sepal.Length: 6.0<br />Sepal.Width: 2.9","Sepal.Length: 5.7<br />Sepal.Width: 2.6","Sepal.Length: 5.5<br />Sepal.Width: 2.4","Sepal.Length: 5.5<br />Sepal.Width: 2.4","Sepal.Length: 5.8<br />Sepal.Width: 2.7","Sepal.Length: 6.0<br />Sepal.Width: 2.7","Sepal.Length: 5.4<br />Sepal.Width: 3.0","Sepal.Length: 6.0<br />Sepal.Width: 3.4","Sepal.Length: 6.7<br />Sepal.Width: 3.1","Sepal.Length: 6.3<br />Sepal.Width: 2.3","Sepal.Length: 5.6<br />Sepal.Width: 3.0","Sepal.Length: 5.5<br />Sepal.Width: 2.5","Sepal.Length: 5.5<br />Sepal.Width: 2.6","Sepal.Length: 6.1<br />Sepal.Width: 3.0","Sepal.Length: 5.8<br />Sepal.Width: 2.6","Sepal.Length: 5.0<br />Sepal.Width: 2.3","Sepal.Length: 5.6<br />Sepal.Width: 2.7","Sepal.Length: 5.7<br />Sepal.Width: 3.0","Sepal.Length: 5.7<br />Sepal.Width: 2.9","Sepal.Length: 6.2<br />Sepal.Width: 2.9","Sepal.Length: 5.1<br />Sepal.Width: 2.5","Sepal.Length: 5.7<br />Sepal.Width: 2.8","Sepal.Length: 6.3<br />Sepal.Width: 3.3","Sepal.Length: 5.8<br />Sepal.Width: 2.7","Sepal.Length: 7.1<br />Sepal.Width: 3.0","Sepal.Length: 6.3<br />Sepal.Width: 2.9","Sepal.Length: 6.5<br />Sepal.Width: 3.0","Sepal.Length: 7.6<br />Sepal.Width: 3.0","Sepal.Length: 4.9<br />Sepal.Width: 2.5","Sepal.Length: 7.3<br />Sepal.Width: 2.9","Sepal.Length: 6.7<br />Sepal.Width: 2.5","Sepal.Length: 7.2<br />Sepal.Width: 3.6","Sepal.Length: 6.5<br />Sepal.Width: 3.2","Sepal.Length: 6.4<br />Sepal.Width: 2.7","Sepal.Length: 6.8<br />Sepal.Width: 3.0","Sepal.Length: 5.7<br />Sepal.Width: 2.5","Sepal.Length: 5.8<br />Sepal.Width: 2.8","Sepal.Length: 6.4<br />Sepal.Width: 3.2","Sepal.Length: 6.5<br />Sepal.Width: 3.0","Sepal.Length: 7.7<br />Sepal.Width: 3.8","Sepal.Length: 7.7<br />Sepal.Width: 2.6","Sepal.Length: 6.0<br />Sepal.Width: 2.2","Sepal.Length: 6.9<br />Sepal.Width: 3.2","Sepal.Length: 5.6<br />Sepal.Width: 2.8","Sepal.Length: 7.7<br />Sepal.Width: 2.8","Sepal.Length: 6.3<br />Sepal.Width: 2.7","Sepal.Length: 6.7<br />Sepal.Width: 3.3","Sepal.Length: 7.2<br />Sepal.Width: 3.2","Sepal.Length: 6.2<br />Sepal.Width: 2.8","Sepal.Length: 6.1<br />Sepal.Width: 3.0","Sepal.Length: 6.4<br />Sepal.Width: 2.8","Sepal.Length: 7.2<br />Sepal.Width: 3.0","Sepal.Length: 7.4<br />Sepal.Width: 2.8","Sepal.Length: 7.9<br />Sepal.Width: 3.8","Sepal.Length: 6.4<br />Sepal.Width: 2.8","Sepal.Length: 6.3<br />Sepal.Width: 2.8","Sepal.Length: 6.1<br />Sepal.Width: 2.6","Sepal.Length: 7.7<br />Sepal.Width: 3.0","Sepal.Length: 6.3<br />Sepal.Width: 3.4","Sepal.Length: 6.4<br />Sepal.Width: 3.1","Sepal.Length: 6.0<br />Sepal.Width: 3.0","Sepal.Length: 6.9<br />Sepal.Width: 3.1","Sepal.Length: 6.7<br />Sepal.Width: 3.1","Sepal.Length: 6.9<br />Sepal.Width: 3.1","Sepal.Length: 5.8<br />Sepal.Width: 2.7","Sepal.Length: 6.8<br />Sepal.Width: 3.2","Sepal.Length: 6.7<br />Sepal.Width: 3.3","Sepal.Length: 6.7<br />Sepal.Width: 3.0","Sepal.Length: 6.3<br />Sepal.Width: 2.5","Sepal.Length: 6.5<br />Sepal.Width: 3.0","Sepal.Length: 6.2<br />Sepal.Width: 3.4","Sepal.Length: 5.9<br />Sepal.Width: 3.0"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":31.9402241594022,"r":13.2835201328352,"b":38.5222083852221,"l":43.1714404317144},"plot_bgcolor":"transparent","paper_bgcolor":"rgba(213,228,235,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[4.12,8.08],"tickmode":"array","ticktext":["5","6","7","8"],"tickvals":[5,6,7,8],"categoryorder":"array","categoryarray":["5","6","7","8"],"nticks":null,"ticks":"outside","tickcolor":"rgba(0,0,0,1)","ticklen":-6.6417600664176,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.531340805313408,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"y","title":{"text":"Sepal.Length","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[1.88,4.52],"tickmode":"array","ticktext":["2.0","2.5","3.0","3.5","4.0","4.5"],"tickvals":[2,2.5,3,3.5,4,4.5],"categoryorder":"array","categoryarray":["2.0","2.5","3.0","3.5","4.0","4.5"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":-6.6417600664176,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":1.16230801162308,"zeroline":false,"anchor":"x","title":{"text":"Sepal.Width","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":"transparent","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(0,0,0,1)","family":"","size":18.2648401826484}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"51362c2ce4e0":{"x":{},"y":{},"type":"scatter"}},"cur_data":"51362c2ce4e0","visdat":{"51362c2ce4e0":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
@@ -326,14 +335,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><strong>Quarto</strong>や<strong>Rmarkdown</strong>を使ってMarkdownでレポートを書けば、文章作成と図表を同じ場所で作成できます。 ちなみに、このウェブサイトも<strong>Quarto</strong>を使って作成し、GitHubでウェブサイト公開してます。</p>
 <p>例えば、<code>iris</code>データで、「あやめ」の種類ごとに、花びらの長さと幅の平均、中央値、標準偏差を計算し、それを表にしたいとしましょう。 Rなら簡単です。</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">%&gt;%</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(Species) <span class="sc">%&gt;%</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    花びらの長さの平均 <span class="ot">=</span> <span class="fu">mean</span>(Sepal.Length),</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    花びらの幅の平均 <span class="ot">=</span> <span class="fu">mean</span>(Sepal.Width),</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">booktabs =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">%&gt;%</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(Species) <span class="sc">%&gt;%</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    花びらの長さの平均 <span class="ot">=</span> <span class="fu">mean</span>(Sepal.Length),</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    花びらの幅の平均 <span class="ot">=</span> <span class="fu">mean</span>(Sepal.Width),</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">booktabs =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped">
 <thead>
@@ -368,34 +377,34 @@ Sepal.Length = \alpha + \beta \times Petal.Length + \varepsilon
 </span></p>
 <p>この回帰モデルを最小二乗法(Ordinary Least Square Methos)で推定した結果を表にするときも次のように書けばできます。</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gtsummary)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>lm_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(Sepal.Length <span class="sc">~</span> Petal.Length <span class="sc">+</span> Species, <span class="at">data =</span> iris)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tbl_regression</span>(lm_fit, </span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">type =</span> <span class="st">"html"</span>, </span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">title =</span> <span class="st">"Regression Results"</span>,</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">exponentiate =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">digits =</span> <span class="fu">list</span>(<span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="dv">2</span>),</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">add_estimate_to_reference_rows =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">bold_p =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gtsummary)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>lm_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(Sepal.Length <span class="sc">~</span> Petal.Length <span class="sc">+</span> Species, <span class="at">data =</span> iris)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tbl_regression</span>(lm_fit, </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">type =</span> <span class="st">"html"</span>, </span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">title =</span> <span class="st">"Regression Results"</span>,</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">exponentiate =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">digits =</span> <span class="fu">list</span>(<span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="dv">2</span>),</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">add_estimate_to_reference_rows =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">bold_p =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div id="nubcubmtew" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#nubcubmtew table {
+<div id="ltowggqzgl" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ltowggqzgl table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#nubcubmtew thead, #nubcubmtew tbody, #nubcubmtew tfoot, #nubcubmtew tr, #nubcubmtew td, #nubcubmtew th {
+#ltowggqzgl thead, #ltowggqzgl tbody, #ltowggqzgl tfoot, #ltowggqzgl tr, #ltowggqzgl td, #ltowggqzgl th {
   border-style: none;
 }
 
-#nubcubmtew p {
+#ltowggqzgl p {
   margin: 0;
   padding: 0;
 }
 
-#nubcubmtew .gt_table {
+#ltowggqzgl .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -421,12 +430,12 @@ Sepal.Length = \alpha + \beta \times Petal.Length + \varepsilon
   border-left-color: #D3D3D3;
 }
 
-#nubcubmtew .gt_caption {
+#ltowggqzgl .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#nubcubmtew .gt_title {
+#ltowggqzgl .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -438,7 +447,7 @@ Sepal.Length = \alpha + \beta \times Petal.Length + \varepsilon
   border-bottom-width: 0;
 }
 
-#nubcubmtew .gt_subtitle {
+#ltowggqzgl .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -450,7 +459,7 @@ Sepal.Length = \alpha + \beta \times Petal.Length + \varepsilon
   border-top-width: 0;
 }
 
-#nubcubmtew .gt_heading {
+#ltowggqzgl .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -462,13 +471,13 @@ Sepal.Length = \alpha + \beta \times Petal.Length + \varepsilon
   border-right-color: #D3D3D3;
 }
 
-#nubcubmtew .gt_bottom_border {
+#ltowggqzgl .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#nubcubmtew .gt_col_headings {
+#ltowggqzgl .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -483,7 +492,7 @@ Sepal.Length = \alpha + \beta \times Petal.Length + \varepsilon
   border-right-color: #D3D3D3;
 }
 
-#nubcubmtew .gt_col_heading {
+#ltowggqzgl .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -503,7 +512,7 @@ Sepal.Length = \alpha + \beta \times Petal.Length + \varepsilon
   overflow-x: hidden;
 }
 
-#nubcubmtew .gt_column_spanner_outer {
+#ltowggqzgl .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -515,15 +524,15 @@ Sepal.Length = \alpha + \beta \times Petal.Length + \varepsilon
   padding-right: 4px;
 }
 
-#nubcubmtew .gt_column_spanner_outer:first-child {
+#ltowggqzgl .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#nubcubmtew .gt_column_spanner_outer:last-child {
+#ltowggqzgl .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#nubcubmtew .gt_column_spanner {
+#ltowggqzgl .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -535,11 +544,11 @@ Sepal.Length = \alpha + \beta \times Petal.Length + \varepsilon
   width: 100%;
 }
 
-#nubcubmtew .gt_spanner_row {
+#ltowggqzgl .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#nubcubmtew .gt_group_heading {
+#ltowggqzgl .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -565,7 +574,7 @@ Sepal.Length = \alpha + \beta \times Petal.Length + \varepsilon
   text-align: left;
 }
 
-#nubcubmtew .gt_empty_group_heading {
+#ltowggqzgl .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -580,15 +589,15 @@ Sepal.Length = \alpha + \beta \times Petal.Length + \varepsilon
   vertical-align: middle;
 }
 
-#nubcubmtew .gt_from_md > :first-child {
+#ltowggqzgl .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#nubcubmtew .gt_from_md > :last-child {
+#ltowggqzgl .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#nubcubmtew .gt_row {
+#ltowggqzgl .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -607,7 +616,7 @@ Sepal.Length = \alpha + \beta \times Petal.Length + \varepsilon
   overflow-x: hidden;
 }
 
-#nubcubmtew .gt_stub {
+#ltowggqzgl .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -620,7 +629,7 @@ Sepal.Length = \alpha + \beta \times Petal.Length + \varepsilon
   padding-right: 5px;
 }
 
-#nubcubmtew .gt_stub_row_group {
+#ltowggqzgl .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -634,15 +643,15 @@ Sepal.Length = \alpha + \beta \times Petal.Length + \varepsilon
   vertical-align: top;
 }
 
-#nubcubmtew .gt_row_group_first td {
+#ltowggqzgl .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#nubcubmtew .gt_row_group_first th {
+#ltowggqzgl .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#nubcubmtew .gt_summary_row {
+#ltowggqzgl .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -652,16 +661,16 @@ Sepal.Length = \alpha + \beta \times Petal.Length + \varepsilon
   padding-right: 5px;
 }
 
-#nubcubmtew .gt_first_summary_row {
+#ltowggqzgl .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#nubcubmtew .gt_first_summary_row.thick {
+#ltowggqzgl .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#nubcubmtew .gt_last_summary_row {
+#ltowggqzgl .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -671,7 +680,7 @@ Sepal.Length = \alpha + \beta \times Petal.Length + \varepsilon
   border-bottom-color: #D3D3D3;
 }
 
-#nubcubmtew .gt_grand_summary_row {
+#ltowggqzgl .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -681,7 +690,7 @@ Sepal.Length = \alpha + \beta \times Petal.Length + \varepsilon
   padding-right: 5px;
 }
 
-#nubcubmtew .gt_first_grand_summary_row {
+#ltowggqzgl .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -691,7 +700,7 @@ Sepal.Length = \alpha + \beta \times Petal.Length + \varepsilon
   border-top-color: #D3D3D3;
 }
 
-#nubcubmtew .gt_last_grand_summary_row_top {
+#ltowggqzgl .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -701,11 +710,11 @@ Sepal.Length = \alpha + \beta \times Petal.Length + \varepsilon
   border-bottom-color: #D3D3D3;
 }
 
-#nubcubmtew .gt_striped {
+#ltowggqzgl .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#nubcubmtew .gt_table_body {
+#ltowggqzgl .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -714,7 +723,7 @@ Sepal.Length = \alpha + \beta \times Petal.Length + \varepsilon
   border-bottom-color: #D3D3D3;
 }
 
-#nubcubmtew .gt_footnotes {
+#ltowggqzgl .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -728,7 +737,7 @@ Sepal.Length = \alpha + \beta \times Petal.Length + \varepsilon
   border-right-color: #D3D3D3;
 }
 
-#nubcubmtew .gt_footnote {
+#ltowggqzgl .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -737,7 +746,7 @@ Sepal.Length = \alpha + \beta \times Petal.Length + \varepsilon
   padding-right: 5px;
 }
 
-#nubcubmtew .gt_sourcenotes {
+#ltowggqzgl .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -751,7 +760,7 @@ Sepal.Length = \alpha + \beta \times Petal.Length + \varepsilon
   border-right-color: #D3D3D3;
 }
 
-#nubcubmtew .gt_sourcenote {
+#ltowggqzgl .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -759,63 +768,63 @@ Sepal.Length = \alpha + \beta \times Petal.Length + \varepsilon
   padding-right: 5px;
 }
 
-#nubcubmtew .gt_left {
+#ltowggqzgl .gt_left {
   text-align: left;
 }
 
-#nubcubmtew .gt_center {
+#ltowggqzgl .gt_center {
   text-align: center;
 }
 
-#nubcubmtew .gt_right {
+#ltowggqzgl .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#nubcubmtew .gt_font_normal {
+#ltowggqzgl .gt_font_normal {
   font-weight: normal;
 }
 
-#nubcubmtew .gt_font_bold {
+#ltowggqzgl .gt_font_bold {
   font-weight: bold;
 }
 
-#nubcubmtew .gt_font_italic {
+#ltowggqzgl .gt_font_italic {
   font-style: italic;
 }
 
-#nubcubmtew .gt_super {
+#ltowggqzgl .gt_super {
   font-size: 65%;
 }
 
-#nubcubmtew .gt_footnote_marks {
+#ltowggqzgl .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#nubcubmtew .gt_asterisk {
+#ltowggqzgl .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#nubcubmtew .gt_indent_1 {
+#ltowggqzgl .gt_indent_1 {
   text-indent: 5px;
 }
 
-#nubcubmtew .gt_indent_2 {
+#ltowggqzgl .gt_indent_2 {
   text-indent: 10px;
 }
 
-#nubcubmtew .gt_indent_3 {
+#ltowggqzgl .gt_indent_3 {
   text-indent: 15px;
 }
 
-#nubcubmtew .gt_indent_4 {
+#ltowggqzgl .gt_indent_4 {
   text-indent: 20px;
 }
 
-#nubcubmtew .gt_indent_5 {
+#ltowggqzgl .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -863,17 +872,17 @@ Sepal.Length = \alpha + \beta \times Petal.Length + \varepsilon
 </div>
 <p>他にもこんな感じにできます。</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>lm_fit <span class="sc">%&gt;%</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>( </span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">caption =</span> <span class="st">"Regression Results"</span>, </span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">digits =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">full_width =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">1</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">background =</span> <span class="st">"#0073C2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>lm_fit <span class="sc">%&gt;%</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>( </span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">caption =</span> <span class="st">"Regression Results"</span>, </span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">digits =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">full_width =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">1</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">background =</span> <span class="st">"#0073C2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
