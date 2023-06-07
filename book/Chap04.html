@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.280">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>実証会計・ファイナンスのノート - 4&nbsp; 財務データの取得と可視化</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./Chap05.html" rel="next">
+<link href="./Chap03.html" rel="prev">
+<link href="./favicon.ico" rel="icon">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "一致なし",
+    "search-matching-documents-text": "一致した文書",
+    "search-copy-link-title": "検索へのリンクをコピー",
+    "search-hide-matches-text": "追加の検索結果を非表示",
+    "search-more-match-text": "追加の検索結果",
+    "search-more-matches-text": "追加の検索結果",
+    "search-clear-button-title": "消去",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "検索"
+  }
+}</script>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">財務データの取得と可視化</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">実証会計・ファイナンスのノート</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-reader-toggle sidebar-tool" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">はじめに</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Chap01.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">会計入門</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Chap02.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">ファイナンス入門</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Chap03.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">R言語入門</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Chap04.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">財務データの取得と可視化</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Chap05.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">株式データの取得と可視化</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Summary</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">目次</h2>
+   
+  <ul>
+  <li><a href="#ディスクロージャー制度の概要とデータの入手先" id="toc-ディスクロージャー制度の概要とデータの入手先" class="nav-link active" data-scroll-target="#ディスクロージャー制度の概要とデータの入手先"><span class="toc-section-number">4.1</span>  ディスクロージャー制度の概要とデータの入手先</a>
+  <ul class="collapse">
+  <li><a href="#法定開示と適時開示" id="toc-法定開示と適時開示" class="nav-link" data-scroll-target="#法定開示と適時開示"><span class="toc-section-number">4.1.1</span>  法定開示と適時開示</a></li>
+  <li><a href="#財務データの入手先" id="toc-財務データの入手先" class="nav-link" data-scroll-target="#財務データの入手先"><span class="toc-section-number">4.1.2</span>  財務データの入手先</a></li>
+  </ul></li>
+  <li><a href="#rを利用した財務データの分析" id="toc-rを利用した財務データの分析" class="nav-link" data-scroll-target="#rを利用した財務データの分析"><span class="toc-section-number">4.2</span>  Rを利用した財務データの分析</a>
+  <ul class="collapse">
+  <li><a href="#tidyverseパッケージの概要" id="toc-tidyverseパッケージの概要" class="nav-link" data-scroll-target="#tidyverseパッケージの概要"><span class="toc-section-number">4.2.1</span>  tidyverseパッケージの概要</a></li>
+  <li><a href="#財務データの読み込み" id="toc-財務データの読み込み" class="nav-link" data-scroll-target="#財務データの読み込み"><span class="toc-section-number">4.2.2</span>  財務データの読み込み</a></li>
+  </ul></li>
+  <li><a href="#探索的データ分析" id="toc-探索的データ分析" class="nav-link" data-scroll-target="#探索的データ分析"><span class="toc-section-number">4.3</span>  探索的データ分析</a>
+  <ul class="collapse">
+  <li><a href="#データセットの概要確認" id="toc-データセットの概要確認" class="nav-link" data-scroll-target="#データセットの概要確認"><span class="toc-section-number">4.3.1</span>  データセットの概要確認</a></li>
+  <li><a href="#欠損データの処理" id="toc-欠損データの処理" class="nav-link" data-scroll-target="#欠損データの処理"><span class="toc-section-number">4.3.2</span>  欠損データの処理</a></li>
+  </ul></li>
+  <li><a href="#データの抽出とヒストグラムによる可視化" id="toc-データの抽出とヒストグラムによる可視化" class="nav-link" data-scroll-target="#データの抽出とヒストグラムによる可視化"><span class="toc-section-number">4.4</span>  データの抽出とヒストグラムによる可視化</a>
+  <ul class="collapse">
+  <li><a href="#条件にあうデータの抽出方法" id="toc-条件にあうデータの抽出方法" class="nav-link" data-scroll-target="#条件にあうデータの抽出方法"><span class="toc-section-number">4.4.1</span>  条件にあうデータの抽出方法</a></li>
+  <li><a href="#ヒストグラムによる売上高の可視化" id="toc-ヒストグラムによる売上高の可視化" class="nav-link" data-scroll-target="#ヒストグラムによる売上高の可視化"><span class="toc-section-number">4.4.2</span>  ヒストグラムによる売上高の可視化</a></li>
+  </ul></li>
+  <li><a href="#データの集計と折れ線グラフによる可視化" id="toc-データの集計と折れ線グラフによる可視化" class="nav-link" data-scroll-target="#データの集計と折れ線グラフによる可視化"><span class="toc-section-number">4.5</span>  データの集計と折れ線グラフによる可視化</a>
+  <ul class="collapse">
+  <li><a href="#dplyrを用いた集計" id="toc-dplyrを用いた集計" class="nav-link" data-scroll-target="#dplyrを用いた集計"><span class="toc-section-number">4.5.1</span>  dplyrを用いた集計</a></li>
+  <li><a href="#折れ線グラフによる上場企業数の可視化" id="toc-折れ線グラフによる上場企業数の可視化" class="nav-link" data-scroll-target="#折れ線グラフによる上場企業数の可視化"><span class="toc-section-number">4.5.2</span>  折れ線グラフによる上場企業数の可視化</a></li>
+  </ul></li>
+  <li><a href="#変数の作成とヒストグラムによる可視化" id="toc-変数の作成とヒストグラムによる可視化" class="nav-link" data-scroll-target="#変数の作成とヒストグラムによる可視化"><span class="toc-section-number">4.6</span>  変数の作成とヒストグラムによる可視化</a></li>
+  <li><a href="#グループごとの集計とランク付け" id="toc-グループごとの集計とランク付け" class="nav-link" data-scroll-target="#グループごとの集計とランク付け"><span class="toc-section-number">4.7</span>  グループごとの集計とランク付け</a>
+  <ul class="collapse">
+  <li><a href="#産業ごとのroe平均値と棒グラフによる可視化" id="toc-産業ごとのroe平均値と棒グラフによる可視化" class="nav-link" data-scroll-target="#産業ごとのroe平均値と棒グラフによる可視化"><span class="toc-section-number">4.7.1</span>  産業ごとのROE平均値と棒グラフによる可視化</a></li>
+  </ul></li>
+  <li><a href="#上級デュポンモデルによるroeの分析とその可視化" id="toc-上級デュポンモデルによるroeの分析とその可視化" class="nav-link" data-scroll-target="#上級デュポンモデルによるroeの分析とその可視化"><span class="toc-section-number">4.8</span>  上級デュポン・モデルによるROEの分析とその可視化</a>
+  <ul class="collapse">
+  <li><a href="#箱ひげ図による産業別比較" id="toc-箱ひげ図による産業別比較" class="nav-link" data-scroll-target="#箱ひげ図による産業別比較"><span class="toc-section-number">4.8.1</span>  箱ひげ図による産業別比較</a></li>
+  <li><a href="#散布図による産業別比較" id="toc-散布図による産業別比較" class="nav-link" data-scroll-target="#散布図による産業別比較"><span class="toc-section-number">4.8.2</span>  散布図による産業別比較</a></li>
+  </ul></li>
+  <li><a href="#練習問題" id="toc-練習問題" class="nav-link" data-scroll-target="#練習問題">練習問題</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">財務データの取得と可視化</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="ディスクロージャー制度の概要とデータの入手先" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="ディスクロージャー制度の概要とデータの入手先"><span class="header-section-number">4.1</span> ディスクロージャー制度の概要とデータの入手先</h2>
+<section id="法定開示と適時開示" class="level3" data-number="4.1.1">
+<h3 data-number="4.1.1" class="anchored" data-anchor-id="法定開示と適時開示"><span class="header-section-number">4.1.1</span> 法定開示と適時開示</h3>
+<table class="table">
+<thead>
+<tr class="header">
+<th></th>
+<th>年次開示</th>
+<th>四半期開示</th>
+<th>重要事実</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>法定開示</td>
+<td><strong>有価証券報告書</strong></td>
+<td>四半期報告書</td>
+<td>臨時報告書</td>
+</tr>
+<tr class="even">
+<td>適時開示</td>
+<td><strong>決算短信</strong></td>
+<td>四半期決算短信</td>
+<td>適時開示</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="財務データの入手先" class="level3" data-number="4.1.2">
+<h3 data-number="4.1.2" class="anchored" data-anchor-id="財務データの入手先"><span class="header-section-number">4.1.2</span> 財務データの入手先</h3>
+<ul>
+<li><strong>EDINET</strong>：金融庁が運営する電子開示システムで，全上場企業の法定開示資料をデータベースとして提供</li>
+<li><strong>TDnet</strong>：東京証券取引所が運営する電子開示システムで，上場企業の決算短信をデータベースとして提供</li>
+</ul>
+<p>XBRL(eXtensible Business Reporting Language)形式で財務諸表などの主要情報を公開しています。XBRLからデータを読み込むスキルは本書の枠を超えるため，ここでは練習用データで分析しますが、立命館大学では日経NEEDSを利用して財務データを収集します。</p>
+</section>
+</section>
+<section id="rを利用した財務データの分析" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="rを利用した財務データの分析"><span class="header-section-number">4.2</span> Rを利用した財務データの分析</h2>
+<section id="tidyverseパッケージの概要" class="level3" data-number="4.2.1">
+<h3 data-number="4.2.1" class="anchored" data-anchor-id="tidyverseパッケージの概要"><span class="header-section-number">4.2.1</span> tidyverseパッケージの概要</h3>
+<p>tidyverseとは，R神Wickham氏が基本コンセプトを設定し，<strong>整然データ</strong>(tidy data)に対して一貫した記法でデータを扱えるパッケージ群です。 インストールと読み込みは以下の通りです。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("tidyverse") # 初回だけ</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># 毎回読み込み。</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>tidyverseパッケージを読み込むことで，次の代表的なパッケージが利用できるようになります。 よく使うものは以下のものになります。</p>
+<ul>
+<li><code>ggplot2</code> データの可視化　めっちゃ使う</li>
+<li><code>dplyr</code> データハンドリング　めっちゃ使う</li>
+<li><code>readr</code> データを読み込む めっちゃ使う</li>
+<li><code>tidyr</code> tidyデータにもっていく　そこそこ使う</li>
+<li><code>purrr</code> 関数型プログラミングで使う　慣れてくると使う</li>
+<li><code>tibble</code> data.frameではなくtibbleにする　あまり使わない</li>
+<li><code>stringr</code> 文字列の加工・操作　ちょいちょい使う</li>
+<li><code>forcats</code> ファクター型変数の操作　そんなに使わない</li>
+</ul>
+</section>
+<section id="財務データの読み込み" class="level3" data-number="4.2.2">
+<h3 data-number="4.2.2" class="anchored" data-anchor-id="財務データの読み込み"><span class="header-section-number">4.2.2</span> 財務データの読み込み</h3>
+<p>「実証会計・ファイナンス」の<a href="https://www2.econ.osaka-u.ac.jp/~eaafinr/index.html">サポートサイト</a>にある練習用のデータセット<code>ch04_financial_data.csv</code>をダウンロードして，自分のPCの作業ディレクトリに置きます。 いまRが作業ディレクトリとしてどこの場所を読み込んでいるのかを確認するには<code>getwd()</code>を使います。 作業ディレクトリを変更するときは<code>setwd()</code>で作業ディレクトリを絶対パスで指定するとよいでしょう。</p>
+<p>いままではcsvデータを読み込むために，基本関数の<code>read.csv()</code>を使ってきましたが、ここからはより高速かつオプション指定が柔軟なtidyverse関数群の1つである<code>readr</code>パッケージの<code>read_csv()</code>関数を使います。readとcsvの間がピリオド<code>.</code>からアンダースコア<code>_</code>に変わっているので注意してください。 <code>readr</code>パッケージの<code>read_csv()</code>関数は，</p>
+<ol type="1">
+<li>データの読み込みが高速かつ型の推論が柔軟</li>
+<li>基本の<code>data.frame</code>ではなく，その拡張版である<code>tibble</code>で返す</li>
+<li>列名を勝手に変換しない。</li>
+<li>文字列を勝手にファクター型にしない（ <code>read.csv()</code>だと勝手にファクターになる )。</li>
+</ol>
+<p>という利点があります。 松浦は、作業ディレクトリであるフォルダの中に<code>data</code>フォルダを作成し、そこにcsvファイルを入れています。 そのため、以下のコードでは<code>data/ch04_financial_data.csv</code>のように相対パスでファイルを指定しています。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>financial_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/ch04_financial_data.csv"</span>) <span class="co"># readrを使用</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(financial_data) <span class="co"># 行数</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 7920</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(financial_data) <span class="co"># 列数</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 11</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(financial_data,<span class="dv">5</span>) <span class="co"># 最初の5行</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 11
+   year firm_ID industry_ID sales    OX   NFE     X     OA    FA    OL     FO
+  &lt;dbl&gt;   &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+1  2015       1           1 5261.  437.  NA    287. 13006. 3543. 4373.  2481.
+2  2016       1           1 5949.  564.  50.7  513. 13866. 4642. 4534.  3960.
+3  2017       1           1 6505.  691.  29.5  662. 13953. 7744. 5111.  6159.
+4  2018       1           1 6846.  751.  86.5  665. 18818. 7285. 5137. 10124.
+5  2019       1           1 7572.  959. 298.   660. 18190  9735. 5488. 11362.</code></pre>
+</div>
+</div>
+<p>この<code>financial_data</code>には、11個の変数に観測値が7920個あることがわかります。</p>
+<ul>
+<li><code>year</code> : 年度</li>
+<li><code>firm_ID</code> : 企業ID</li>
+<li><code>industry_ID</code> : 産業ID</li>
+<li><code>sales</code> : 売上高</li>
+<li><code>OX</code> : 事業利益(operating income)</li>
+<li><code>NFE</code> : 純金融費用(net financial expenses)</li>
+<li><code>X</code> : 当期純利益(net income)</li>
+<li><code>OA</code> : 事業資産(operating assets)</li>
+<li><code>OL</code> : 事業負債(operating liabilities)</li>
+<li><code>FE</code> : 金融資産(financial assets)</li>
+<li><code>FO</code> : 金融負債(financial obligations)</li>
+</ul>
+<p>このデータフレームの構造を確認します。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(financial_data)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 7,920
+Columns: 11
+$ year        &lt;dbl&gt; 2015, 2016, 2017, 2018, 2019, 2020, 2015, 2016, 2017, 2018…
+$ firm_ID     &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4…
+$ industry_ID &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
+$ sales       &lt;dbl&gt; 5261.40, 5948.96, 6505.06, 6846.38, 7572.24, 7537.63, 3505…
+$ OX          &lt;dbl&gt; 437.49, 564.14, 691.18, 751.29, 958.53, 778.37, 45.82, 51.…
+$ NFE         &lt;dbl&gt; NA, 50.667498, 29.543157, 86.486500, 298.049774, -65.45877…
+$ X           &lt;dbl&gt; 286.64, 513.48, 661.64, 664.80, 660.48, 843.83, 40.07, 49.…
+$ OA          &lt;dbl&gt; 13005.55, 13865.58, 13952.58, 18818.48, 18190.00, 20462.86…
+$ FA          &lt;dbl&gt; 3543.43, 4642.16, 7743.99, 7284.72, 9735.13, 10274.25, 225…
+$ OL          &lt;dbl&gt; 4372.96, 4534.22, 5111.22, 5137.28, 5487.96, 5371.38, 1840…
+$ FO          &lt;dbl&gt; 2480.72, 3959.70, 6159.02, 10123.91, 11362.22, 13772.15, 2…</code></pre>
+</div>
+</div>
+<p>変数はすべて数値型<code>double</code>になっていますが、<code>firm_ID</code>と<code>industry_ID</code>はカテゴリーを表す変数ですので、数値型ではなくファクター型に変換します。ついでに<code>year</code>は年度という時間を尺度なので、数値型ではなく<code>factor</code>型に変換します。ここで重要なのは、<code>year</code>はただのファクター型ではなく、順序のあるファクター型とすることです。</p>
+<p>ここでは<code>as.factor()</code>を使います。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># firm_IDとindustry_IDをfactor型に変換</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>financial_data<span class="sc">$</span>year <span class="ot">&lt;-</span> <span class="fu">factor</span>(financial_data<span class="sc">$</span>year, </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                            <span class="at">ordered =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                            <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">2015</span><span class="sc">:</span><span class="dv">2020</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>                            )</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>financial_data<span class="sc">$</span>firm_ID <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(financial_data<span class="sc">$</span>firm_ID)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>financial_data<span class="sc">$</span>industry_ID <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(financial_data<span class="sc">$</span>industry_ID)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 確認</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(financial_data)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 7,920
+Columns: 11
+$ year        &lt;ord&gt; 2015, 2016, 2017, 2018, 2019, 2020, 2015, 2016, 2017, 2018…
+$ firm_ID     &lt;fct&gt; 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4…
+$ industry_ID &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
+$ sales       &lt;dbl&gt; 5261.40, 5948.96, 6505.06, 6846.38, 7572.24, 7537.63, 3505…
+$ OX          &lt;dbl&gt; 437.49, 564.14, 691.18, 751.29, 958.53, 778.37, 45.82, 51.…
+$ NFE         &lt;dbl&gt; NA, 50.667498, 29.543157, 86.486500, 298.049774, -65.45877…
+$ X           &lt;dbl&gt; 286.64, 513.48, 661.64, 664.80, 660.48, 843.83, 40.07, 49.…
+$ OA          &lt;dbl&gt; 13005.55, 13865.58, 13952.58, 18818.48, 18190.00, 20462.86…
+$ FA          &lt;dbl&gt; 3543.43, 4642.16, 7743.99, 7284.72, 9735.13, 10274.25, 225…
+$ OL          &lt;dbl&gt; 4372.96, 4534.22, 5111.22, 5137.28, 5487.96, 5371.38, 1840…
+$ FO          &lt;dbl&gt; 2480.72, 3959.70, 6159.02, 10123.91, 11362.22, 13772.15, 2…</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="探索的データ分析" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="探索的データ分析"><span class="header-section-number">4.3</span> 探索的データ分析</h2>
+<section id="データセットの概要確認" class="level3" data-number="4.3.1">
+<h3 data-number="4.3.1" class="anchored" data-anchor-id="データセットの概要確認"><span class="header-section-number">4.3.1</span> データセットの概要確認</h3>
+<p>データセットを操作するまえに，データの概要を大まかにつかむ必要があり，この作業を探索的データ分析(exploratory data analysis)といいます。 仮説などを持たず，とりあえず特徴や構造を理解するための方法です。</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+ノート
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>引数の型に応じて自動的に最適な結果を返す機能を<strong>多態性</strong> (polymorphism)といい，多態性をもつ関数を<strong>総称関数</strong>(generic function)という。</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(financial_data)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   year         firm_ID      industry_ID       sales        
+ 2015:1266   1      :   6   3      :1760   Min.   :    205  
+ 2016:1293   2      :   6   10     :1702   1st Qu.:  16103  
+ 2017:1319   3      :   6   7      :1334   Median :  40431  
+ 2018:1323   4      :   6   1      :1143   Mean   : 166007  
+ 2019:1356   5      :   6   9      : 667   3rd Qu.: 118314  
+ 2020:1363   7      :   6   8      : 429   Max.   :3496433  
+             (Other):7884   (Other): 885                    
+       OX                 NFE                  X                   OA         
+ Min.   :-353606.7   Min.   :-285383.9   Min.   :-357624.8   Min.   :    217  
+ 1st Qu.:    399.3   1st Qu.:    -66.4   1st Qu.:    383.3   1st Qu.:  12560  
+ Median :   1602.9   Median :     -1.2   Median :   1586.1   Median :  30799  
+ Mean   :   7968.9   Mean   :     64.0   Mean   :   7904.9   Mean   : 152273  
+ 3rd Qu.:   5260.5   3rd Qu.:     41.4   3rd Qu.:   5204.6   3rd Qu.:  93469  
+ Max.   : 398034.5   Max.   : 331035.3   Max.   : 572588.7   Max.   :7987936  
+                     NA's   :1                                                
+       FA                 OL                FO         
+ Min.   :     288   Min.   :     35   Min.   :     44  
+ 1st Qu.:    6835   1st Qu.:   3965   1st Qu.:   3757  
+ Median :   19095   Median :  10868   Median :  11125  
+ Mean   :   80185   Mean   :  50261   Mean   :  70681  
+ 3rd Qu.:   52118   3rd Qu.:  33111   3rd Qu.:  35446  
+ Max.   :29250611   Max.   :2817975   Max.   :7026924  
+                                                       </code></pre>
+</div>
+</div>
+<p>さらに，データセットのある変数に含まれる固有な要素を抽出するには，<code>unique()</code>関数を用います。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(financial_data<span class="sc">$</span>year) <span class="co"># financial_dataのyear変数に含まれる固有要素</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2015 2016 2017 2018 2019 2020
+Levels: 2015 &lt; 2016 &lt; 2017 &lt; 2018 &lt; 2019 &lt; 2020</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2015, 2016, 2017, 2018, 2019, 2020</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>固有要素の数を確認するには，<code>unique()</code>関数で取り出した要素の数を<code>length()</code>関数で返します。 企業-年の企業数と年度数を確認するには次のようにします。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(financial_data<span class="sc">$</span>firm_ID)) <span class="co"># 1515を返す</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1515</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(financial_data<span class="sc">$</span>industry_ID)) <span class="co"># 10</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10</code></pre>
+</div>
+</div>
+<p>よってこのデータには10の産業、1515の企業があることが分かります。</p>
+</section>
+<section id="欠損データの処理" class="level3" data-number="4.3.2">
+<h3 data-number="4.3.2" class="anchored" data-anchor-id="欠損データの処理"><span class="header-section-number">4.3.2</span> 欠損データの処理</h3>
+<p>ほとんどのデータセットには，欠損値(<code>NA</code>)が含まれているため，この欠損値の処理は非常に重要になります。 欠損値の有無を確認するためには，<code>complete.cases()</code>関数を用いるのが便利です。 欠損値が含まれていると<code>FALSE</code>を返し，欠損値がないと<code>TRUE</code>を返します。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">complete.cases</span>(financial_data)) <span class="co"># 最初の６行の結果を表示</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE  TRUE  TRUE  TRUE  TRUE  TRUE</code></pre>
+</div>
+</div>
+<p><code>sum()</code>関数で，<code>TRUE</code>の個数を数え上げることもできます。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">complete.cases</span>(financial_data)) <span class="co"># TRUE/FALSEを1/0に置き換えて合計</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 7919</code></pre>
+</div>
+</div>
+<p>欠損値の出現に何らかの傾向がある場合，欠損値の削除が<strong>生存者バイアス</strong>(survivorship bias)をもたらす可能性があります。 たとえば，過去20年間にわたって連結財務諸表データに欠損値が含まれていない上場企業ばかりを分析すると，途中で倒産したり上場したりした企業は削除され，20年間経営し続けている優良企業しかデータに残らない生存者バイアスが発生します。</p>
+<p>このようなバイアスを考慮しなくても良いなら，欠損値をもつ個体(unit)のデータ(行)を削除するのが単純な処理となります。 このとき，<code>tidyr</code>パッケージに含まれる<code>drop_na()</code>関数を用いると簡単に欠損値を含む行を削除できます。 基本関数の<code>na.omit()</code>でもよいですが，<code>tidyr::drop_na()</code>の方がオプションが豊富なのでおすすめです。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(financial_data) <span class="co"># 欠損行を削除する前の行数</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 7920</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(<span class="fu">drop_na</span>(financial_data)) <span class="co"># 欠損行を削除した場合の行数</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 7919</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>financial_data <span class="ot">&lt;-</span> <span class="fu">drop_na</span>(financial_data) <span class="co"># 欠損行を削除した上でデータを上書き</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co"># この作業には注意が必要である。オリジナルデータはそのまま残しておいたほうが良い</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>欠損値を含む行を削除するのではなく，欠損値に適切な推定値を代入することでサンプルサイズを減らさない方法も開発されていますが，欠損値の出現を説明する確率モデルを仮定し，その推定値を求める必要があります。</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+ノート
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>詳しくは髙橋・渡辺 (2019) <a href="https://www.amazon.co.jp/%E6%AC%A0%E6%B8%AC%E3%83%87%E3%83%BC%E3%82%BF%E5%87%A6%E7%90%86-R%E3%81%AB%E3%82%88%E3%82%8B%E5%8D%98%E4%B8%80%E4%BB%A3%E5%85%A5%E6%B3%95%E3%81%A8%E5%A4%9A%E9%87%8D%E4%BB%A3%E5%85%A5%E6%B3%95-%E7%B5%B1%E8%A8%88%E5%AD%A6One-%E9%AB%98%E6%A9%8B-%E5%B0%86%E5%AE%9C/dp/4320112563/ref=rw_dp_pbnx_fo_thb_5">欠損データ処理：Rによる単一代入法と多重代入法</a> を参照してください。</p>
+<p>さらに欠損値についての議論では，<a href="https://www.amazon.co.jp/gp/product/400029847X/ref=dbs_a_def_rwt_bibl_vppi_i3">星野・岡田 (2016)「欠測データの統計科学―医学と社会科学への応用」</a>岩波書店がめちゃめちゃ有用です。</p>
+</div>
+</div>
+</section>
+</section>
+<section id="データの抽出とヒストグラムによる可視化" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="データの抽出とヒストグラムによる可視化"><span class="header-section-number">4.4</span> データの抽出とヒストグラムによる可視化</h2>
+<section id="条件にあうデータの抽出方法" class="level3" data-number="4.4.1">
+<h3 data-number="4.4.1" class="anchored" data-anchor-id="条件にあうデータの抽出方法"><span class="header-section-number">4.4.1</span> 条件にあうデータの抽出方法</h3>
+<p>教科書では複数の方法が紹介されているが，このメモではtidyverseパッケージを用いた方法だけ取り上げます。具体的には，データベース操作のパッケージである<code>dplyr</code>の中の<code>filter()</code>関数について説明します。 さらに<code>magrittr</code>を用いたパイプ演算子<code>%&gt;%</code>を用いたデータの受け渡しの記法を活用して，可読性の高いソースコードを書くことも紹介します。 ここでは<code>dplyr</code>パッケージの<code>filter()</code>関数であることを明示的に示すため、<code>dplyr::filter()</code>と書いていますが、<code>dplyr</code>パッケージを読み込んでいる場合は<code>filter()</code>と書いても同じです。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>financial_data_2015 <span class="ot">&lt;-</span> financial_data <span class="sc">%&gt;%</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2015</span>) <span class="co"># year変数が2015のデータを抽出</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>filter()</code>で条件を満たすデータのみを取り出し，それを<code>financial_data_2015</code>に代入している。</p>
+<p>パイプ演算子<code>%&gt;%</code>は<strong>左のオブジェクトを右の関数の第1引数に代入</strong>する，という処理を行います。 つまり，<code>x %&gt;% filter(year == 2015)</code>は，<code>filter(x, year == 2015)</code>と同じ意味になります。 パイプ演算子を使うことで，データが次の処理に受け渡されていくプロセスが読みやすくなります。たとえば、</p>
+<ol type="1">
+<li>欠損値を除去して，</li>
+<li>2015年のデータを抽出し，</li>
+<li>ROEを計算して，</li>
+<li>産業ごとに平均値を出す</li>
+</ol>
+<p>というよく使いそうな処理を行いたい場合，tidyverseなら次のように書きます。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>financial_data <span class="sc">%&gt;%</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> <span class="co"># 欠損値を除去し，</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2015</span>) <span class="sc">%&gt;%</span> <span class="co"># 2015年のデータを抽出し，</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">ROE =</span> earnings <span class="sc">/</span> equity) <span class="sc">%&gt;%</span> <span class="co"># ROEを変数を作り，</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(industry) <span class="sc">%&gt;%</span> <span class="co"># 業種コードごとに</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">mean_ROE =</span> <span class="fu">mean</span>(ROE)) <span class="co"># mean()でROE平均を計算</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>基本関数の場合は、</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>financial_data <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(financial_data)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>financial_data_2015 <span class="ot">&lt;-</span> financial_data[financial_data<span class="sc">$</span>year <span class="sc">==</span> <span class="dv">2015</span>, ]</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>financial_data_2015<span class="sc">$</span>ROE <span class="ot">&lt;-</span> financial_data_2015<span class="sc">$</span>earnings <span class="sc">/</span> financial_data_2015<span class="sc">$</span>equity</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>mean_ROE_by_industry <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(financial_data_2015<span class="sc">$</span>ROE, </span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">by =</span> <span class="fu">list</span>(financial_data_2015<span class="sc">$</span>industry), </span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">FUN =</span> mean)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>となりますので、上の方が読みやすいことがわかります。</p>
+</section>
+<section id="ヒストグラムによる売上高の可視化" class="level3" data-number="4.4.2">
+<h3 data-number="4.4.2" class="anchored" data-anchor-id="ヒストグラムによる売上高の可視化"><span class="header-section-number">4.4.2</span> ヒストグラムによる売上高の可視化</h3>
+<section id="ヒストグラム" class="level4" data-number="4.4.2.1">
+<h4 data-number="4.4.2.1" class="anchored" data-anchor-id="ヒストグラム"><span class="header-section-number">4.4.2.1</span> ヒストグラム</h4>
+<p>ヒストグラム(histogram)は，データの分布を可視化するためのグラフです。 ヒストグラムは，連続データを区間に分けて，区間ごとのデータの個数を棒グラフで表現したものです。したがってヒストグラムの棒の高さは、その区間に含まれるデータの個数を表します。</p>
+<p>たとえば、例として生徒100人の身長データがあるとします。 この身長データをRで生成するには，<code>rnorm()</code>関数を使います。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 平均170cm，標準偏差5cmの正規分布から100個のデータを生成</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>height <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">170</span>, <span class="at">sd =</span> <span class="dv">5</span>)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(height)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  [1] 169.6924 174.5469 176.3546 171.0446 175.6103 170.4743 164.5788 166.0442
+  [9] 161.9346 163.7407 157.3900 179.8433 168.5600 172.7645 172.0916 162.9906
+ [17] 164.9894 176.5034 174.0555 176.4578 164.5827 165.0025 168.9452 172.8089
+ [25] 174.2949 171.0870 175.8524 180.7838 164.3101 178.1985 164.9176 176.0124
+ [33] 170.4831 171.7323 170.9961 177.1232 169.7548 168.2287 169.0044 175.0003
+ [41] 169.3694 172.1525 167.8356 171.3804 170.3527 168.2850 170.3796 162.3475
+ [49] 164.0759 162.8132 168.2428 172.1306 173.8485 172.2481 167.0463 177.1396
+ [57] 175.6116 170.5064 162.7817 162.8524 169.9775 171.3020 169.9325 171.4664
+ [65] 180.8614 161.3915 168.1194 176.5041 177.4252 162.1188 171.4196 175.6819
+ [73] 167.0647 169.8203 169.9235 167.6972 164.7486 168.0285 172.3546 173.3254
+ [81] 169.8629 164.4961 174.7364 166.4179 177.7701 175.6074 179.5678 167.9054
+ [89] 161.5347 166.5031 171.4887 173.6740 173.6661 168.2252 164.6050 168.9659
+ [97] 166.2311 165.0904 170.7562 177.4817</code></pre>
+</div>
+</div>
+<p>100個のデータを眺めていても、なかなか特徴をつかめませんよね。そこでこの身長という連続データを5センチごとの区間に分けます。 たとえば、165cm以上、170cm未満の区間には何人の生徒がいるのか、170cm以上、175cm未満の区間には何人の生徒がいるのか、というように区間ごとのデータの個数を数えます。 このとき、区間の幅を5cmにするか、10cmにするか、20cmにするか、ということは、データの特徴をつかむ上で重要なことです。 区間の幅を大きくすると、データの特徴がざっくりとしかつかめません。 一方、区間の幅を小さくすると、データの特徴が細かくつかめますが、データの個数が少ない区間が多くなり、データの特徴をつかむのに時間がかかります。 やってみましょう。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(height, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">150</span>, <span class="dv">190</span>,<span class="at">by =</span> <span class="dv">1</span>)) <span class="co"># 区間の幅を1cmにする</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Chap04_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(height, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">150</span>, <span class="dv">190</span>,<span class="at">by =</span> <span class="dv">5</span>)) <span class="co"># 区間の幅を5cmにする</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Chap04_files/figure-html/unnamed-chunk-5-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(height, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">150</span>, <span class="dv">190</span>,<span class="at">by =</span> <span class="dv">10</span>)) <span class="co"># 区間の幅を10cmにする</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Chap04_files/figure-html/unnamed-chunk-5-3.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>どのヒストグラムがデータの特徴を最も良く表しているのか、を考えて区間幅を設定しましょう。</p>
+</section>
+<section id="ggplotでヒストグラム" class="level4" data-number="4.4.2.2">
+<h4 data-number="4.4.2.2" class="anchored" data-anchor-id="ggplotでヒストグラム"><span class="header-section-number">4.4.2.2</span> ggplotでヒストグラム</h4>
+<p>ヒストグラムを書くためには，基本関数の<code>hist()</code>が最も簡単ですが，より高性能な<code>ggplot2</code>を用いたヒストグラムの書き方を説明します。 ここでは、上で作成した2015年のデータ<code>financial_data_2015</code>を使って、売上高のヒストグラムを書きます。</p>
+<p><code>ggplot2</code>の書き方は少し特殊ですが、慣れてくると非常に便利です。 <code>ggplot2</code>ではレイヤー(階層)を上から重ねていくようにグラフを作っていきます。 まず<code>ggplot()</code>関数でグラフの土台を作ります。<code>ggplot()</code>に入れるデータの型は<code>data.frame</code>でなければならないので注意しましょう。</p>
+<p><code>ggplot()</code>の中で読み込むデータを指定して、<code>g</code>というオブジェクトに代入し、それを表示させます。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> financial_data_2015) <span class="co"># グラフにしたいデータを指定</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(g) <span class="co"># 出力</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Chap04_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>真っ白で何も出力されていませんが、<code>financial_data_2015</code>というデータフレームを指定して、グラフの土台を作りました。</p>
+<p>次に軸の設定をします。ヒストグラムは1変数のグラフなのでx軸のみを設定します。<code>aes()</code>関数で変数を指定します。先ほど作成した<code>g</code>に<code>aes()</code>関数を<code>+</code>で追加していきます。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> g <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x =</span> sales) <span class="co"># x軸を売上高にする</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(g) <span class="co"># 出力</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Chap04_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>横軸が表示されました。 この上に、ヒストグラムを書くために<code>geom_histogram()</code>関数を追加します。 <code>ggplot2</code>パッケージでは、<code>geom_***</code>の形でグラフを指定します。例えば、</p>
+<ul>
+<li><code>geom_bar</code> 棒グラフ</li>
+<li><code>geom_point</code> 散布図</li>
+<li><code>geom_line</code> 折れ線グラフ</li>
+<li><code>geom_boxplot</code> 箱ひげ図</li>
+<li><code>geom_histogram</code> ヒストグラム</li>
+</ul>
+<p>あたりがよく使われるグラフです。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> g <span class="sc">+</span> <span class="fu">geom_histogram</span>() <span class="co"># グラフはヒストグラム</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(g)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Chap04_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>ここでコンソールに，</p>
+<blockquote class="blockquote">
+<p><code>stat_bin()</code> using <code>bins = 30</code>. Pick better value with <code>binwidth</code>.</p>
+</blockquote>
+<p>というメッセージが出ますが、これは「何も指定されなかったので，ヒストグラムのビンの数を30にして作図したけど，オプションのstat_bin()で適切な区間幅をbinwidthで設定してね」ということです。無視しても大丈夫です。</p>
+<p>x軸が指数表記となっていて見づらいので，<code>scales()</code>関数を使って表記を変更します。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> g <span class="sc">+</span> <span class="fu">scale_x_continuous</span>(<span class="at">label =</span> scales<span class="sc">::</span><span class="fu">label_comma</span>()) <span class="co"># 3桁ごとにコンマで区切った数値で表示</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(g)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Chap04_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>横軸の数値が変化したことが分かります。</p>
+<p>また、小数ながら非常に大きな売上高をもつ企業があるため，ヒストグラムの形が左側に集まるように歪んでいます。 そこで売上高を自然対数に変換して，分布の歪みを修整したヒストグラムを書いてみます。 データを変更するので、最初から全部書きます。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(financial_data_2015) <span class="sc">+</span> <span class="co"># データの読み込み</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">log</span>(sales)) <span class="sc">+</span> <span class="co"># x軸を売上の自然対数に</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="co"># ヒストグラム</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(g) <span class="co"># 出力</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Chap04_files/figure-html/ch04_16-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>うまくいきました。 ついでにいろいろなオプションをつけてみます。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggthemes)</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>mystyle <span class="ot">&lt;-</span> <span class="fu">list</span> (<span class="co">#  ggplotのテーマ</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_calc</span>(), <span class="co"># ggthemesパッケージ</span></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_calc</span>(), <span class="co"># ggthemesパッケージ</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">element_text</span>(</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">size=</span><span class="dv">12</span>,  <span class="co">#  フォントサイズ</span></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">family =</span> <span class="st">"HiraKakuProN-W3"</span> <span class="co"># ヒラギノフォント</span></span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> g <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">"売上高の自然対数"</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"度数"</span>) <span class="sc">+</span> mystyle <span class="co"># 先ほどのスタイルを適用</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(g)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Chap04_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="データの集計と折れ線グラフによる可視化" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="データの集計と折れ線グラフによる可視化"><span class="header-section-number">4.5</span> データの集計と折れ線グラフによる可視化</h2>
+<section id="dplyrを用いた集計" class="level3" data-number="4.5.1">
+<h3 data-number="4.5.1" class="anchored" data-anchor-id="dplyrを用いた集計"><span class="header-section-number">4.5.1</span> dplyrを用いた集計</h3>
+<p>もっとデータを加工して、データの特徴をつかむグラフを作成してみます。 データを加工するために、非常に便利なパッケージであるtidyverseの<code>dplyr</code>を用いたデータ加工を説明します。<code>dplyr</code>でよく使う関数に、</p>
+<ul>
+<li><code>group_by()</code> ：グループ化</li>
+<li><code>summarise()</code> ： 集計</li>
+<li><code>mutate()</code> ： 変数の追加</li>
+<li><code>filter()</code>： データの抽出</li>
+</ul>
+<p>があります。これらの関数を組み合わせることで、データの加工が非常に簡単にできます。たとえば、<code>financial_data</code>に含まれる売上高を年度ごとに集計してみましょう。<code>dplyr</code>の<code>group_by()</code>関数を使うと、変数を指定してデータをグループ化することができます。たとえば、<code>year</code>を指定すると、年度ごとにデータをグループ化します。 <code>group_by()</code>でグループ化したあとに、<code>summarise()</code>関数を使って平均や分散などの統計量を計算します。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>N_firms_by_year <span class="ot">&lt;-</span> financial_data <span class="sc">%&gt;%</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span> <span class="co"># 年度ごとにグループ化</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>( <span class="co"># 以下の統計量を計算</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">N_firms =</span> <span class="fu">n</span>(), <span class="co"># データ個数 n()</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">mean_sales =</span> <span class="fu">mean</span>(sales) <span class="co"># 売上高の年度平均 mean()</span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>これで<code>N_firms_by_year</code>というオブジェクトに、<code>financial_data</code>を年度ごとにグループ化して、年度ごとの企業数<code>N_firms</code>と平均売上高<code>mean_sale</code>を計算したデータが入っています。 2015年から2020年の6年間のデータがあるので、6行のデータが入っているはずです。 中身を確認しておきましょう。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(N_firms_by_year)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 6
+Columns: 3
+$ year       &lt;ord&gt; 2015, 2016, 2017, 2018, 2019, 2020
+$ N_firms    &lt;int&gt; 1265, 1293, 1319, 1323, 1356, 1363
+$ mean_sales &lt;dbl&gt; 173614.9, 173359.5, 170010.9, 157995.4, 160928.2, 161043.7</code></pre>
+</div>
+</div>
+<p>以下の変数について6個のデータが入っていることがわかります。</p>
+<ul>
+<li><code>year</code> : 年度 (<code>ord</code>)</li>
+<li><code>N_firms</code> : 企業数 (<code>int</code>)</li>
+<li><code>mean_sales</code> : 平均売上高 (<code>dbl</code>)</li>
+</ul>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+ノート
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>関数型プログラミング(functional programming)は，現代的なプログラミング・パラダイムの1種であり，定義された関数を用いて各データに対して行いたい処理を切り分ける。Rでは<code>apply</code>系関数として，様々な関数が用意されている。<code>tidyverse</code>群では，<code>purrr</code>がある。ちょっと難しいですがpurrr超便利</p>
+</div>
+</div>
+</section>
+<section id="折れ線グラフによる上場企業数の可視化" class="level3" data-number="4.5.2">
+<h3 data-number="4.5.2" class="anchored" data-anchor-id="折れ線グラフによる上場企業数の可視化"><span class="header-section-number">4.5.2</span> 折れ線グラフによる上場企業数の可視化</h3>
+<p>データの成形が終わったので，折れ線グラフを作っていきます。 ここではx軸(横軸)を年度<code>year</code>，y軸(縦軸)を上場企業数<code>N_firms</code>とする折れ線グラフを作ってみます。 折れ線グラフを作るには<code>geom_line()</code>関数を使います。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(N_firms_by_year) <span class="sc">+</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> N_firms, <span class="at">group=</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>()</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> g <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Year"</span>, <span class="at">y =</span> <span class="st">"Number of Firms"</span>) <span class="sc">+</span> mystyle<span class="co"># 軸ラベル</span></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(g)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Chap04_files/figure-html/ch04_25-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>ここで突然現れた<code>group = 1</code>という<code>aes()</code>のオプションですが、これはすべてのデータが同じグループに属していることを指定しています。 x軸にファクター型を指定する場合、<code>group = 1</code>を指定しないと、x軸の値ごとに別のグループとして認識されてしまい、折れ線グラフがうまく描けません。</p>
+</section>
+</section>
+<section id="変数の作成とヒストグラムによる可視化" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="変数の作成とヒストグラムによる可視化"><span class="header-section-number">4.6</span> 変数の作成とヒストグラムによる可視化</h2>
+<p><code>tidyverse</code>の<code>dplyr</code>パッケージの<code>mutate()</code>関数を用いれば，パイプ演算子<code>%&gt;%</code>を用いて可読性の高いシンプルな書き方で、新しい変数を作成することができます。</p>
+<div class="callout-tips callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+キーボードショートカット
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Macなら<code>command + shift + m</code>でパイプ演算子が入力できます。 Windowsなら<code>ctrl + shift + m</code>です。</p>
+</div>
+</div>
+<p>ここでは，ROE(Return on Equity)を計算してみます。 ROEの定義は，</p>
+<p><span class="math display">
+ROE_t = \frac{X_t}{BE_{t-1}}
+</span></p>
+<p>となります。 分子の<span class="math inline">X_t</span>はt期の当期純利益，分母の<span class="math inline">BE_{t-1}</span>は<span class="math inline">t</span>期首の株主資本です。 練習用データである<code>financial_date.csv</code>には，当期純利益は<code>X</code>という列名で収録されていますが、株主資本の列はありません。 よってデータから株主資本は次のように計算します。</p>
+<p><span class="math display">
+BE_t = \underbrace{(OA_t - OL_t)}_{NOA_t} - \underbrace{(FO_t - FA_t)}_{NFO_t}
+</span></p>
+<p>この計算を行い，新しい変数<code>BE</code>をデータフレームに加えるには，<code>dplyr::mutate()</code>を使います。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>financial_data <span class="ot">&lt;-</span> financial_data <span class="sc">%&gt;%</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">BE =</span> (OA <span class="sc">-</span> OL) <span class="sc">-</span> (FO <span class="sc">-</span> FA) <span class="co"># 新たなBE変数が加わる</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>分母の株主資本は期首，つまり前期末の数値を用いる必要があります。 1期前の値を参照するには，<code>lab()</code>関数を用います。 ただ，クロスセクションのデータで普通に<code>lag()</code>関数を用いると，次のように別の企業のデータを参照してしまいます。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>financial_data <span class="ot">&lt;-</span> financial_data <span class="sc">%&gt;%</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">lag_BE =</span> <span class="fu">lag</span>(BE),</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">ROE =</span> X <span class="sc">/</span> lag_BE <span class="co"># これはダメ</span></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(financial_data, <span class="dv">10</span>)[,<span class="fu">c</span>(<span class="st">"firm_ID"</span>, <span class="st">"year"</span>, <span class="st">"BE"</span>,<span class="st">"lag_BE"</span>,<span class="st">"ROE"</span>)]</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 5
+   firm_ID year      BE lag_BE      ROE
+   &lt;fct&gt;   &lt;ord&gt;  &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;
+ 1 1       2016  10014.    NA  NA      
+ 2 1       2017  10426. 10014.  0.0661 
+ 3 1       2018  10842. 10426.  0.0638 
+ 4 1       2019  11075. 10842.  0.0609 
+ 5 1       2020  11594. 11075.  0.0762 
+ 6 2       2015   1055. 11594.  0.00346
+ 7 2       2016   1082.  1055.  0.0468 
+ 8 2       2017   1135.  1082.  0.0702 
+ 9 2       2018   1184.  1135.  0.0763 
+10 2       2019   1237.  1184.  0.0770 </code></pre>
+</div>
+</div>
+<p>結果の<code>firm_ID</code>が2の企業の2015年のROEを計算するには，1期前の企業1の2014年の株主資本を参照する必要があるけれど，2014年のデータは存在しないため、企業2の2015年度のROEは欠損値<code>NA</code>になっている必要があるのに、<code>lag()</code>関数が1つ前の企業1の2020年の株主資本を参照してしまっています。 ROEを企業ごとに計算するために，<code>dplyr::group_by()</code>を使って，計算を企業群ごとに行うことで、この問題を解決できます。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>financial_data <span class="ot">&lt;-</span> financial_data <span class="sc">%&gt;%</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(firm_ID) <span class="sc">%&gt;%</span> <span class="co"># firm_IDごとに以下の処理を繰り返す</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">lagged_BE =</span> <span class="fu">lag</span>(BE), <span class="co"># lag関数で前期の値を取り出す</span></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">ROE =</span> X <span class="sc">/</span> lagged_BE <span class="co"># これはOK</span></span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>() <span class="co"># group化を解除</span></span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(financial_data, <span class="dv">10</span>)[,<span class="fu">c</span>(<span class="st">"firm_ID"</span>, <span class="st">"year"</span>, <span class="st">"BE"</span>,<span class="st">"lagged_BE"</span>,<span class="st">"ROE"</span>)]</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 5
+   firm_ID year      BE lagged_BE     ROE
+   &lt;fct&gt;   &lt;ord&gt;  &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+ 1 1       2016  10014.       NA  NA     
+ 2 1       2017  10426.    10014.  0.0661
+ 3 1       2018  10842.    10426.  0.0638
+ 4 1       2019  11075.    10842.  0.0609
+ 5 1       2020  11594.    11075.  0.0762
+ 6 2       2015   1055.       NA  NA     
+ 7 2       2016   1082.     1055.  0.0468
+ 8 2       2017   1135.     1082.  0.0702
+ 9 2       2018   1184.     1135.  0.0763
+10 2       2019   1237.     1184.  0.0770</code></pre>
+</div>
+</div>
+<p>2015年のROEが欠損値になっており、正しい計算ができています。 クロスセクション分析における<code>lag()</code>関数の問題点を分かりやすくするために、上のように<code>lagged_BE</code>変数と<code>ROE</code>変数を別々に作成しましたが、通常は次のように書きます。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>financial_data <span class="ot">&lt;-</span> financial_data <span class="sc">%&gt;%</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(firm_ID) <span class="sc">%&gt;%</span> <span class="co"># firm_IDごとに以下の処理を繰り返す</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">ROE =</span> X <span class="sc">/</span> <span class="fu">lag</span>(BE) <span class="co"># これで一気に計算する方がOK</span></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>() <span class="co"># group化を解除</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>これでROEの計算ができので、次にROEのヒストグラムを作ってみます。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(financial_data) <span class="sc">+</span> <span class="co"># データの選択</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> ROE) <span class="sc">+</span> <span class="fu">geom_histogram</span>()</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> g <span class="sc">+</span> <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.3</span>, <span class="fl">0.5</span>)) <span class="co"># x軸の範囲を調整</span></span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(g)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Chap04_files/figure-html/ch04_30-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>ROEの分布が分かりました。赤字企業が分かりやすいように、ROEがゼロのところに縦線を引いてみます。 縦線を引くには<code>geom_vline()</code>を使い、横線を引くには<code>geom_hline()</code>を使います。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> g <span class="sc">+</span> <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="co"># x軸に縦線を引く</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(g)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Chap04_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="グループごとの集計とランク付け" class="level2" data-number="4.7">
+<h2 data-number="4.7" class="anchored" data-anchor-id="グループごとの集計とランク付け"><span class="header-section-number">4.7</span> グループごとの集計とランク付け</h2>
+<section id="産業ごとのroe平均値と棒グラフによる可視化" class="level3" data-number="4.7.1">
+<h3 data-number="4.7.1" class="anchored" data-anchor-id="産業ごとのroe平均値と棒グラフによる可視化"><span class="header-section-number">4.7.1</span> 産業ごとのROE平均値と棒グラフによる可視化</h3>
+<p>グループごとに平均値を出すといった処理は，<code>dplyr</code>の<code>group_by()</code>と<code>summarise()</code>を用いることで簡単にできます。</p>
+<p>ここでは、産業ごとにROEの平均値と標準偏差を求めてみます。ROEには欠損値が含まれているため、<code>mean()</code>関数を使うと<code>NA</code>が返ってきます。<code>NA</code>を無視して平均値を計算するには、<code>mean()</code>関数のオプション<code>na.rm = TRUE</code>を指定します。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>df_ind <span class="ot">&lt;-</span> financial_data <span class="sc">%&gt;%</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(industry_ID) <span class="sc">%&gt;%</span> <span class="co"># 集計したいグループを指定</span></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(</span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">mean_ROE =</span> <span class="fu">mean</span>(ROE, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="co"># 産業平均</span></span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">sd_ROE =</span> <span class="fu">sd</span>(ROE, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)　<span class="co"># 産業標準偏差</span></span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(df_ind)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 10
+Columns: 3
+$ industry_ID &lt;fct&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+$ mean_ROE    &lt;dbl&gt; 0.07731106, 0.10761577, 0.07548896, 0.07371925, 0.08570296…
+$ sd_ROE      &lt;dbl&gt; 0.09264764, 0.09530125, 0.05569899, 0.04676826, 0.04859797…</code></pre>
+</div>
+</div>
+<p>10の産業ごとに統計量を計算したので、10行のデータが返ってきました。 このデータを用いて産業ごとのROE平均の棒グラフを作成してみます。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 作図</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_ind) <span class="sc">+</span> <span class="co"># データフレームを指定</span></span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> industry_ID, <span class="at">y =</span> mean_ROE) <span class="sc">+</span> <span class="co"># 変数を2つ指定</span></span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_col</span>() <span class="sc">+</span> <span class="co"># 棒グラフ geom_bar()もあるけどこっち</span></span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"産業ID"</span>, <span class="at">y =</span> <span class="st">"産業平均ROE"</span>) <span class="sc">+</span> <span class="co"># ラベル設定</span></span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>)) <span class="sc">+</span> mystyle <span class="co"># グラフの原点0,0に設定</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Chap04_files/figure-html/ch04_32-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>教科書では，パイプ処理<code>%&gt;%</code>で直接<code>ggplot()</code>にデータフレームを渡していますが，個人的に可読性が低くなりオススメできないので，上の例ではデータ操作と作図を分けて書きました。 好みの問題なので、どちらでも構いません。</p>
+<p>次に、2020年度の産業別ROEランキングを作ってみます。 ROEを大きい順にならべて、一番大きい企業に1、2番目の企業に2、という風にランキングを表す変数を作成するには、<code>rank(desc())</code>を使います。<code>desc()</code>は降順に並べ替える関数です。</p>
+<p>下のソースコードでは、前半のまとまりで、以下の処理を行ったデータを新しいデータフレーム<code>ROE_rank_data</code>に代入しています。</p>
+<ol type="1">
+<li><code>financial_data</code>の中から2020年度のデータを抽出し、</li>
+<li>必要な変数として<code>firm_ID</code>、<code>industry_ID</code>、<code>ROE</code>の3つを選択し、</li>
+<li><code>industry_ID</code>ごとにグループ化して、</li>
+<li><code>mutate()</code>関数で<code>ROE_rank</code>変数を作成し,</li>
+<li><code>ungroup()</code>関数でグループ化を解除しています。</li>
+</ol>
+<p>後半のまとまりでは、上で作成した<code>ROE_rank_data</code>に対して、</p>
+<ol type="1">
+<li>産業ごとのROEランキング第1位の企業を抽出し、</li>
+<li>ROEが大きい順に並べ替えて、</li>
+<li>それを<code>knitr::kable()</code>関数で表として出力</li>
+</ol>
+<p>という処理をしています。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2020年度の産業内のROEランキングの変数を作成</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>ROE_rank_data <span class="ot">&lt;-</span> financial_data <span class="sc">%&gt;%</span></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2020</span>) <span class="sc">%&gt;%</span> <span class="co"># 2020年度データを抽出</span></span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(firm_ID, industry_ID, ROE) <span class="sc">%&gt;%</span> <span class="co"># 必要な変数を選択</span></span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(industry_ID) <span class="sc">%&gt;%</span> <span class="co"># 産業コードごとに以下の処理を実行</span></span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">ROE_rank =</span> <span class="fu">rank</span>(<span class="fu">desc</span>(ROE)) <span class="co"># ROE_rank変数を降順で作成</span></span>
+<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>()<span class="co"># グループ化を解除</span></span>
+<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(ROE_rank_data)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,363 × 4
+   firm_ID industry_ID     ROE ROE_rank
+   &lt;fct&gt;   &lt;fct&gt;         &lt;dbl&gt;    &lt;dbl&gt;
+ 1 1       1           0.0762        85
+ 2 2       1           0.0728        90
+ 3 3       1           0.119         36
+ 4 4       1           0.0216       154
+ 5 5       1           0.113         39
+ 6 7       1           0.00379      167
+ 7 8       1           0.388          1
+ 8 9       1           0.0913        68
+ 9 10      1           0.111         44
+10 11      1           0.130         28
+# ℹ 1,353 more rows</code></pre>
+</div>
+</div>
+<p>上の処理により、<code>financial_data</code>のデータフレームに<code>ROE_rank</code>という変数が追加して、<code>ROE_rank_data</code>という新しいオブジェクトに代入しました。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>ROE_rank_data <span class="sc">%&gt;%</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(ROE_rank <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="co"># 各産業のランク1のものを抽出</span></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(ROE)) <span class="sc">%&gt;%</span>  <span class="co"># ROEが大きい順</span></span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>    knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">booktabs =</span> <span class="cn">TRUE</span>, <span class="co"># ここから下は表の装飾</span></span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">caption =</span> <span class="st">"2020年度産業別ROEランキング第1位企業"</span>,</span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">position =</span> <span class="st">"h!"</span> <span class="co"># 表示場所はここに</span></span>
+<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a>        )</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<caption>2020年度産業別ROEランキング第1位企業</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">firm_ID</th>
+<th style="text-align: left;">industry_ID</th>
+<th style="text-align: right;">ROE</th>
+<th style="text-align: right;">ROE_rank</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">929</td>
+<td style="text-align: left;">7</td>
+<td style="text-align: right;">0.5641813</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">475</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: right;">0.4975356</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">0.3882552</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">242</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: right;">0.3749986</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">661</td>
+<td style="text-align: left;">5</td>
+<td style="text-align: right;">0.2673141</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1042</td>
+<td style="text-align: left;">8</td>
+<td style="text-align: right;">0.2559963</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1380</td>
+<td style="text-align: left;">10</td>
+<td style="text-align: right;">0.2497929</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1167</td>
+<td style="text-align: left;">9</td>
+<td style="text-align: right;">0.2346232</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">619</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: right;">0.1491307</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">719</td>
+<td style="text-align: left;">6</td>
+<td style="text-align: right;">0.1422026</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><code>industry_ID</code>が7の産業の中の<code>firm_ID</code>が929の企業のROEが<span class="math inline">0.5641813</span>ということがわかりました。 この企業は、<code>financial_data</code>の中でどのような企業なのかを調べてみましょう。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>financial_data <span class="sc">%&gt;%</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(firm_ID <span class="sc">==</span> <span class="dv">929</span>) <span class="sc">%&gt;%</span> <span class="co"># firm_IDが929の企業を抽出</span></span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(firm_ID, industry_ID,sales,OX,BE, ROE) <span class="sc">%&gt;%</span> <span class="co"># 必要な変数を選択</span></span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>    knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">booktabs =</span> <span class="cn">TRUE</span>, <span class="co"># ここから下は表の装飾</span></span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">caption =</span> <span class="st">"企業929のROE"</span>,</span>
+<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">position =</span> <span class="st">"h!"</span> <span class="co"># 表示場所はここに</span></span>
+<span id="cb63-7"><a href="#cb63-7" aria-hidden="true" tabindex="-1"></a>        )</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<caption>企業929のROE</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">firm_ID</th>
+<th style="text-align: left;">industry_ID</th>
+<th style="text-align: right;">sales</th>
+<th style="text-align: right;">OX</th>
+<th style="text-align: right;">BE</th>
+<th style="text-align: right;">ROE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">929</td>
+<td style="text-align: left;">7</td>
+<td style="text-align: right;">10696.59</td>
+<td style="text-align: right;">-3.23</td>
+<td style="text-align: right;">1134.92</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">929</td>
+<td style="text-align: left;">7</td>
+<td style="text-align: right;">12423.11</td>
+<td style="text-align: right;">17.16</td>
+<td style="text-align: right;">971.44</td>
+<td style="text-align: right;">0.0297113</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">929</td>
+<td style="text-align: left;">7</td>
+<td style="text-align: right;">8148.15</td>
+<td style="text-align: right;">-48.69</td>
+<td style="text-align: right;">980.28</td>
+<td style="text-align: right;">-0.0437907</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">929</td>
+<td style="text-align: left;">7</td>
+<td style="text-align: right;">8173.33</td>
+<td style="text-align: right;">-687.52</td>
+<td style="text-align: right;">668.91</td>
+<td style="text-align: right;">-0.7019219</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">929</td>
+<td style="text-align: left;">7</td>
+<td style="text-align: right;">1562.78</td>
+<td style="text-align: right;">132.68</td>
+<td style="text-align: right;">804.05</td>
+<td style="text-align: right;">0.2020302</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">929</td>
+<td style="text-align: left;">7</td>
+<td style="text-align: right;">5832.03</td>
+<td style="text-align: right;">490.84</td>
+<td style="text-align: right;">1257.68</td>
+<td style="text-align: right;">0.5641813</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>業績のばらつきが大きく、ROEも乱高下する企業であることが分かりました。</p>
+</section>
+</section>
+<section id="上級デュポンモデルによるroeの分析とその可視化" class="level2" data-number="4.8">
+<h2 data-number="4.8" class="anchored" data-anchor-id="上級デュポンモデルによるroeの分析とその可視化"><span class="header-section-number">4.8</span> 上級デュポン・モデルによるROEの分析とその可視化</h2>
+<p>上級デュポン・モデルとは，次式で表されるROEの分解式です。</p>
+<p><span class="math display">
+\begin{aligned}
+ROE_t := \frac{X_t}{BE_{t-1}} &amp;= \underbrace{\frac{OX_t}{NOA_{t-1}}}_{RNOA_t} + \underbrace{\frac{NFO_{t-1}}{BE_{t-1}}}_{FLEV_{t-1}} \times \left[ \frac{OX_t}{NOA_{t-1}} - \frac{NFE_t}{NFO_{t-1}} \right]
+\end{aligned}
+</span></p>
+<p>各変数の意味は以下の通りです。 - <code>X</code> : 当期純利益(net income) - <code>BE</code> : 株主資本(book of equity) - <code>OX</code> : 事業利益(operating income) - <code>NOA</code> : 純事業資産(net operating assets) - <code>NFO</code> : 純金融負債(net financial obligations) - <code>NFE</code> : 純金融費用(net financial expenses)</p>
+<p><span class="math inline">RNOA_t</span>は，<span class="math inline">ATO_t</span>と<span class="math inline">PM_t</span>とに分割できます。</p>
+<p><span class="math display">
+\underbrace{\frac{OX_t}{NOA_{t-1}}}_{RNOA_t} = \underbrace{\frac{sales_t}{NOA_{t-1}}}_{ATO_t} \times \underbrace{\frac{OX_t}{sales_t}}_{PM_t}
+</span></p>
+<p>いくつかの変数は，元のデータには含まれていないので，与えられたデータから計算する必要があります。 <code>dplyr::mutate()</code>関数を用いて新しい変数を作成し，データフレームに追加します。 <code>lag()</code>で前期末(つまり当期首)の値を取得するため，<code>group_by()</code>関数で企業ごとにグループ化しています。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>financial_data <span class="ot">&lt;-</span> financial_data <span class="sc">%&gt;%</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(firm_ID) <span class="sc">%&gt;%</span> <span class="co"># 企業IDごとに以下の計算を行う。</span></span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">NOA =</span> OA <span class="sc">-</span> OL, <span class="co"># 純事業資産 = 事業資産 - 事業負債</span></span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">RNOA =</span> OX <span class="sc">/</span> <span class="fu">lag</span>(NOA), <span class="co"># 会計上の事業リターン</span></span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">PM =</span> OX <span class="sc">/</span> sales, <span class="co"># 利ざや profit margin</span></span>
+<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">ATO =</span> sales <span class="sc">/</span> <span class="fu">lag</span>(NOA), <span class="co"># 純事業資産回転率</span></span>
+<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">NFO =</span> FO <span class="sc">-</span> FA, <span class="co"># 純金融負債 = 金融負債 - 金融資産</span></span>
+<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">lagged_FLEV =</span> <span class="fu">lag</span>(NFO) <span class="sc">/</span> lagged_BE, <span class="co">#期首財務レバレッジ</span></span>
+<span id="cb64-10"><a href="#cb64-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">NBC =</span> NFE <span class="sc">/</span> <span class="fu">lag</span>(NFO), <span class="co"># 債権者のリターン net borrowing cost</span></span>
+<span id="cb64-11"><a href="#cb64-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">ROE_DuPont =</span> RNOA <span class="sc">+</span> lagged_FLEV <span class="sc">*</span> (RNOA <span class="sc">-</span> NBC) <span class="co"># 上級デュポン・モデルによるROE</span></span>
+<span id="cb64-12"><a href="#cb64-12" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb64-13"><a href="#cb64-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>()</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>ROEの分解式が合っているかどうかを確認するため，<code>all.equal()</code>関数を使って，第1引数と第2引数が等しいかどうかを判定してみます。 普通に計算した<code>ROE</code>と上級デュポン・モデルの分解したものから計算した<code>ROE_DuPoint</code>との比較しています。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">all.equal</span>(financial_data<span class="sc">$</span>ROE, financial_data<span class="sc">$</span>ROE_DuPont)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Mean relative difference: 4.396878e-06"</code></pre>
+</div>
+</div>
+<p>となり，差の平均は<span class="math inline">4.396878 \times 10^{-6}</span>となり，ほぼ0となっていることから，上級デュポン・モデルの分解式が正しいことが確認できます。 完全にゼロにならない理由は計算の過程で生じる丸め誤差によるものです。</p>
+<section id="箱ひげ図による産業別比較" class="level3" data-number="4.8.1">
+<h3 data-number="4.8.1" class="anchored" data-anchor-id="箱ひげ図による産業別比較"><span class="header-section-number">4.8.1</span> 箱ひげ図による産業別比較</h3>
+<p>産業別で利ざや<code>PM</code>がどのように分布しているのかを調べるために，箱ひげ図(box plot)を作ってみます。 箱ひげ図は，データの分布を可視化するためのグラフで，第1四分位点，中央値，第3四分位点，(異常値をのぞく)最大値，(異常値をのぞく)最小値を表現できる，非常に情報量の多いグラフです。</p>
+<p><code>ggplot2</code>パッケージの<code>geom_boxplot()</code>関数を用いることで，データフレームから箱ひげ図を作図できます。</p>
+<p>先に作成したデータフレーム<code>financial_data</code>を用いて，<code>PM</code>の箱ひげ図を作成してみましょう。 あまり多くの箱ひげ図を作っても見づらくなるので，最終年度のデータ で，産業IDが2〜6までの企業に限定します。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>df_2020 <span class="ot">&lt;-</span> financial_data <span class="sc">%&gt;%</span></span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(</span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>        year <span class="sc">==</span> <span class="dv">2020</span>, <span class="co"># 最終年度</span></span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>        industry_ID <span class="sc">%in%</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">6</span> <span class="co"># 産業コードが2から6</span></span>
+<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb67-6"><a href="#cb67-6" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df_2020) <span class="sc">+</span></span>
+<span id="cb67-7"><a href="#cb67-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> industry_ID, <span class="at">y =</span> PM, <span class="at">fill =</span> industry_ID) <span class="sc">+</span> </span>
+<span id="cb67-8"><a href="#cb67-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="co"># 箱ひげ図</span></span>
+<span id="cb67-9"><a href="#cb67-9" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> g <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Industry ID"</span>) <span class="sc">+</span> mystyle</span>
+<span id="cb67-10"><a href="#cb67-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(g)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Chap04_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>箱ひげ図から，産業ごとに利ざやの分布が異なることがわかります。とりわけ産業3は利ざやの散らばりが大きく，産業4は非常に散らばりが小さいことが分かります。</p>
+</section>
+<section id="散布図による産業別比較" class="level3" data-number="4.8.2">
+<h3 data-number="4.8.2" class="anchored" data-anchor-id="散布図による産業別比較"><span class="header-section-number">4.8.2</span> 散布図による産業別比較</h3>
+<p>次に産業ごとに <code>ATO</code>(純事業資産回転率)と <code>PM</code>(売上高事業利益率)がどう分布しているか散布図を書いてみます。 ここでは異常値の影響を受けにくい統計量である中央値(median)を計算し，散布図を作成してみます。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>df_ind_median <span class="ot">&lt;-</span> financial_data <span class="sc">%&gt;%</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(industry_ID) <span class="sc">%&gt;%</span></span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(</span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">median_ATO =</span> <span class="fu">median</span>(ATO, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="co"># ATOの中央値</span></span>
+<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">median_PM =</span> <span class="fu">median</span>(PM, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># PMの中央値</span></span>
+<span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb68-7"><a href="#cb68-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-8"><a href="#cb68-8" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df_ind_median) <span class="sc">+</span> </span>
+<span id="cb68-9"><a href="#cb68-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> median_ATO, <span class="at">y =</span> median_PM, <span class="at">label =</span> industry_ID) <span class="sc">+</span> <span class="co"># 散布図</span></span>
+<span id="cb68-10"><a href="#cb68-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="co"># 散布図</span></span>
+<span id="cb68-11"><a href="#cb68-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_text</span>(<span class="at">vjust=</span><span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb68-12"><a href="#cb68-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">"純事業資産回転率(ATO)の中央値"</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"売上高事業利益率(PM)の中央値"</span>) <span class="sc">+</span> mystyle<span class="co"># ラベル</span></span>
+<span id="cb68-13"><a href="#cb68-13" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(g)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Chap04_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>この産業ごとに計算された中央値のデータを用いて，線形回帰直線を引いて，<code>ATO</code>と<code>PM</code>の関係を見てみます。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> g <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="co"># 線形回帰直線を追加</span></span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(g)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Chap04_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>いい感じですが，会計学入門(1.3.4節)で学習した<span class="math inline">ATO \times RM = RNOA</span>という関係のとおり，データからも<code>ATO</code>と<code>PM</code>との間にトレードオフの関係があることが予想されています。 もし理論どおりの関係であればデータは<span class="math inline">ATO = RNOA / PM</span>といった反比例の関係になるはずです。これを示すため，RNOAを一定としたときの<code>ATO</code>と<code>PM</code>の関係，つまりを図に書き込んでみます。 関数をグラフとして図に追加するために<code>stat_function()</code>関数を用います。</p>
+<div class="callout-tips callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tips
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>stat_function()</code>関数の引数は，<code>fun = function(x)</code> xの関数系, <code>linetype = “スタイル”</code>とします。 ここでは，function(x)でxの関数であることを指定し，<code>median_RNOA / x</code>としてます。</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>median_RNOA <span class="ot">&lt;-</span> <span class="fu">median</span>(financial_data<span class="sc">$</span>RNOA, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># 全データから計算したRNOAの中央値</span></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> g <span class="sc">+</span> <span class="fu">stat_function</span>(</span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">fun =</span> <span class="cf">function</span>(x) median_RNOA <span class="sc">/</span> x, </span>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">linetype =</span> <span class="st">"longdash"</span>, </span>
+<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"red"</span>) <span class="co"># 反比例の関数を追加</span></span>
+<span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(g)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Chap04_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>かなりあてはまりが良さそうな線が引けました。 このように，データを可視化することで，理論とデータの整合性を確認することができます。</p>
+</section>
+</section>
+<section id="練習問題" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="練習問題">練習問題</h2>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "コピーしました");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "コピーしました");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./Chap03.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">R言語入門</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./Chap05.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">株式データの取得と可視化</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">実証会計・ファイナンスのノート</div>   
+    <div class="nav-footer-right">本書は <a href="https://quarto.org/">Quarto</a> で作成されました。</div>
+  </div>
+</footer>
+
+
+
+</body></html>

@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.280">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>実証会計・ファイナンスのノート - 5&nbsp; 株式データの取得と可視化</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./summary.html" rel="next">
+<link href="./Chap04.html" rel="prev">
+<link href="./favicon.ico" rel="icon">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "一致なし",
+    "search-matching-documents-text": "一致した文書",
+    "search-copy-link-title": "検索へのリンクをコピー",
+    "search-hide-matches-text": "追加の検索結果を非表示",
+    "search-more-match-text": "追加の検索結果",
+    "search-more-matches-text": "追加の検索結果",
+    "search-clear-button-title": "消去",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "検索"
+  }
+}</script>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">株式データの取得と可視化</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">実証会計・ファイナンスのノート</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-reader-toggle sidebar-tool" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">はじめに</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Chap01.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">会計入門</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Chap02.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">ファイナンス入門</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Chap03.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">R言語入門</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Chap04.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">財務データの取得と可視化</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Chap05.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">株式データの取得と可視化</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Summary</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">目次</h2>
+   
+  <ul>
+  <li><a href="#株価データのダウンロードと読み込み" id="toc-株価データのダウンロードと読み込み" class="nav-link active" data-scroll-target="#株価データのダウンロードと読み込み"><span class="toc-section-number">5.0.1</span>  株価データのダウンロードと読み込み</a></li>
+  <li><a href="#時価総額とリターンの計算" id="toc-時価総額とリターンの計算" class="nav-link" data-scroll-target="#時価総額とリターンの計算"><span class="toc-section-number">5.1</span>  時価総額とリターンの計算</a>
+  <ul class="collapse">
+  <li><a href="#トータルリターンと超過リターンの計算" id="toc-トータルリターンと超過リターンの計算" class="nav-link" data-scroll-target="#トータルリターンと超過リターンの計算"><span class="toc-section-number">5.1.1</span>  トータル・リターンと超過リターンの計算</a></li>
+  <li><a href="#株式データの探索的データ分析" id="toc-株式データの探索的データ分析" class="nav-link" data-scroll-target="#株式データの探索的データ分析"><span class="toc-section-number">5.1.2</span>  株式データの探索的データ分析</a></li>
+  </ul></li>
+  <li><a href="#リターンの累積" id="toc-リターンの累積" class="nav-link" data-scroll-target="#リターンの累積"><span class="toc-section-number">6</span>  リターンの累積</a>
+  <ul class="collapse">
+  <li><a href="#バイアンドホールドリターンの考え方" id="toc-バイアンドホールドリターンの考え方" class="nav-link" data-scroll-target="#バイアンドホールドリターンの考え方"><span class="toc-section-number">6.1</span>  バイ・アンド・ホールド・リターンの考え方</a></li>
+  <li><a href="#年次リターンの計算" id="toc-年次リターンの計算" class="nav-link" data-scroll-target="#年次リターンの計算"><span class="toc-section-number">6.2</span>  年次リターンの計算</a></li>
+  </ul></li>
+  <li><a href="#株式データと財務データを組み合わせた分析" id="toc-株式データと財務データを組み合わせた分析" class="nav-link" data-scroll-target="#株式データと財務データを組み合わせた分析"><span class="toc-section-number">7</span>  株式データと財務データを組み合わせた分析</a>
+  <ul class="collapse">
+  <li><a href="#データの結合" id="toc-データの結合" class="nav-link" data-scroll-target="#データの結合"><span class="toc-section-number">7.1</span>  データの結合</a></li>
+  <li><a href="#バブルチャート" id="toc-バブルチャート" class="nav-link" data-scroll-target="#バブルチャート"><span class="toc-section-number">7.2</span>  バブルチャート</a></li>
+  </ul></li>
+  <li><a href="#統計的推論入門" id="toc-統計的推論入門" class="nav-link" data-scroll-target="#統計的推論入門"><span class="toc-section-number">8</span>  統計的推論入門</a>
+  <ul class="collapse">
+  <li><a href="#リターンデータに関する仮定" id="toc-リターンデータに関する仮定" class="nav-link" data-scroll-target="#リターンデータに関する仮定"><span class="toc-section-number">8.1</span>  リターン・データに関する仮定</a></li>
+  <li><a href="#推定量と推定値の違い" id="toc-推定量と推定値の違い" class="nav-link" data-scroll-target="#推定量と推定値の違い"><span class="toc-section-number">8.2</span>  推定量と推定値の違い</a>
+  <ul class="collapse">
+  <li><a href="#大数の法則" id="toc-大数の法則" class="nav-link" data-scroll-target="#大数の法則"><span class="toc-section-number">8.2.1</span>  大数の法則</a></li>
+  </ul></li>
+  <li><a href="#t値の計算" id="toc-t値の計算" class="nav-link" data-scroll-target="#t値の計算"><span class="toc-section-number">8.3</span>  <span class="math inline">t</span>値の計算</a>
+  <ul class="collapse">
+  <li><a href="#統計的検定の考え方" id="toc-統計的検定の考え方" class="nav-link" data-scroll-target="#統計的検定の考え方"><span class="toc-section-number">8.3.1</span>  統計的検定の考え方</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#線形回帰入門" id="toc-線形回帰入門" class="nav-link" data-scroll-target="#線形回帰入門"><span class="toc-section-number">9</span>  線形回帰入門</a>
+  <ul class="collapse">
+  <li><a href="#ols推定" id="toc-ols推定" class="nav-link" data-scroll-target="#ols推定"><span class="toc-section-number">9.1</span>  OLS推定</a></li>
+  <li><a href="#対数回帰モデル" id="toc-対数回帰モデル" class="nav-link" data-scroll-target="#対数回帰モデル"><span class="toc-section-number">9.2</span>  対数回帰モデル</a>
+  <ul class="collapse">
+  <li><a href="#データの保存" id="toc-データの保存" class="nav-link" data-scroll-target="#データの保存"><span class="toc-section-number">9.2.1</span>  データの保存</a></li>
+  </ul></li>
+  <li><a href="#練習問題" id="toc-練習問題" class="nav-link" data-scroll-target="#練習問題">練習問題</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">株式データの取得と可視化</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>前章では財務データを題材に、クロスセクションデータを扱うために必要なデータの取得と操作と可視化について学習しました。 特に重要な操作として，<code>group_by()</code>関数と<code>mutate()</code>や<code>summarise()</code>関数の組み合わせて，グループごとの変数の値を計算する方法を学びました。 本章では株式データを題材に，株式データの理解に必要な株式の基礎知識とともに，リターンの定義や計算について学び，最後には統計的推論と線形回帰分析についても学習します。</p>
+<p>株式データの理解を深めるために，株式市場の仕組みを理解する必要があるので，重要用語の説明を行います。</p>
+<table class="table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 75%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">相場用語</th>
+<th style="text-align: left;">解説</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">成行注文</td>
+<td style="text-align: left;">値段を指定せず，その時点の最良気配値で取引を希望すること</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">指値注文</td>
+<td style="text-align: left;">特定の値段を指定して取引を希望すること</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">板</td>
+<td style="text-align: left;">その時点で有効な指値注文を売りと買いで分けて価格ごとにまとめた一覧表のこと</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">板寄せ方式</td>
+<td style="text-align: left;">取引開始時に板情報(それまでに提出された売りと買いの注文)に 基づいて取引価格を決定する方法のこと</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ザラ場寄せ方式</td>
+<td style="text-align: left;">取引時間(ザラ場)中に新規注文と板情報に基づいて取引価格を決 定する方法のこと(図 5.1 を参照)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">歩み値</td>
+<td style="text-align: left;">取引時間中の売買履歴(約定価格や出来高)に関する時系列データのこと</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">証拠金</td>
+<td style="text-align: left;">信用取引を行う際に資金の貸し手に差し入れる担保のこと</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">値洗い</td>
+<td style="text-align: left;">保有するポートフォリオ(ポジション)の価値を時価で再評価すること</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">追証</td>
+<td style="text-align: left;">値洗いの結果，追加の証拠金を求められること</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">逆日歩</td>
+<td style="text-align: left;">信用売りが殺到し株不足となった銘柄でショート・セラーが追加で 支払う費用のこと</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">踏み上げ</td>
+<td style="text-align: left;">株価上昇で損失を抱えたショート・セラー(2.2.3 節を参照)のロス カットが一段の株高を招くこと</td>
+</tr>
+</tbody>
+</table>
+<section id="株価データのダウンロードと読み込み" class="level3" data-number="5.0.1">
+<h3 data-number="5.0.1" class="anchored" data-anchor-id="株価データのダウンロードと読み込み"><span class="header-section-number">5.0.1</span> 株価データのダウンロードと読み込み</h3>
+<p>いままでと同じように、<code>readr</code>パッケージの<code>read_csv()</code>関数でCSVファイルを読み込みます。 ここでは、<code>ch05_stock_data.csv</code>を使います。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>stock_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/ch05_stock_data.csv"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(stock_data)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 95,040 × 9
+    year month month_ID firm_ID stock_price   DPS shares_outstanding
+   &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;              &lt;dbl&gt;
+ 1  2015     1        1       1         954     0            2422000
+ 2  2015     2        2       1         960     0            2422000
+ 3  2015     3        3       1        1113     0            2422000
+ 4  2015     4        4       1        1081     0            2422000
+ 5  2015     5        5       1        1317     0            2422000
+ 6  2015     6        6       1        1366    29            2422000
+ 7  2015     7        7       1        1353     0            2422000
+ 8  2015     8        8       1        1209     0            2422000
+ 9  2015     9        9       1        1291     0            2422000
+10  2015    10       10       1        1407     0            2422000
+# ℹ 95,030 more rows
+# ℹ 2 more variables: adjustment_coefficient &lt;dbl&gt;, R_F &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>9変数，95,040行という大規模なデータが読み込まれました。 紙面の都合上、長い変数名を短く省略します。変数名を変えるには、<code>dplyr::rename()</code>を使います。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>stock_data <span class="ot">&lt;-</span> stock_data <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_shares =</span> shares_outstanding,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">adj_coef =</span> adjustment_coefficient</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>読み込まれたデータ<code>stock_data</code>の中には以下の変数が含まれています。</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">列名</th>
+<th style="text-align: left;">データ型</th>
+<th style="text-align: left;">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>year</code></td>
+<td style="text-align: left;">数値型<code>dbl</code></td>
+<td style="text-align: left;">年度</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>month</code></td>
+<td style="text-align: left;">数値型<code>dbl</code></td>
+<td style="text-align: left;">月</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>month_ID</code></td>
+<td style="text-align: left;">数値型<code>dbl</code></td>
+<td style="text-align: left;">月ID</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>firm_ID</code></td>
+<td style="text-align: left;">数値型<code>dbl</code></td>
+<td style="text-align: left;">企業ID</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>stock_price</code></td>
+<td style="text-align: left;">数値型<code>dbl</code></td>
+<td style="text-align: left;">月末時点での終値</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>DPS</code></td>
+<td style="text-align: left;">数値型<code>dbl</code></td>
+<td style="text-align: left;">一株当たり配当額</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>n_shares</code></td>
+<td style="text-align: left;">数値型<code>int</code></td>
+<td style="text-align: left;">月末時点での発行済株式数</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>adj_coef</code></td>
+<td style="text-align: left;">数値型<code>int</code></td>
+<td style="text-align: left;">調整係数</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>R_F</code></td>
+<td style="text-align: left;">数値型<code>dbl</code></td>
+<td style="text-align: left;">月次無リスク金利</td>
+</tr>
+</tbody>
+</table>
+<p><code>year</code>〜<code>firm_ID</code>までは，時系列や企業の特定に必要なキーとなり， <code>stock_price</code>から<code>R_F</code>が分析する対象となる株価や配当，発行済株式数，調整係数，無リスク金利となります。 7列目の<code>n_shares</code>は発行済株式数です。 発行済株式数は随時，新株発行や自社株買い，株式分割で変動するため，株式数の変化を調整するためのデータとして<code>adj_coef</code>があります。 旧株式1に対して新株式2となる株式分割が行われた場合，この調整係数は2となります。</p>
+<p>このような大規模データを前にした場合，とりあえずデータの構造を把握することから始めます。 ここでは基本関数よりも多機能な<code>tidyverse</code>の<code>dplyr</code>パッケージに含まれる<code>glimpse</code>関数を使って，データの構造を確認してみます。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(stock_data)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 95,040
+Columns: 9
+$ year        &lt;dbl&gt; 2015, 2015, 2015, 2015, 2015, 2015, 2015, 2015, 2015, 2015…
+$ month       &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3, 4, 5, 6, 7…
+$ month_ID    &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,…
+$ firm_ID     &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
+$ stock_price &lt;dbl&gt; 954, 960, 1113, 1081, 1317, 1366, 1353, 1209, 1291, 1407, …
+$ DPS         &lt;dbl&gt; 0, 0, 0, 0, 0, 29, 0, 0, 0, 0, 0, 29, 0, 0, 0, 0, 0, 40, 0…
+$ n_shares    &lt;dbl&gt; 2422000, 2422000, 2422000, 2422000, 2422000, 2422000, 2422…
+$ adj_coef    &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
+$ R_F         &lt;dbl&gt; 6.506826e-04, 5.834099e-04, 6.114423e-04, 6.848180e-04, 7.…</code></pre>
+</div>
+</div>
+<p>データの型が<code>dbl</code>という初めて出てきた型になってますが，これは<code>double</code>の略で，数値型の一種です。<code>double</code>は64ビットの浮動小数点数を表し，小数点以下15桁までの精度を持ちます。</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+数値型の種類
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>数値型<code>numeric</code>は，<code>double</code>と<code>int</code>のどちらかになります。 <code>int</code>は整数(integer)型で，32ビットの整数を表し，小数点以下は切り捨てられます。 <code>dbl</code>は<code>int</code>の上位互換で，小数点以下の桁数が多い場合に使われます。</p>
+</div>
+</div>
+<p>たとえば，<code>firm_ID</code>が74，<code>month_ID</code>が29から32（つまり2017年5月から8月）のデータを抽出してみます。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>stock_data <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(firm_ID <span class="sc">==</span> <span class="dv">74</span> <span class="sc">&amp;</span> month_ID <span class="sc">%in%</span> <span class="dv">29</span><span class="sc">:</span><span class="dv">32</span>) <span class="sc">%&gt;%</span> <span class="co"># filterで条件を指定</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year, firm_ID, month, month_ID,stock_price, DPS, n_shares, adj_coef) <span class="co"># selectで必要な変数を指定</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 8
+   year firm_ID month month_ID stock_price   DPS n_shares adj_coef
+  &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+1  2017      74     5       29        2816     0  4960000        1
+2  2017      74     6       30        1402    11  9920000        2
+3  2017      74     7       31        1420     0  9920000        1
+4  2017      74     8       32        1502     0  9920000        1</code></pre>
+</div>
+</div>
+<p>出力された結果の2行の<code>adj_coef</code>が2となっており、同時に<code>n_shares</code>が倍になっていることから、この会社は1株を2株に株式分割していることがわかります。</p>
+</section>
+<section id="時価総額とリターンの計算" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="時価総額とリターンの計算"><span class="header-section-number">5.1</span> 時価総額とリターンの計算</h2>
+<p>時価総額(market capitalization)を計算するためには、株式数に株価を掛けて計算します。 新しい変数を作成するときは<code>dplyr</code>パッケージの<code>mutate()</code>関数を使います。 <code>mutate()</code>で時価総額を表す新しい変数<code>ME</code>を作成します。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>stock_data <span class="ot">&lt;-</span> stock_data <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ME =</span> stock_price <span class="sc">*</span> n_shares) <span class="co"># 時価総額MEを作成</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>次に時価総額のヒストグラムを作成してみます。 前節で学習した内容に加えて、いろいろ見た目の指定を増やしてみます。 グラフの体裁を整えるため、<code>ggplot2</code>の機能を拡張する<code>ggthemes</code>パッケージを追加します。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggthemes) <span class="co"># グラフの体裁を整えるパッケージを追加</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales) <span class="co"># 軸の表記を変えるパッケージを追加</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>mystyle <span class="ot">&lt;-</span> <span class="fu">list</span> (<span class="co">#  ggplotのテーマ</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_few</span>(), <span class="co"># ggthemesパッケージ</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">element_text</span>(</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">size=</span><span class="dv">12</span>,  <span class="co">#  フォントサイズ</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">family =</span> <span class="st">"HiraKakuProN-W3"</span> <span class="co"># ヒラギノフォント</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(stock_data) <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x =</span> ME)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> g <span class="sc">+</span> <span class="fu">geom_histogram</span>() <span class="co">#基本設定</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> g <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">"Market Equity"</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"Count"</span>) <span class="co">#軸ラベル</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> g <span class="sc">+</span> <span class="fu">scale_x_continuous</span>(</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">quantile</span>(stock_data<span class="sc">$</span>ME, <span class="fl">0.95</span>)), <span class="co"># x軸の範囲</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">label_comma</span>(<span class="at">scale =</span> <span class="fl">1e-6</span>) <span class="co"># x軸の表記を百万円単位に</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">"時価総額"</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"度数"</span>) <span class="sc">+</span>  mystyle</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(g) <span class="co"># グラフを出力</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Chap05_files/figure-html/ch05_06-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<section id="トータルリターンと超過リターンの計算" class="level3" data-number="5.1.1">
+<h3 data-number="5.1.1" class="anchored" data-anchor-id="トータルリターンと超過リターンの計算"><span class="header-section-number">5.1.1</span> トータル・リターンと超過リターンの計算</h3>
+<p>ある株式の<span class="math inline">t</span>期のトータル・リターン<span class="math inline">R_t</span>は、次式で定義されます。</p>
+<p><span class="math display">
+R_t = \frac{(\text{株価}_t + \text{1株当り配当}_t) \times \text{調整係数}_t - \text{株価}_{t-1}}{\text{株価}_{t-1}}
+</span></p>
+<p>たいていの場合，1株当り配当<span class="math inline">DPS_t</span>はゼロで，調整係数<span class="math inline">adjustment\_coefficient_t</span>は1となるため，次式のように簡略化できます。</p>
+<p><span class="math display">
+R_t = \frac{\text{株価}_t - \text{株価}_{t-1}}{\text{株価}_{t-1}}
+</span></p>
+<p>銘柄ごとにリターンを計算するので，<code>group_by()</code>と<code>mutate()</code>を使って計算します。ここでは，<code>firm_ID</code>ごとにトータルリターン<code>R</code>と， トータルリターンから無リスク利子率を除いた超過リターン<code>Re</code>を計算しています。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>stock_data <span class="ot">&lt;-</span> stock_data <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(firm_ID) <span class="sc">%&gt;%</span> <span class="co"># 企業ごとに</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>( <span class="co"># 新しい変数を作成</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># トータルリターン</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">R =</span> ( (stock_price <span class="sc">+</span> DPS) <span class="sc">*</span> adj_coef <span class="sc">-</span> <span class="fu">lag</span>(stock_price)) <span class="sc">/</span> <span class="fu">lag</span>(stock_price),</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">Re =</span> R <span class="sc">-</span> R_F <span class="co"># 月次超過リターン</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="co"># グループ化を解除</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>ここまでの処理で<code>stock_data</code>に時価総額<code>ME</code>，トータルリターン<code>R</code>，超過リターン<code>Re</code>が追加されました。 以下では，このデータを使って探索的データ分析を行います。</p>
+</section>
+<section id="株式データの探索的データ分析" class="level3" data-number="5.1.2">
+<h3 data-number="5.1.2" class="anchored" data-anchor-id="株式データの探索的データ分析"><span class="header-section-number">5.1.2</span> 株式データの探索的データ分析</h3>
+<p>探索的データ分析という名の，とりあえず何も考えずに目の前のデータから何が分かるのかを調べ倒してみる，という分析を行います。</p>
+<p>とりあえず，<code>summary()</code>で基本統計量を確認します。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(stock_data)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      year          month          month_ID        firm_ID      
+ Min.   :2015   Min.   : 1.00   Min.   : 1.00   Min.   :   1.0  
+ 1st Qu.:2016   1st Qu.: 3.75   1st Qu.:19.00   1st Qu.: 384.0  
+ Median :2018   Median : 6.50   Median :37.00   Median : 760.0  
+ Mean   :2018   Mean   : 6.50   Mean   :37.01   Mean   : 761.2  
+ 3rd Qu.:2019   3rd Qu.: 9.25   3rd Qu.:55.00   3rd Qu.:1147.0  
+ Max.   :2020   Max.   :12.00   Max.   :72.00   Max.   :1515.0  
+                                                                
+  stock_price          DPS              n_shares            adj_coef     
+ Min.   :   112   Min.   :   0.000   Min.   :3.700e+04   Min.   :0.1000  
+ 1st Qu.:  1417   1st Qu.:   0.000   1st Qu.:3.151e+06   1st Qu.:1.0000  
+ Median :  2445   Median :   0.000   Median :1.014e+07   Median :1.0000  
+ Mean   :  4685   Mean   :   6.802   Mean   :6.973e+07   Mean   :0.9999  
+ 3rd Qu.:  4558   3rd Qu.:   0.000   3rd Qu.:3.564e+07   3rd Qu.:1.0000  
+ Max.   :622796   Max.   :1913.000   Max.   :2.111e+10   Max.   :2.0000  
+                                                                         
+      R_F                   ME                  R                 Re         
+ Min.   :-2.329e-04   Min.   :1.459e+08   Min.   :-0.3803   Min.   :-0.3802  
+ 1st Qu.: 8.233e-06   1st Qu.:9.648e+09   1st Qu.:-0.0406   1st Qu.:-0.0408  
+ Median : 8.203e-05   Median :2.563e+10   Median : 0.0103   Median : 0.0101  
+ Mean   : 2.041e-04   Mean   :1.365e+11   Mean   : 0.0159   Mean   : 0.0157  
+ 3rd Qu.: 4.626e-04   3rd Qu.:7.987e+10   3rd Qu.: 0.0648   3rd Qu.: 0.0646  
+ Max.   : 7.368e-04   Max.   :3.293e+13   Max.   : 0.5150   Max.   : 0.5145  
+                                          NA's   :1515      NA's   :1515     </code></pre>
+</div>
+</div>
+<p>さらに，分散と標準偏差も計算します。データには欠損値が含まれているため，<code>na.rm = TRUE</code>オプションをつけています。 教科書とは違いますが，<code>dplyr::summarize()</code>関数を使って一気に複数の統計量を計算します。 ここでは，<code>stock_data &lt;- stock_data</code>としていないため，<code>stock_data</code>には新しい変数は追加されず，結果を表示するだけです。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>stock_data <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">var_R =</span> <span class="fu">var</span>(R, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="co"># 総リターンの分散</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd_R  =</span> <span class="fu">sd</span>(R, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="co"># 総リターンの標準偏差</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">var_Re =</span> <span class="fu">var</span>(Re, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="co"># 超過リターンの分散</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd_Re =</span> <span class="fu">sd</span>(Re, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># 超過リターンの標準偏差</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+    var_R   sd_R  var_Re  sd_Re
+    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+1 0.00830 0.0911 0.00830 0.0911</code></pre>
+</div>
+</div>
+<p>データの分布の形を表す統計量である，3次のモーメントである歪度(skewness)と4次のモーメントである尖度(kurtosis)も計算してみます。 たとえば確率変数<span class="math inline">x</span>の歪度は <span class="math display">
+\text{歪度} = \frac 1n \sum _{i = 1}^n \left( \frac{x_i - \bar x}{\hat \sigma_x} \right) ^3
+</span> で表され，正の値をとるとき分布が右に歪んでいる(裾が右に長い)ことを示している。 尖度は， <span class="math display">
+\text{尖度} = \frac 1n \sum _{i = 1}^n \left( \frac{x_i - \bar x}{\hat \sigma_x} \right) ^4
+</span> で定義され，尖度が3のとき，正規分布と同じ尖度を持つことを示し，3より小さいとき，正規分布よりとがった分布をしていることを示します。</p>
+<p>歪度と尖度を計算するには，<code>e1071</code>パッケージの<code>skewness()</code>関数を使います。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"e1071"</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>stock_data <span class="sc">%&gt;%</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">skewness_R =</span> <span class="fu">skewness</span>(R, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="co"># 総リターンの歪度</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">kurtosis_R =</span> <span class="fu">kurtosis</span>(R, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="co"># 総リターンの尖度</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">skewness_Re =</span> <span class="fu">skewness</span>(Re, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="co"># 超過リターンの歪度</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">kurtosis_Re =</span> <span class="fu">kurtosis</span>(Re, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># 超過リターンの尖度</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+  skewness_R kurtosis_R skewness_Re kurtosis_Re
+       &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
+1      0.507       1.27       0.507        1.27</code></pre>
+</div>
+</div>
+<p>トータルリターンの歪度が<span class="math inline">0.507 &gt;0</span>なので，右に裾の広い分布となっており，尖度が<span class="math inline">1.27 &lt; 3</span>なので正規分布よりもとがった形となっていることがわかります。</p>
+<p>図でも確認するために，トータルリターン<code>R</code>のヒストグラムを書いてみます。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(stock_data) <span class="sc">+</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> R) <span class="sc">+</span> <span class="fu">geom_histogram</span>() <span class="sc">+</span> <span class="co"># トータルリターンのヒストグラム</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Monthly Stock Return"</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"Count"</span>) <span class="sc">+</span> mystyle <span class="co"># 軸ラベル</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Chap05_files/figure-html/ch05_14-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>トータルリターンのヒストグラムに正規分布のグラフを重ねてみると，次のようになります。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># トータルリターン</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>R <span class="ot">&lt;-</span> stock_data<span class="sc">$</span>R</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 正規分布データ作成</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">mean</span>(stock_data<span class="sc">$</span>R, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>sd <span class="ot">&lt;-</span> <span class="fu">sd</span>(stock_data<span class="sc">$</span>R, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">95040</span>, <span class="at">mean =</span> m, <span class="at">sd =</span> sd)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(R,x) <span class="sc">%&gt;%</span> <span class="fu">drop_na</span>() <span class="co"># 欠損値削除</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">pivot_longer</span>(<span class="fu">everything</span>())</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>トータルリターンと正規分布のヒストグラムを書いてみる。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df) <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x =</span> value, <span class="at">fill =</span> name, <span class="at">group =</span> name) <span class="sc">+</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">100</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>, <span class="at">position=</span><span class="st">"identity"</span>) <span class="sc">+</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Monthly Stock Return"</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"Count"</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> g <span class="sc">+</span> <span class="fu">annotate</span>( <span class="co"># 位置を指定して文字列を追加</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">geom =</span> <span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">0.3</span>, <span class="at">y =</span> <span class="dv">900</span>, <span class="at">label =</span> <span class="st">"fat tail"</span>) <span class="sc">+</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="co"># 始点や終点などを指定して矢印を追加</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">geom =</span> <span class="st">"segment"</span>, <span class="at">x =</span> <span class="fl">0.3</span>, <span class="at">xend =</span> <span class="fl">0.3</span>,</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="dv">800</span>, <span class="at">yend =</span> <span class="dv">300</span>,</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">color =</span> <span class="st">"black"</span>,  <span class="at">size =</span> <span class="fl">0.5</span>,</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.3</span>, <span class="st">"cm"</span>))</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> g <span class="sc">+</span> <span class="fu">annotate</span>( <span class="co"># 位置を指定して文字列を追加</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">geom =</span> <span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">0.3</span>, <span class="at">y =</span> <span class="dv">4200</span>,</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">label =</span> <span class="st">"Sharp shape"</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="co"># 始点や終点などを指定して矢印を追加</span></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">geom =</span> <span class="st">"segment"</span>, <span class="at">x =</span> <span class="fl">0.2</span>, <span class="at">xend =</span> <span class="fl">0.1</span>,</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="dv">4200</span>, <span class="at">yend =</span> <span class="dv">4200</span>,</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">0.5</span>,</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.3</span>, <span class="st">"cm"</span>))</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> g <span class="sc">+</span> mystyle</span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(g)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Chap05_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>歪度と尖度の結果と整合的に、赤色で表されているトータルリターンのヒストグラムは正規分布よりも右に裾が長く，尖度も正規分布よりもとがった形となっています。</p>
+</section>
+</section>
+<section id="リターンの累積" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> リターンの累積</h1>
+<section id="バイアンドホールドリターンの考え方" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="バイアンドホールドリターンの考え方"><span class="header-section-number">6.1</span> バイ・アンド・ホールド・リターンの考え方</h2>
+<p><strong>バイ・アンド・ホールド・リターン</strong>(buy-and-hold-return)は，ある時点で株式を購入し，そのまま保有し続けたときのリターンのことを指します。 たとえば，<span class="math inline">12</span>月末に株式を購入し，<span class="math inline">3</span>月末に売却したときの、バイ・アンド・ホールド・リターンの累積は，次式で計算できます。ただし配当は無視します。 <span class="math display">
+\begin{aligned}
+\left ( \frac{W_{\text{3月}}}{W_{\text{12月}}} \right) =
+\underbrace{\left ( \frac{W_{\text{1月}}}{W_{\text{12月}}} \right)}_{1 + R_{\text{1月}}} \times
+\underbrace{\left ( \frac{W_{\text{2月}}}{W_{\text{1月}}} \right)}_{1 + R_{\text{2月}}} \times
+\underbrace{\left ( \frac{W_{\text{3月}}}{W_{\text{2月}}} \right)}_{1 + R_{\text{3月}}} \times
+\end{aligned}
+</span></p>
+<p>一般的に、月次で<span class="math inline">t</span>時点から<span class="math inline">T</span>時点までの年次リターンは、</p>
+<p><span class="math display">
+\left ( \frac{W_{\text{翌年12月末}}}{W_{\text{12月末}}} \right) = \prod_{t = \text{1月}}^{\text{12月}} (1 + R_t)
+</span></p>
+<p>と計算できます。</p>
+</section>
+<section id="年次リターンの計算" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="年次リターンの計算"><span class="header-section-number">6.2</span> 年次リターンの計算</h2>
+<p>では、<code>stock_data</code>をもとに年次リターンを計算してみましょう。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>annual_stock_data <span class="ot">&lt;-</span> stock_data <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(firm_ID, year) <span class="sc">%&gt;%</span> <span class="co"># firm_IDとyearごとにグループ化</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">annual_R =</span> <span class="fu">prod</span>(<span class="dv">1</span> <span class="sc">+</span> R) <span class="sc">-</span> <span class="dv">1</span>, <span class="co"># B&amp;H年次リターン</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">annual_R_F =</span> <span class="fu">prod</span>(<span class="dv">1</span> <span class="sc">+</span> R_F) <span class="sc">-</span> <span class="dv">1</span> <span class="co"># 年次超過リターン</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">annual_Re =</span> annual_R <span class="sc">-</span> annual_R_F) <span class="sc">%&gt;%</span> <span class="co"># 年次超過リターン</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(annual_stock_data)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 5
+  firm_ID  year annual_R annual_R_F annual_Re
+    &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;
+1       1  2015   NA      0.00743      NA    
+2       1  2016    0.997  0.000565      0.997
+3       1  2017    0.688  0.0000488     0.688
+4       1  2018   -0.214  0.00579      -0.219
+5       1  2019    0.647 -0.000770      0.648
+6       1  2020   -0.284  0.000380     -0.285</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="株式データと財務データを組み合わせた分析" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> 株式データと財務データを組み合わせた分析</h1>
+<p>ここでは，株式データと財務データを組み合わせて分析を行います。</p>
+<section id="データの結合" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="データの結合"><span class="header-section-number">7.1</span> データの結合</h2>
+<p>複数のデータフレームを結合する際に重要なところは、</p>
+<ol type="1">
+<li>データの頻度の違い</li>
+<li>タイミングの一致</li>
+</ol>
+<p>となる。 今まで使ってきた財務データは年次データであるのに対して，株式データは月次データであるため，データの頻度が異なります。 確認してみましょう。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>financial_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/ch04_output.csv"</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(financial_data) <span class="co"># 年次財務データの行数</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 7919</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(annual_stock_data) <span class="co"># 年次リターン・データの行数</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 7920</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(stock_data) <span class="co"># 月次リターン・データの行数</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 95040</code></pre>
+</div>
+</div>
+<p>月次リターンの行数が上の年次データとは大きく異なっていることが分かります。</p>
+<div class="callout callout-info callout callout-style-simple no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>先読みバイアス</strong>(look-ahead bias)とは、ある時点での情報を使って、その時点よりも未来の情報を使っていることを指します。12月末決算の会社のディスクロジャージャーは、最速で決算日後45日以内に出される決算短信か、3ヶ月以内に出される有価証券報告書があります。 このため、年次データを使って同時期の年次リターンを計算すると、年次データの発表後に出される有価証券報告書の情報を使っていることになります。これを先読みバイアスといいます。</p>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>annual_data <span class="ot">&lt;-</span> annual_stock_data <span class="sc">%&gt;%</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(financial_data, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"firm_ID"</span>, <span class="st">"year"</span>)) <span class="co"># firm_IDとyearのペアをキーとして設定</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>annual_data <span class="ot">&lt;-</span> annual_stock_data <span class="sc">%&gt;%</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(financial_data) <span class="co"># キーを省略した場合，列名が同じ変数がキーになる</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(annual_data)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 17
+  firm_ID  year annual_R annual_R_F annual_Re industry_ID sales    OX   NFE
+    &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1       1  2015   NA      0.00743      NA              NA   NA    NA   NA  
+2       1  2016    0.997  0.000565      0.997           1 5949.  564.  50.7
+3       1  2017    0.688  0.0000488     0.688           1 6505.  691.  29.5
+4       1  2018   -0.214  0.00579      -0.219           1 6846.  751.  86.5
+5       1  2019    0.647 -0.000770      0.648           1 7572.  959. 298. 
+6       1  2020   -0.284  0.000380     -0.285           1 7538.  778. -65.5
+# ℹ 8 more variables: X &lt;dbl&gt;, OA &lt;dbl&gt;, FA &lt;dbl&gt;, OL &lt;dbl&gt;, FO &lt;dbl&gt;,
+#   BE &lt;dbl&gt;, lagged_BE &lt;dbl&gt;, ROE &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>monthly_data <span class="ot">&lt;-</span> stock_data <span class="sc">%&gt;%</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(financial_data, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"firm_ID"</span>, <span class="st">"year"</span>)) <span class="co"># firm_IDとyearのペアをキーとして設定</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="バブルチャート" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="バブルチャート"><span class="header-section-number">7.2</span> バブルチャート</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>annual_data <span class="ot">&lt;-</span> stock_data <span class="sc">%&gt;%</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(month <span class="sc">==</span> <span class="dv">12</span>) <span class="sc">%&gt;%</span> <span class="co"># 12月のみ</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year, firm_ID, ME) <span class="sc">%&gt;%</span> <span class="co"># 変数を選択</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(annual_data, ., <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"year"</span>, <span class="st">"firm_ID"</span>)) <span class="sc">%&gt;%</span> <span class="co"># 年次データと結合</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ME =</span> ME <span class="sc">/</span> <span class="fl">1e6</span>) <span class="co"># MEを百万円単位に変換</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>year2015 <span class="ot">&lt;-</span> annual_data <span class="sc">%&gt;%</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">filter</span>(</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>      year <span class="sc">==</span> <span class="dv">2015</span>, <span class="co"># 2015年のみ</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>      firm_ID <span class="sc">%in%</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">20</span>, <span class="co"># firm_IDが2から20のデータを抽出</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>      X <span class="sc">&gt;</span> <span class="dv">0</span> <span class="co"># 対数を取るため当期純利益が正のデータのみ抽出</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(year2015) <span class="sc">+</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">log</span>(sales), <span class="at">y =</span> <span class="fu">log</span>(X), <span class="at">size =</span> ME, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="co"># バブルチャートを描くにはsize引数を指定</span></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_size</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">20</span>), <span class="at">name =</span> <span class="st">"Market Equity"</span>) <span class="sc">+</span> <span class="co"># rangeでバブルの最小最大面積を指定</span></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">8</span>, <span class="dv">14</span>)) <span class="sc">+</span> <span class="co"># 両軸の範囲を指定</span></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">11</span>)) <span class="sc">+</span> mystyle</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Chap05_files/figure-html/ch05_25-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="統計的推論入門" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> 統計的推論入門</h1>
+<section id="リターンデータに関する仮定" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="リターンデータに関する仮定"><span class="header-section-number">8.1</span> リターン・データに関する仮定</h2>
+<p>統計的推論の内容に入る前に、<code>firm_ID</code>が1の企業の超過リターン<code>Re</code>のデータを眺めてみます。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>stock_data_1_month <span class="ot">&lt;-</span> stock_data <span class="sc">%&gt;%</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(firm_ID <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(month_ID, Re, R)</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(stock_data_1_month) <span class="sc">+</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> month_ID, <span class="at">y =</span> Re) <span class="sc">+</span> <span class="co"># 軸の設定</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> mystyle <span class="co"># 折れ線グラフ</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Chap05_files/figure-html/ch05_26-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>このようなデータは時系列データと呼ばれ、ある個体(ここでは<code>firm_ID</code>が1の企業)の一定期間にわたって観測したデータのことを指します。</p>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+重要
+</div>
+</div>
+<div class="callout-body-container callout-body" title="仮定">
+<p>月次超過リターンの時系列データは、何らかの確率分布(モデル)から独立に生成されている。</p>
+</div>
+</div>
+<ol type="1">
+<li>株価そのものでは無く変化率であるリターンをモデル化する理由</li>
+</ol>
+<p>株価それ自体は株式分割などの要因でも変化するし、会社の成長に応じて上昇するため、その成長率をモデル化する方が、投資のリスクに対するリターンをより明確に評価することができるからである。</p>
+<ol start="2" type="1">
+<li>月次リターンではなく月次超過リターンをモデルかする理由</li>
+</ol>
+<p>投資リスクを取って得られる追加的なリターンであるリスクプレミアムを明確に評価するために、無リスク金利を差し引いた超過リターンをモデル化します。</p>
+<ol start="3" type="1">
+<li>月次超過リターンが独立であるとする理由</li>
+</ol>
+<p>半強度の効率的市場であれば、過去の情報はすでに株価に織り込まれているので、過去の超過リターンは将来の超過リターンと無関係である、とし、超過リターンに系列相関はない、と仮定します。 しかし、アノマリーの存在などにより、現実には系列相関があると考えられますが、モデルが複雑になるので、ここでは独立の仮定をおいて、モデルを単純化します。</p>
+<ol start="4" type="1">
+<li>月次超過リターンが正規分布に従うとする理由</li>
+</ol>
+<p>正規分布を仮定するといろいろ計算が楽になる、という理由とともに、 株価の動きは多くの独立した事象の結果であると考えられ、中心極限定理により、超過リターンは正規分布に従うと考えられます。</p>
+<p>これらの仮定を受け入れると、超過リターンの確率分布は次式で表されます。</p>
+<p><span class="math display">
+Re_t \sim N(\mu, \sigma^2)
+</span></p>
+<p>これにより、母集団分布に対して統計的推論が可能になります。 <code>firm 1</code>の超過リターンのヒストグラムを書いてみます。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(stock_data_1_month) <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x =</span> Re) <span class="sc">+</span> <span class="co"># データと変数</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span> <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>))<span class="sc">+</span> mystyle </span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Chap05_files/figure-html/ch05_27-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>サンプルサイズが小さいため凸凹しているけれど、もっとサンプルを増やせば、正規分布に近い形をとるはずです。</p>
+</section>
+<section id="推定量と推定値の違い" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="推定量と推定値の違い"><span class="header-section-number">8.2</span> 推定量と推定値の違い</h2>
+<p><strong>推定量</strong>(estimator)とは、母集団分布の母数(パラメータ)を推定するために使われる統計量のことです。 <strong>推定値</strong>(estimates)とは、推定量に実際のデータを代入して計算した値のことです。 たとえば母集団分布が正規分布<span class="math inline">N(\mu, \sigma^2)</span>に従うと仮定すると、母数は<span class="math inline">\mu</span>と<span class="math inline">\sigma^2</span>の2つです。この母数を推定するために使われる統計量が、それぞれ標本平均<span class="math inline">\bar x</span>と標本分散<span class="math inline">s^2</span>です。 このときの推定値とは、実際に観察された標本から計算された標本平均<span class="math inline">\bar x</span>と標本分散<span class="math inline">s^2</span>のことを指します。</p>
+<p>次の問題を考えます。</p>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+重要
+</div>
+</div>
+<div class="callout-body-container callout-body" title="問題">
+<p><code>firm_ID</code>が1の銘柄の月次リターン<span class="math inline">R_{i,t}^e</span>は、期待値の意味で、ゼロより大きいのだろうか？</p>
+</div>
+</div>
+<p>ここで「期待値の意味で」というのは平均的に、と言い換えても問題ないです。 企業1の月次超過リターンの平均は0より大きい、ということは、企業1の月次リターンは平均的に無リスク利子率よりも大きいかどうか、を比べるということです。</p>
+<p>この問題を解くために、まずは母集団分布の母数である期待値<span class="math inline">\mu</span>を推定する必要があります。 期待値<span class="math inline">\mu</span>を推定するために使われる推定量は標本平均<span class="math inline">\bar x</span>なので、ここで標本平均を計算します。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>stock_data_1_month <span class="sc">%&gt;%</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_Re =</span> <span class="fu">mean</span>(Re, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  mean_Re
+    &lt;dbl&gt;
+1  0.0291</code></pre>
+</div>
+</div>
+<p>企業1の平均月次超過リターン<code>mean_Re</code>が<span class="math inline">0.0291</span>となりました。 これだけみるとゼロより大きい値ですが、これは母集団から抽出された1つのサンプルの平均ですので、他のサンプルの平均がゼロを超えるかどうかは分かりません。</p>
+<section id="大数の法則" class="level3" data-number="8.2.1">
+<h3 data-number="8.2.1" class="anchored" data-anchor-id="大数の法則"><span class="header-section-number">8.2.1</span> 大数の法則</h3>
+<p>母集団から無限個の標本(sample)を抽出して、それぞれの標本平均(sample mean)を計算すると、その標本平均の平均は母集団の期待値<span class="math inline">\mu</span>に一致することが知られています。これを対数の法則(law of large number)といいます。</p>
+<p>数式よりも前にシミュレーションで確認してみましょう。 まずは、母集団分布を平均が10、標準偏差が2の正規分布<span class="math inline">N(10, 4)</span>として、母集団から100のデータを抽出して標本を1つ作ります。そしてその標本の平均を計算します。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>) <span class="co"># 乱数の種を固定</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>size <span class="ot">&lt;-</span> <span class="dv">100</span> <span class="co"># 標本サイズ</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 母集団のパラメータの設定</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="dv">10</span> <span class="co"># 平均</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="co"># 標準偏差</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>population <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(size, mu, sigma) <span class="co"># 母集団からサンプルを抽出</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(population) <span class="co"># 標本平均</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10.36162</code></pre>
+</div>
+</div>
+<p>平均は10.3616236となりました。 母集団の平均10とは異なる数値になっています。 もう一度別の標本でやってみると、</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>population <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(size, mu, sigma) <span class="co"># 母集団からサンプルを抽出</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(population) <span class="co"># 標本平均</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 9.569813</code></pre>
+</div>
+</div>
+<p>また違う平均が計算されました。 この作業を何度も何度も繰り返し、標本平均をたくさん計算します。 ここでは、100個のデータをもつ標本を100個作って、それぞれの標本平均を計算します。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>n_sample <span class="ot">&lt;-</span> <span class="dv">100</span> <span class="co"># サンプル数</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>sample_mean <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, n_sample) <span class="co"># 標本平均を格納するベクトル</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>sample_sd <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, n_sample) <span class="co"># 標本分散を格納するベクトル</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_sample){</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  population <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(size, mu, sigma) <span class="co"># 母集団からサンプルを抽出</span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>  sample_mean[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(population) <span class="co"># 標本平均を計算</span></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>  sample_sd[i] <span class="ot">&lt;-</span> <span class="fu">sd</span>(population)</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>サンプルの平均が100個計算できたので、ヒストグラムを書いてみます。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x =</span> sample_mean) <span class="sc">+</span> <span class="fu">geom_histogram</span>() <span class="sc">+</span> mystyle</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Chap05_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>あまり正規分布のようには見えません。 ではサンプルの平均の平均を計算してみます。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(sample_mean) <span class="co"># 標本平均の平均</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 9.99003</code></pre>
+</div>
+</div>
+<p>母集団の平均10に近い値になっていることが分かります。もっとサンプルの数を増やしてみます。 データの数が100のサンプルを1,000,000個(100万個)抽出して、それぞれのサンプルの平均値を計算します。</p>
+<div class="cell" data-hash="Chap05_cache/html/unnamed-chunk-10_20a78a2ce8bdaa96c12285b032a6fcee">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>n_sample <span class="ot">&lt;-</span> <span class="dv">10</span><span class="sc">^</span><span class="dv">6</span> <span class="co"># サンプル数</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>sample_mean <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, n_sample) <span class="co"># 標本平均を格納するベクトル</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>sample_sd <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, n_sample) <span class="co"># 標本分散を格納するベクトル</span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_sample){</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>  population <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(size, mu, sigma) <span class="co"># 母集団からサンプルを抽出</span></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>  sample_mean[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(population) <span class="co"># 標本平均を計算</span></span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>  sample_sd[i] <span class="ot">&lt;-</span> <span class="fu">sd</span>(population)</span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x =</span> sample_mean) <span class="sc">+</span> <span class="fu">geom_histogram</span>() <span class="sc">+</span> mystyle</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Chap05_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>ほぼ正規分布のような形をしていることが分かります。ではサンプルの平均の平均を計算してみます。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(sample_mean) <span class="co"># 標本平均の平均</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10.00063</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(sample_sd) <span class="co"># 標本分散の平均</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.990079</code></pre>
+</div>
+</div>
+<p>このように標本の数を無限に大きくしたとき、サンプルの平均の平均は母集団の平均10に一致するし，標本標準偏差は母集団の標準偏差4に一致する，というのが大数の法則です。</p>
+</section>
+</section>
+<section id="t値の計算" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="t値の計算"><span class="header-section-number">8.3</span> <span class="math inline">t</span>値の計算</h2>
+<p>先ほど計算した<code>firm_ID</code>が1の企業の超過リターンの平均値はNAでした。 これがゼロより大きいかどうかはすぐ分かりますが，この値はたまたま今手元にある1つのサンプルから計算された平均値なので，他の標本ではどうなるか分かりません。 このように推定量にばらつきがある場合には，その推定量の分布を考える必要があります。 ここでは，その分布を<strong>t分布</strong>(t distribution)と仮定して，<span class="math inline">t</span>値(t-value)を計算してみます。 <span class="math inline">t</span>値は次のように定義されます。</p>
+<p><span class="math display">
+t = \frac{\bar{X} - \mu_0}{\sqrt{s^2 / n} } \stackrel{d}{\approx} N(0,1)
+</span></p>
+<p>ここで，<span class="math inline">\bar X</span>は標本平均，<span class="math inline">\mu_0</span>は帰無仮説(null hypothesis)の値で，ここでは<span class="math inline">\mu_0 = 0</span>とします。<span class="math inline">s^2</span>は標本分散，<span class="math inline">n</span>は標本サイズです。 分子に注目すると，標本平均と帰無仮説の値の差となっており，もし標本平均が0に近いなら，<span class="math inline">t</span>値は0に近い値になります。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>Re_firm_ID_1 <span class="ot">&lt;-</span> stock_data <span class="sc">%&gt;%</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(firm_ID <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="co"># firm_IDが1の企業のデータを抽出</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Re) <span class="sc">%&gt;%</span> <span class="co">#超過リターンのみ選択</span></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> <span class="co"># 欠損値を除去</span></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unlist</span>() <span class="co"># データフレームをベクトルに変換</span></span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>mu0 <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co"># 帰無仮説の値</span></span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(Re_firm_ID_1) <span class="co"># 標本サイズ</span></span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a>t_value <span class="ot">&lt;-</span> (<span class="fu">mean</span>(Re_firm_ID_1) <span class="sc">-</span> mu0) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">var</span>(Re_firm_ID_1) <span class="sc">/</span> n) <span class="co"># $t$値の計算</span></span>
+<span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(t_value)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.121296</code></pre>
+</div>
+</div>
+<section id="統計的検定の考え方" class="level3" data-number="8.3.1">
+<h3 data-number="8.3.1" class="anchored" data-anchor-id="統計的検定の考え方"><span class="header-section-number">8.3.1</span> 統計的検定の考え方</h3>
+<p>あなたがサイコロを投げるゲームをしていて、あるプレイヤーが非常に幸運だと主張しています。彼は6回サイコロを投げて、5回も「6」が出たとします。これはただの偶然なのか、それとも何か他の要因（例えば、サイコロがいかさまであるとか）が関与しているのでしょうか？</p>
+<p>この問いに答えるために、我々は<strong>統計的検定</strong>(statistical test)を用いることができます。 まず<strong>帰無仮説</strong>(null hypothesis)を設定します。 この例では、帰無仮説は「サイコロは公正であり、すべての出目が等確率（<span class="math inline">1/6</span>）で出る」とすることが適切です。</p>
+<p>次に、この帰無仮説が真(true)である場合に、我々が観察した結果（5回の「6」）がどれほどあり得ないかを計算します。これが<span class="math inline">p</span>値(p value)です。この場合、6回投げて5回「6」が出る確率を計算します。</p>
+<p>これを計算すると、<span class="math inline">p</span>値は非常に小さいことが分かり（つまり、この結果は帰無仮説の下ではほぼあり得ない），帰無仮説が棄却されます。 帰無仮説が棄却されるとは，<strong>帰無仮説が正しいと仮定したときに，観測されたデータが得られる確率が小さいことを意味します</strong>。 したがって、我々はこの結果が偶然生じたとは考えにくく、その代わりにサイコロがいかさまである、または何か他の非ランダムな要因が作用している可能性を強く疑うことになります。これが<span class="math inline">p</span>値を用いて統計的検定の考え方です。</p>
+<p><span class="math inline">p</span>値が<span class="math inline">0.05</span>より小さい場合，帰無仮説は棄却され，対立仮説が採択される，というケースが多いです。 この場合，有意水準5%で帰無仮説は棄却されます。 有意水準は，帰無仮説が正しいと仮定したときに，観測されたデータが得られる確率が小さいと判断する基準値です。 有意水準は，5%や1%がよく使われます。</p>
+<p>Rでは，<code>t.test()</code>関数を使って，<span class="math inline">t</span>値と<span class="math inline">p</span>値を計算することができます。 ここでは，<code>t.test()</code>関数を使って，<code>firm_ID</code>が1の企業の超過リターンがゼロなのかどうなのか，を検定するために，<span class="math inline">t</span>値と<span class="math inline">p</span>値を計算してみましょう。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(Re_firm_ID_1)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    One Sample t-test
+
+data:  Re_firm_ID_1
+t = 2.1213, df = 70, p-value = 0.03744
+alternative hypothesis: true mean is not equal to 0
+95 percent confidence interval:
+ 0.001737894 0.056383256
+sample estimates:
+ mean of x 
+0.02906058 </code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="線形回帰入門" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> 線形回帰入門</h1>
+<p>年次財務データ<code>annual_data</code>を使って線形回帰(linear regression)について学習します。 線形(linear)とは，<span class="math inline">X</span>と<span class="math inline">\beta</span>の積が線形であることを意味します。回帰(regression)とは，<span class="math inline">X</span>と<span class="math inline">\beta</span>の積が<span class="math inline">Y</span>を説明することを意味します。 回帰は，2変数間の間で、一方の変数が他方の変数に対して影響を与えるという関係を想定できる場合に用いられます。 しかし因果関係を直接調べているのではないことに注意しましょう。</p>
+<p>影響を与える変数を説明変数(explanatory variable)や独立変数(independent variable)といい、 影響を与えられる変数を目的変数(response variable)や従属変数(dependent variable)といいます。 分野などでどっちを使うのかは異なりますが、ここでは説明変数と目的変数を使います。</p>
+<p>線形関係を仮定した関係を式にすると，次のようになります。 <span class="math display">
+Y = \alpha + \beta X
+</span> ここで， <span class="math inline">\alpha</span>は定数項(constant term)と呼ばれ，切片(intercept)とも呼ばれます。 <span class="math inline">\beta</span>は回帰係数(regression coefficient)と呼ばれ，傾き(slope)とも呼ばれます。</p>
+<p>実際のデータが上のモデルを満たす、つまりすべてのデータが直線上に並んでいるわけではないのです。 実際のデータとモデルとの間には<strong>ずれ</strong>があることを考慮して、上のモデルを次のように書き換えます。</p>
+<p><span class="math display">
+Y = \alpha + \beta X + u
+</span> ここで<span class="math inline">u</span>は誤差項(error term)とか観察不可能項(unobservable term)と呼ばれます。</p>
+<p>線形回帰の目的は，<span class="math inline">X</span>と<span class="math inline">Y</span>の関係を表す<span class="math inline">\alpha</span>と<span class="math inline">\beta</span>を推定することです。 推定するために，観測できるデータを使います。 観測できるデータは<span class="math inline">X</span>と<span class="math inline">Y</span>のペアで<span class="math inline">(X_i, Y_i)</span>と表記します。 このペアを<strong>観測値</strong>(observed value)と呼びます。 この観測値は，<span class="math inline">X</span>と<span class="math inline">Y</span>の関係を表す<span class="math inline">\alpha</span>と<span class="math inline">\beta</span>を推定するために使われます。 推定するために使われる<span class="math inline">\alpha</span>と<span class="math inline">\beta</span>を<strong>推定値</strong>(estimated value)と呼びます。 推定値は，<span class="math inline">\hat{\alpha}</span>と<span class="math inline">\hat{\beta}</span>と表記して，観察値と区別します。</p>
+<section id="ols推定" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="ols推定"><span class="header-section-number">9.1</span> OLS推定</h2>
+<p>推定方法として最も有名なものが<strong>最小二乗法</strong>(ordinary least squares; OLS)です。 最小二乗法では，観測値と推定値の差の二乗の和が最小になるように<span class="math inline">\alpha</span>と<span class="math inline">\beta</span>を推定します。 このとき，観測値と推定値の差を<strong>残差</strong>(residual)と呼びます。 最小二乗法では，残差の二乗の和である<strong>残差平方和</strong>(sum of squared residuals; SSR)が最小になるように<span class="math inline">\alpha</span>と<span class="math inline">\beta</span>を推定します。</p>
+<p><span class="math display">
+\min _{\alpha, \beta} \sum _{i=1}^n (Y_i - \alpha - \beta X_i)^2
+</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>lm_sample_data <span class="ot">&lt;-</span> annual_data <span class="sc">%&gt;%</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(firm_ID) <span class="sc">%&gt;%</span> <span class="co"># 企業IDごとに</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">lagged_BEME =</span> <span class="fu">lag</span>(BE) <span class="sc">/</span> <span class="fu">lag</span>(ME), <span class="co"># 期首簿価時価比率</span></span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>, firm_ID <span class="sc">&lt;=</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(firm_ID, year, annual_Re, lagged_BEME) <span class="sc">%&gt;%</span></span>
+<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="co"># 欠損値を除去</span></span>
+<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(lm_sample_data) <span class="sc">+</span></span>
+<span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> lagged_BEME, <span class="at">y =</span> annual_Re)) <span class="sc">+</span> <span class="co"># 散布図</span></span>
+<span id="cb55-13"><a href="#cb55-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"簿価時価比率"</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"超過リターン"</span>) <span class="sc">+</span> mystyle</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Chap05_files/figure-html/ch05_31-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>簿価時価比率と株式リターンの散布図に回帰直線を追加します。 回帰直線を追加するには、<code>geom_smooth()</code>を使います。 <code>geom_smooth()</code>の引数には、</p>
+<ul>
+<li><code>method = "lm"</code>: 線形回帰</li>
+<li><code>se = FALSE</code>: 標準誤差を表示しない</li>
+<li><code>color = "black"</code>: 線の色を黒にする</li>
+</ul>
+<p>を追加しています。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(lm_sample_data) <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x =</span> lagged_BEME, <span class="at">y =</span> annual_Re) <span class="co"># x軸とy軸を指定</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> g <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="co"># 散布図を追加</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> g <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="co"># 回帰直線を追加</span></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> g <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">"t期末時価簿価費率"</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"t+1期超過リターン"</span>) <span class="sc">+</span> mystyle</span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(g)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Chap05_files/figure-html/ch05_32-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ch05_33: lm()関数を用いた線形回帰</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>lm_results <span class="ot">&lt;-</span> <span class="fu">lm</span>(annual_Re <span class="sc">~</span> lagged_BEME, <span class="at">data =</span> lm_sample_data) <span class="co"># 従属変数 ~ 独立変数</span></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(lm_results)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "coefficients"  "residuals"     "effects"       "rank"         
+ [5] "fitted.values" "assign"        "qr"            "df.residual"  
+ [9] "xlevels"       "call"          "terms"         "model"        </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(lm_results<span class="sc">$</span>coefficients)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept) lagged_BEME 
+ 0.05513385  0.07552921 </code></pre>
+</div>
+</div>
+<p>これが目的変数を超過リターン、説明変数を時価簿価費率とする回帰モデルを最小二乗法で推定した結果である。 <code>term</code>は変数名、<code>estimate</code>が回帰係数、<code>std.error</code>が標準誤差、<code>statistic</code>が<span class="math inline">t</span>統計量、<code>p.value</code>が<span class="math inline">p</span>値である。 <code>term</code>の1つめの<code>(intercept)</code>は切片で、説明変数が<code>lagged_BEME</code>です。 ここでの統計的検定の帰無仮説は<span class="math inline">\beta = 0</span>、つまり<code>lagged_BEME</code>の<code>estimate</code>が<span class="math inline">0</span>である、というものです。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ch05_35: broomパッケージのtidy()関数で係数の推定値に関する結果を確認</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("broom")</span></span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(lm_results)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+  term        estimate std.error statistic p.value
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+1 (Intercept)   0.0551    0.156      0.354   0.736
+2 lagged_BEME   0.0755    0.0844     0.895   0.405</code></pre>
+</div>
+</div>
+<p><code>lagged_BEME</code>の回帰係数0.0755292は有意水準5%で統計的に有意ではなく、傾きがゼロかどうかは分からない、という結果となった。</p>
+<p><code>grance()</code>関数を使って、回帰分析の結果をまとめて表示することもできる。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(lm_results)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 12
+  r.squared adj.r.squared sigma statistic p.value    df logLik   AIC   BIC
+      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1     0.118       -0.0294 0.223     0.800   0.405     1   1.81  2.37  2.61
+# ℹ 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;</code></pre>
+</div>
+</div>
+<ul>
+<li><code>r.squared</code>は決定係数<span class="math inline">R^2</span></li>
+<li><code>adj.r.squared</code>は自由度調整済み決定係数<span class="math inline">\bar{R}^2</span></li>
+<li><code>sigma</code>は標準誤差</li>
+<li><code>statistic</code>は<span class="math inline">F</span>統計量</li>
+<li><code>p.value</code>は<span class="math inline">F</span>検定の<span class="math inline">p</span>値</li>
+<li><code>df</code>は自由度</li>
+<li><code>logLik</code>は対数尤度</li>
+<li><code>aic</code>は赤池情報量基準(AIC)</li>
+<li><code>bic</code>はベイズ情報量基準(BIC)</li>
+<li><code>deviance</code>は逸脱度</li>
+<li><code>df.residual</code>は残差の自由度</li>
+<li><code>nobs</code>は観測値の数</li>
+</ul>
+<p>となっています。回帰分析の結果でよく利用されるのは、決定係数<span class="math inline">R^2</span>です。 決定係数の数字が大きければ大きいほど、モデルの説明力が高いことを意味します。 しかし決定係数は検定統計量ではないため、どれだけ高いと良いのかは一概には言えません。</p>
+<p>そこで<span class="math inline">F</span>統計量を使います。 <span class="math inline">F</span>統計量は、帰無仮説が「説明変数の係数が全てゼロである」という仮説のもとで計算される統計量です。 この統計量が有意に正であれば、説明変数の少なくとも1つは有意にゼロではないということになり、モデルは有効であると判断できます。 ちなみにこのモデルでは<span class="math inline">F</span>統計量は有意ではなく、モデルが有効かどうかは分かりません。</p>
+</section>
+<section id="対数回帰モデル" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="対数回帰モデル"><span class="header-section-number">9.2</span> 対数回帰モデル</h2>
+<p>独立変数<span class="math inline">X</span>が変化したときの従属変数<span class="math inline">Y</span>への影響は一定(つまり傾きが一定)と仮定してきましたが、 実際には傾きが一定でない場合もあります。 回帰式が非線形であることが想定される場合、対処法として</p>
+<ul>
+<li>多項式回帰(polynomial regression) ：独立変数に<span class="math inline">X^2</span>とか<span class="math inline">X^3</span>を加える</li>
+<li><strong>対数回帰</strong>(logarithmic regression) ：独立変数や従属変数の対数をとる</li>
+</ul>
+<p>たとえば、独立変数を対数変換した場合は、次のようなモデルになります。</p>
+<p><span class="math display">
+Y_i = \beta_0 + \beta_1 \log (X_i) + \varepsilon_i
+</span></p>
+<p>このモデルを対数回帰モデルと呼びます。 Rで分析する場合は、<code>log()</code>関数を使って対数変換を行います。 ついでに<code>lm()</code>の結果を<code>tidy()</code>関数で整形します。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ch05_37: 線形・対数モデルによる推定</span></span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(<span class="fu">lm</span>(annual_Re <span class="sc">~</span> <span class="fu">log</span>(lagged_BEME), <span class="at">data =</span> lm_sample_data)) <span class="co"># 右辺のみlog()関数で自然対数を取る</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+  term             estimate std.error statistic p.value
+  &lt;chr&gt;               &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+1 (Intercept)        0.167     0.0868     1.93    0.102
+2 log(lagged_BEME)   0.0355    0.109      0.326   0.756</code></pre>
+</div>
+</div>
+<p><code>log(lagged_BEME)</code>の<code>p.value</code>の値が0.756となり、有意水準5%で帰無仮説を棄却できませんでした。 つまり、簿価時価比率の対数と株式リターンの間には統計的に関係があるかどうかについて、何も言えない、ということが分かりました。</p>
+<p>間違っても、<strong>帰無仮説を棄却できなかったので、簿価時価比率の対数と株式リターンの間には関係がない</strong>とは言っていはいけません。注意しましょう。</p>
+<section id="データの保存" class="level3" data-number="9.2.1">
+<h3 data-number="9.2.1" class="anchored" data-anchor-id="データの保存"><span class="header-section-number">9.2.1</span> データの保存</h3>
+<p>作成したデータフレームをcsvファイルとして保存するには，<code>write_csv()</code>関数を用います。 前処理が終わった後や新しい変数を作った後に、データを保存しておくと便利です。 6章以降では、以下のデータを継続して使うので、csvファイルとして保存しておきます。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ch05_38: データの保存</span></span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(monthly_data, <span class="st">"data/ch05_output1.csv"</span>)</span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(annual_data, <span class="st">"data/ch05_output2.csv"</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="練習問題" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="練習問題">練習問題</h2>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "コピーしました");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "コピーしました");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./Chap04.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">財務データの取得と可視化</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./summary.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Summary</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">実証会計・ファイナンスのノート</div>   
+    <div class="nav-footer-right">本書は <a href="https://quarto.org/">Quarto</a> で作成されました。</div>
+  </div>
+</footer>
+
+
+
+</body></html>
