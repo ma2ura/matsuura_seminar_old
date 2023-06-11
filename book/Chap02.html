@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.280">
+<meta name="generator" content="quarto-1.0.37">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -11,15 +11,10 @@
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
-ul.task-list li input[type="checkbox"] {
-  width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
-  vertical-align: middle;
-}
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -58,7 +53,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
+code span.bu { } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -71,7 +66,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.im { } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -106,11 +101,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
-  "location": "sidebar",
+  "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
-  "panel-placement": "start",
-  "type": "textbox",
+  "panel-placement": "end",
+  "type": "overlay",
   "limit": 20,
   "language": {
     "search-no-results-text": "一致なし",
@@ -144,10 +139,37 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </head>
 
-<body class="nav-sidebar floating">
+<body class="nav-sidebar floating nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">実証会計・ファイナンスのノート</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/"><i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-reader-toggle nav-link" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
       <h1 class="quarto-secondary-nav-title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">ファイナンス入門</span></h1>
@@ -158,25 +180,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
-    <div class="sidebar-title mb-0 py-0">
-      <a href="./">実証会計・ファイナンスのノート</a> 
-        <div class="sidebar-tools-main">
-  <a href="" class="quarto-reader-toggle sidebar-tool" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
-  <div class="quarto-reader-toggle-btn">
-  <i class="bi"></i>
-  </div>
-</a>
-</div>
-    </div>
-      </div>
       <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
         </div>
+        <div class="sidebar-tools-collapse">
+    <a href="https://so-ichi.com" title="" class="sidebar-tool px-1"><i class="bi bi-house"></i></a>
+    <a href="https://twitter.com/matsuura_rits" title="" class="sidebar-tool px-1"><i class="bi bi-twitter"></i></a>
+</div>
       </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
@@ -212,7 +226,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Summary</span></a>
+  <a href="./Chap06.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">ファクターモデルの導入</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Summary</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -225,40 +244,40 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
+        <nav id="TOC" role="doc-toc">
     <h2 id="toc-title">目次</h2>
    
   <ul>
-  <li><a href="#割引率" id="toc-割引率" class="nav-link active" data-scroll-target="#割引率"><span class="toc-section-number">2.1</span>  割引率</a>
+  <li><a href="#割引率" id="toc-割引率" class="nav-link active" data-scroll-target="#割引率"> <span class="header-section-number">2.1</span> 割引率</a>
   <ul class="collapse">
-  <li><a href="#確実なキャッシュフローに対する割引率" id="toc-確実なキャッシュフローに対する割引率" class="nav-link" data-scroll-target="#確実なキャッシュフローに対する割引率"><span class="toc-section-number">2.1.1</span>  確実なキャッシュ・フローに対する割引率</a></li>
-  <li><a href="#不確実なキャッシュフローに対する割引率" id="toc-不確実なキャッシュフローに対する割引率" class="nav-link" data-scroll-target="#不確実なキャッシュフローに対する割引率"><span class="toc-section-number">2.1.2</span>  不確実なキャッシュ・フローに対する割引率</a></li>
-  <li><a href="#npv法" id="toc-npv法" class="nav-link" data-scroll-target="#npv法"><span class="toc-section-number">2.1.3</span>  NPV法</a></li>
-  <li><a href="#配当割引モデル" id="toc-配当割引モデル" class="nav-link" data-scroll-target="#配当割引モデル"><span class="toc-section-number">2.1.4</span>  配当割引モデル</a></li>
-  <li><a href="#ゴードン成長モデル" id="toc-ゴードン成長モデル" class="nav-link" data-scroll-target="#ゴードン成長モデル"><span class="toc-section-number">2.1.5</span>  ゴードン成長モデル</a></li>
-  <li><a href="#割引率と期待リターンの関係" id="toc-割引率と期待リターンの関係" class="nav-link" data-scroll-target="#割引率と期待リターンの関係"><span class="toc-section-number">2.1.6</span>  割引率と期待リターンの関係</a></li>
+  <li><a href="#確実なキャッシュフローに対する割引率" id="toc-確実なキャッシュフローに対する割引率" class="nav-link" data-scroll-target="#確実なキャッシュフローに対する割引率"> <span class="header-section-number">2.1.1</span> 確実なキャッシュ・フローに対する割引率</a></li>
+  <li><a href="#不確実なキャッシュフローに対する割引率" id="toc-不確実なキャッシュフローに対する割引率" class="nav-link" data-scroll-target="#不確実なキャッシュフローに対する割引率"> <span class="header-section-number">2.1.2</span> 不確実なキャッシュ・フローに対する割引率</a></li>
+  <li><a href="#npv法" id="toc-npv法" class="nav-link" data-scroll-target="#npv法"> <span class="header-section-number">2.1.3</span> NPV法</a></li>
+  <li><a href="#配当割引モデル" id="toc-配当割引モデル" class="nav-link" data-scroll-target="#配当割引モデル"> <span class="header-section-number">2.1.4</span> 配当割引モデル</a></li>
+  <li><a href="#ゴードン成長モデル" id="toc-ゴードン成長モデル" class="nav-link" data-scroll-target="#ゴードン成長モデル"> <span class="header-section-number">2.1.5</span> ゴードン成長モデル</a></li>
+  <li><a href="#割引率と期待リターンの関係" id="toc-割引率と期待リターンの関係" class="nav-link" data-scroll-target="#割引率と期待リターンの関係"> <span class="header-section-number">2.1.6</span> 割引率と期待リターンの関係</a></li>
   </ul></li>
-  <li><a href="#平均分散アプローチ入門" id="toc-平均分散アプローチ入門" class="nav-link" data-scroll-target="#平均分散アプローチ入門"><span class="toc-section-number">2.2</span>  平均分散アプローチ入門</a>
+  <li><a href="#平均分散アプローチ入門" id="toc-平均分散アプローチ入門" class="nav-link" data-scroll-target="#平均分散アプローチ入門"> <span class="header-section-number">2.2</span> 平均分散アプローチ入門</a>
   <ul class="collapse">
-  <li><a href="#ポートフォリオのリスクとリターン" id="toc-ポートフォリオのリスクとリターン" class="nav-link" data-scroll-target="#ポートフォリオのリスクとリターン"><span class="toc-section-number">2.2.1</span>  ポートフォリオのリスクとリターン</a></li>
-  <li><a href="#分散投資のメリット" id="toc-分散投資のメリット" class="nav-link" data-scroll-target="#分散投資のメリット"><span class="toc-section-number">2.2.2</span>  分散投資のメリット</a></li>
-  <li><a href="#空売りの効果" id="toc-空売りの効果" class="nav-link" data-scroll-target="#空売りの効果"><span class="toc-section-number">2.2.3</span>  空売りの効果</a></li>
-  <li><a href="#安全資産の導入" id="toc-安全資産の導入" class="nav-link" data-scroll-target="#安全資産の導入"><span class="toc-section-number">2.2.4</span>  安全資産の導入</a></li>
-  <li><a href="#資産のポートフォリオ" id="toc-資産のポートフォリオ" class="nav-link" data-scroll-target="#資産のポートフォリオ"><span class="toc-section-number">2.2.5</span>  3資産のポートフォリオ</a></li>
+  <li><a href="#ポートフォリオのリスクとリターン" id="toc-ポートフォリオのリスクとリターン" class="nav-link" data-scroll-target="#ポートフォリオのリスクとリターン"> <span class="header-section-number">2.2.1</span> ポートフォリオのリスクとリターン</a></li>
+  <li><a href="#分散投資のメリット" id="toc-分散投資のメリット" class="nav-link" data-scroll-target="#分散投資のメリット"> <span class="header-section-number">2.2.2</span> 分散投資のメリット</a></li>
+  <li><a href="#空売りの効果" id="toc-空売りの効果" class="nav-link" data-scroll-target="#空売りの効果"> <span class="header-section-number">2.2.3</span> 空売りの効果</a></li>
+  <li><a href="#安全資産の導入" id="toc-安全資産の導入" class="nav-link" data-scroll-target="#安全資産の導入"> <span class="header-section-number">2.2.4</span> 安全資産の導入</a></li>
+  <li><a href="#資産のポートフォリオ" id="toc-資産のポートフォリオ" class="nav-link" data-scroll-target="#資産のポートフォリオ"> <span class="header-section-number">2.2.5</span> 3資産のポートフォリオ</a></li>
   </ul></li>
-  <li><a href="#最適ポートフォリオ問題" id="toc-最適ポートフォリオ問題" class="nav-link" data-scroll-target="#最適ポートフォリオ問題"><span class="toc-section-number">2.3</span>  最適ポートフォリオ問題</a>
+  <li><a href="#最適ポートフォリオ問題" id="toc-最適ポートフォリオ問題" class="nav-link" data-scroll-target="#最適ポートフォリオ問題"> <span class="header-section-number">2.3</span> 最適ポートフォリオ問題</a>
   <ul class="collapse">
-  <li><a href="#効率的フロンティア" id="toc-効率的フロンティア" class="nav-link" data-scroll-target="#効率的フロンティア"><span class="toc-section-number">2.3.1</span>  効率的フロンティア</a></li>
-  <li><a href="#投資家のリスク回避度と最適ポートフォリオ" id="toc-投資家のリスク回避度と最適ポートフォリオ" class="nav-link" data-scroll-target="#投資家のリスク回避度と最適ポートフォリオ"><span class="toc-section-number">2.3.2</span>  投資家のリスク回避度と最適ポートフォリオ</a></li>
-  <li><a href="#トービンの分離定理" id="toc-トービンの分離定理" class="nav-link" data-scroll-target="#トービンの分離定理"><span class="toc-section-number">2.3.3</span>  トービンの分離定理</a></li>
+  <li><a href="#効率的フロンティア" id="toc-効率的フロンティア" class="nav-link" data-scroll-target="#効率的フロンティア"> <span class="header-section-number">2.3.1</span> 効率的フロンティア</a></li>
+  <li><a href="#投資家のリスク回避度と最適ポートフォリオ" id="toc-投資家のリスク回避度と最適ポートフォリオ" class="nav-link" data-scroll-target="#投資家のリスク回避度と最適ポートフォリオ"> <span class="header-section-number">2.3.2</span> 投資家のリスク回避度と最適ポートフォリオ</a></li>
+  <li><a href="#トービンの分離定理" id="toc-トービンの分離定理" class="nav-link" data-scroll-target="#トービンの分離定理"> <span class="header-section-number">2.3.3</span> トービンの分離定理</a></li>
   </ul></li>
-  <li><a href="#capm" id="toc-capm" class="nav-link" data-scroll-target="#capm"><span class="toc-section-number">2.4</span>  CAPM</a>
+  <li><a href="#capm" id="toc-capm" class="nav-link" data-scroll-target="#capm"> <span class="header-section-number">2.4</span> CAPM</a>
   <ul class="collapse">
-  <li><a href="#仮定の確認" id="toc-仮定の確認" class="nav-link" data-scroll-target="#仮定の確認"><span class="toc-section-number">2.4.1</span>  仮定の確認</a></li>
-  <li><a href="#capmの第一命題" id="toc-capmの第一命題" class="nav-link" data-scroll-target="#capmの第一命題"><span class="toc-section-number">2.4.2</span>  CAPMの第一命題</a></li>
-  <li><a href="#capmの第二命題" id="toc-capmの第二命題" class="nav-link" data-scroll-target="#capmの第二命題"><span class="toc-section-number">2.4.3</span>  CAPMの第二命題</a></li>
-  <li><a href="#証券市場線" id="toc-証券市場線" class="nav-link" data-scroll-target="#証券市場線"><span class="toc-section-number">2.4.4</span>  証券市場線</a></li>
-  <li><a href="#n資産が投資可能な場合への拡張" id="toc-n資産が投資可能な場合への拡張" class="nav-link" data-scroll-target="#n資産が投資可能な場合への拡張"><span class="toc-section-number">2.4.5</span>  N資産が投資可能な場合への拡張</a></li>
+  <li><a href="#仮定の確認" id="toc-仮定の確認" class="nav-link" data-scroll-target="#仮定の確認"> <span class="header-section-number">2.4.1</span> 仮定の確認</a></li>
+  <li><a href="#capmの第一命題" id="toc-capmの第一命題" class="nav-link" data-scroll-target="#capmの第一命題"> <span class="header-section-number">2.4.2</span> CAPMの第一命題</a></li>
+  <li><a href="#capmの第二命題" id="toc-capmの第二命題" class="nav-link" data-scroll-target="#capmの第二命題"> <span class="header-section-number">2.4.3</span> CAPMの第二命題</a></li>
+  <li><a href="#証券市場線" id="toc-証券市場線" class="nav-link" data-scroll-target="#証券市場線"> <span class="header-section-number">2.4.4</span> 証券市場線</a></li>
+  <li><a href="#n資産が投資可能な場合への拡張" id="toc-n資産が投資可能な場合への拡張" class="nav-link" data-scroll-target="#n資産が投資可能な場合への拡張"> <span class="header-section-number">2.4.5</span> N資産が投資可能な場合への拡張</a></li>
   </ul></li>
   <li><a href="#練習問題" id="toc-練習問題" class="nav-link" data-scroll-target="#練習問題">練習問題</a></li>
   </ul>
@@ -277,7 +296,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="quarto-title-meta">
 
     
-  
     
   </div>
   
@@ -314,9 +332,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><strong>時間価値</strong> ：将来と現在の価値の違い</li>
 <li><strong>無リスク金利</strong> (risk-free rate) ：安全資産(無リスク資産)へと投資したときのリターンであり，安全資産への投資時点でリターンとして獲得できる額が確定します。 無リスク金利は<strong>確率変数ではなく定数</strong>(parameter)として扱います。</li>
 </ul>
-<p><span class="math inline">T</span>年後の<strong>確実な</strong>キャッシュフローを<span class="math inline">CF_T</span>で表し，無リスク割引率を無リスク金利<span class="math inline">R_F</span>とすると，その現在価値は以下のように計算されます。</p>
+<p><span class="math inline">T</span>年後の<strong>確実な</strong>キャッシュフローを<span class="math inline">CF_T</span>で表し，無リスク割引率を無リスク金利<span class="math inline">r_F</span>とすると，その現在価値は以下のように計算されます。</p>
 <p><span class="math display">
-PV = \frac{CF_T}{(1 + R_F)^T}
+PV = \frac{CF_T}{(1 + r_F)^T}
 </span></p>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
@@ -328,29 +346,29 @@ PV = \frac{CF_T}{(1 + R_F)^T}
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>現時点で<span class="math inline">CF_0</span>を1年間貯金する。利息<span class="math inline">r</span>は<span class="math inline">0.1</span>とします。 1年後に受け取れるキャッシュフロー<span class="math inline">CF_1</span>は、貯金した元本<span class="math inline">CF_0</span>と利息<span class="math inline">CF_0 \times 0.1</span>となります。 つまり、<span class="math inline">CF_0 + CF_0 \times 0.1 = (1+0.1)CF_0</span>です。</p>
-<p>逆に、来年<span class="math inline">CF_1</span>受け取るためには、今いくら貯金するかを考えてみましょう。 必要な貯金額を<span class="math inline">X</span>とすると、<span class="math inline">X \times (1 + 0.1) = CF_1</span>となる。つまり<span class="math inline">X = CF_1/ (1.1)</span>となります。 これが現在価値(present value)です。</p>
+<p>現時点で<span class="math inline">CF_0</span>を1年間貯金します。預金金利<span class="math inline">r</span>は10％(つまり<span class="math inline">r = 0.1</span>)とします。 1年後に受け取れるキャッシュ・フロー<span class="math inline">CF_1</span>は、貯金した元本<span class="math inline">CF_0</span>と利息<span class="math inline">CF_0 \times 0.1</span>となります。 つまり、<span class="math inline">CF_0 + CF_0 \times 0.1 = ( 1 + 0.1 ) CF_0</span>です。</p>
+<p>逆に、来年<span class="math inline">CF_1</span>受け取るためには、今いくら貯金するかを考えてみましょう。 来年<span class="math inline">CF_1</span>受け取るために今必要な貯金額を<span class="math inline">X</span>とすると、 <span class="math inline">X \times (1 + 0.1) = CF_1</span>となる。 つまり<span class="math inline">X = CF_1 / (1.1)</span>となります。 この<span class="math inline">X</span>が表している金額が，1年後に受け取る<span class="math inline">CF_1</span>の現在価値(present value)となります。</p>
 </div>
 </div>
-<p>将来の確実なキャッシュ・フロー<span class="math inline">CF_T</span>の現在価値は、無リスク割引率<span class="math inline">R_F</span>と将来受け取る時点である<span class="math inline">T</span>に依存して決まります。 <span class="math inline">CF_T = 100</span>の場合、<span class="math inline">R_F</span>と<span class="math inline">T</span>の変化に応じて現在価値がどのように変化するのか確認してみましょう。</p>
-<p><span class="math inline">T=1</span>として(時点を固定して)、横軸を無リスク割引率<span class="math inline">R_F</span>、縦軸を現在価値<span class="math inline">PV</span>としたグラフが以下のものです。 割引率が大きくなるにつれて現在価値が小さくなることが分かります。</p>
+<p>将来の確実なキャッシュ・フロー<span class="math inline">CF_T</span>の現在価値は、無リスク割引率<span class="math inline">r_F</span>と将来受け取る時点である<span class="math inline">T</span>に依存して決まります。 <span class="math inline">CF_T = 100</span>の場合、<span class="math inline">r_F</span>と<span class="math inline">T</span>の変化に応じて現在価値がどのように変化するのか確認してみましょう。</p>
+<p><span class="math inline">T=1</span>として(時点を固定して)、横軸を無リスク割引率<span class="math inline">r_F</span>、縦軸を現在価値<span class="math inline">PV</span>としたグラフが以下のものです。 割引率が大きくなるにつれて現在価値が小さくなることが分かります。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>T <span class="ot">=</span> <span class="dv">1</span> <span class="co"># 時点を1とする</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>R_F <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.01</span>, <span class="fu">seq</span>(<span class="fl">0.1</span>,<span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.01</span>)) <span class="co">#0.1から1の間を0.01刻みで変化</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>PV <span class="ot">&lt;-</span> <span class="dv">100</span><span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span>R_F)<span class="sc">^</span>T <span class="co"># 現在価値</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(R_F, PV) <span class="co"># データフレームの作成</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>r_F <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.01</span>, <span class="fu">seq</span>(<span class="fl">0.1</span>,<span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.01</span>)) <span class="co">#0.1から1の間を0.01刻みで変化</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>PV <span class="ot">&lt;-</span> <span class="dv">100</span><span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span>r_F)<span class="sc">^</span>T <span class="co"># 現在価値</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(r_F, PV) <span class="co"># データフレームの作成</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 作図</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df) <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x =</span> R_F, <span class="at">y =</span> PV) <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df) <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x =</span> r_F, <span class="at">y =</span> PV) <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"割引率"</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"現在価値"</span>) <span class="sc">+</span> mystyle</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Chap02_files/figure-html/pv_rf-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>次に、無リスク利子率<span class="math inline">R_F = 0.1</span>として、横軸を時点<span class="math inline">T</span>、縦軸を現在価値<span class="math inline">PV</span>としてグラフが以下のものです。 キャッシュ・フロー<span class="math inline">CF</span>を受け取る時点が遠くなるほど(<span class="math inline">T\rightarrow \infty</span>)、現在価値が小さくなる(<span class="math inline">PV \rightarrow 0</span>)ことがわかります。</p>
+<p>次に、無リスク利子率<span class="math inline">r_F = 0.1</span>として、横軸を時点<span class="math inline">T</span>、縦軸を現在価値<span class="math inline">PV</span>としてグラフが以下のものです。 キャッシュ・フロー<span class="math inline">CF</span>を受け取る時点が遠くなるほど(<span class="math inline">T\rightarrow \infty</span>)、現在価値が小さくなる(<span class="math inline">PV \rightarrow 0</span>)ことがわかります。</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>R_F <span class="ot">&lt;-</span> <span class="fl">0.1</span></span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>r_F <span class="ot">&lt;-</span> <span class="fl">0.1</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>T <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">10</span>, <span class="at">by =</span> <span class="fl">0.1</span>))</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>PV <span class="ot">&lt;-</span> <span class="dv">100</span><span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> R_F)<span class="sc">^</span>T</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>PV <span class="ot">&lt;-</span> <span class="dv">100</span><span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> r_F)<span class="sc">^</span>T</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(T, PV)</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df) <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x =</span> T, <span class="at">y =</span> PV) <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"T年後"</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"現在価値"</span>) <span class="sc">+</span> mystyle</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -372,14 +390,16 @@ PV = \frac{CF_T}{(1 + R_F)^T}
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>ここで、期待値をとる演算子(operator)を<span class="math inline">\mathbb{E}</span>で表し、期待値をとる時点を添え字で表す。ここでは現時点<span class="math inline">t=0</span>における期待値を<span class="math inline">\mathbb{E}_0</span>と表現している。 たとえば，現時点を<span class="math inline">t=0</span>として，1期先に起こりうる結果<span class="math inline">X</span>が<span class="math inline">100</span>か<span class="math inline">200</span>であることが分かっていて，それぞれの発生確率が50%であったとする。この将来に起こりうる結果を現時点での情報を基に期待値をとる，ということは， <span class="math display">
-\mathbb{E}[X] = 0.5 \times 100 + 0.5 \times 200 = 150
-</span> となる。このように起こりうる結果と発生確率を掛けて足したものを<strong>期待値</strong>という。</p>
-</div>
-</div>
-<p><strong>リスクプレミアム</strong>(risk premium)は割引率の調整で定量化されます。 つまり、リスクの高い投資に対しては無リスク利子率<span class="math inline">R_F</span>にリスクプレミアムを加えたリスク調整済みの割引率を用いることになります。</p>
+<p>ここで、期待値をとる演算子(operator)を<span class="math inline">\mathbb{E}</span>で表し、期待値をとる時点を添え字で表す。ここでは現時点<span class="math inline">t=0</span>における期待値を<span class="math inline">\mathbb{E}_0</span>と表現している。 たとえば，現時点を<span class="math inline">t=0</span>として，1期先に起こりうる結果<span class="math inline">X</span>が<span class="math inline">100</span>か<span class="math inline">200</span>であることが分かっていて，それぞれの発生確率が50%であったとする。この将来に起こりうる結果を現時点での情報を基に期待値をとる，ということは，</p>
 <p><span class="math display">
-PV_0 = \frac{\mathbb{E_0}[\tilde {CF}_1]}{1+R_F+\underbrace{(\tilde{R}-R_F)}_{\text{リスクプレミアム}}}=\frac{\mathbb{E_0}[\tilde {CF}_1]}{\underbrace{1+\tilde{R}}_{\text{リスク調整済み割引率}}}
+\mathbb{E}[X] = 0.5 \times 100 + 0.5 \times 200 = 150
+</span></p>
+<p>となる。このように起こりうる結果と発生確率を掛けて足したものを<strong>期待値</strong>という。</p>
+</div>
+</div>
+<p><strong>リスクプレミアム</strong>(risk premium)は割引率の調整で定量化されます。 つまり、リスクの高い投資に対しては無リスク利子率<span class="math inline">r_F</span>にリスクプレミアムを加えたリスク調整済みの割引率を用いることになります。</p>
+<p><span class="math display">
+PV_0 = \frac{\mathbb{E_0}[\widetilde {CF}_1]}{1+r_F+\underbrace{(\widetilde{r}-r_F)}_{\text{リスクプレミアム}}}=\frac{\mathbb{E_0}[\widetilde {CF}_1]}{\underbrace{1+\widetilde{r}}_{\text{リスク調整済み割引率}}}
 </span></p>
 <p>割引率は時間価値やリスクプレミアムに関する定量的な情報を含むので、タイミングやリスクの異なるキャッシュフローを現在価値という同一の尺度で評価できるようになります。</p>
 </section>
@@ -387,7 +407,7 @@ PV_0 = \frac{\mathbb{E_0}[\tilde {CF}_1]}{1+R_F+\underbrace{(\tilde{R}-R_F)}_{\t
 <h3 data-number="2.1.3" class="anchored" data-anchor-id="npv法"><span class="header-section-number">2.1.3</span> NPV法</h3>
 <p><strong>NPV法</strong>とは、割引現在価値(net present value: 以下NPV)を基準に投資の意思決定を行う考え方をいう。</p>
 <p>投資を目論む現時点を時点<span class="math inline">0</span>とする。 0時点におけるキャッシュ・フロー<span class="math inline">CF_0</span>は初期投資を意味します。 つまり企業の財布から現金が減るためマイナスとなります。</p>
-<p>向こうT年間にわたり毎年<span class="math inline">\mathbb{E}[\tilde{CF}_t],\quad t = 1,\dots ,T</span>の期待キャッシュフローが生み出されるならば、それらを割引率<span class="math inline">1 + \tilde{R}</span>で現在価値に直して足し合わせた値(つまりNPV)が、現時点で評価したプロジェクトの成果となります。</p>
+<p>向こうT年間にわたり毎年<span class="math inline">\mathbb{E}[\widetilde{CF}_t],\quad t = 1,\dots ,T</span>の期待キャッシュフローが生み出されるならば、それらを割引率<span class="math inline">1 + \widetilde{r}</span>で現在価値に直して足し合わせた値(つまりNPV)が、現時点で評価したプロジェクトの成果となります。</p>
 <p>NPVはそのプロジェクトから発生するすべてのキャッシュフローの現在価値として解釈できます。 コーポレートファイナンスでは，</p>
 <ul>
 <li>NPVがゼロ以上のプロジェクトは投資を実行</li>
@@ -417,38 +437,43 @@ PV_0 = \frac{\mathbb{E_0}[\tilde {CF}_1]}{1+R_F+\underbrace{(\tilde{R}-R_F)}_{\t
 <p>よって、<span class="math inline">NPV = -280 + 300 = 20 &gt;0</span></p>
 </div>
 </div>
-<p>一般的なNPV法は以下のようにかかれる。 <span class="math display">
+<p>一般的なNPV法は以下のようにかかれる。</p>
+<p><span class="math display">
 \begin{aligned}
-NPV_0 &amp;= \frac{CF_0}{(1+\tilde{R})^0}+\frac{\mathbb{E}[CF_1]}{(1+\tilde{R})^1}+\frac{\mathbb{E}[CF_2]}{(1+\tilde{R})^2}+ \cdots +\frac{\mathbb{E}[CF_T]}{(1+\tilde{R})^T}\\
+NPV_0 &amp;= \frac{CF_0}{(1+\widetilde{r})^0}+\frac{\mathbb{E}[CF_1]}{(1+\widetilde{r})^1}+\frac{\mathbb{E}[CF_2]}{(1+\widetilde{r})^2}+ \cdots +\frac{\mathbb{E}[CF_T]}{(1+\widetilde{r})^T}\\
 &amp;= \underbrace{CF_0}_{\tiny 初期投資額}+
-\underbrace{\sum_{t=1}^T\frac{\mathbb{E}[CF_t]}{(1+\tilde{R})^t}}_{\tiny 現時点で評価した成果}
+\underbrace{\sum_{t=1}^T\frac{\mathbb{E}[CF_t]}{(1+\widetilde{r})^t}}_{\tiny 現時点で評価した成果}
 \end{aligned}
 </span></p>
 </section>
 <section id="配当割引モデル" class="level3" data-number="2.1.4">
 <h3 data-number="2.1.4" class="anchored" data-anchor-id="配当割引モデル"><span class="header-section-number">2.1.4</span> 配当割引モデル</h3>
-<p>NPVの考え方を株式に適用する。株式から生み出される将来得られるキャッシュ・フローは、一株当たり配当(Dividend Per Share: DPS)であり、<span class="math inline">t</span>時点の一株当たり配当を<span class="math inline">D_t</span>で表す。 将来DPSは確率変数であるため期待値で考え、それを割引率<span class="math inline">\tilde{R}</span>で割り引くことで、一株当たりの株式価値を求める。</p>
+<p>NPVの考え方を株式に適用する。株式から生み出される将来得られるキャッシュ・フローは、一株当たり配当(Dividend Per Share: DPS)であり、<span class="math inline">t</span>時点の一株当たり配当を<span class="math inline">D_t</span>で表す。 将来DPSは確率変数であるため期待値で考え、それを割引率<span class="math inline">\widetilde{r}</span>で割り引くことで、一株当たりの株式価値を求める。</p>
 <p><span class="math display">
 \begin{aligned}
-P_0^* &amp;= \frac{\mathbb{E_0}[D_1]}{1 + \tilde R} + \frac{\mathbb{E_0}[D_2]}{(1 + \tilde R)^2} + \cdots + \frac{\mathbb{E_0}[D_{\infty}]}{(1 + \tilde R)^{\infty}} \\
-&amp;= \sum^{\infty}_{t=1}\frac{\mathbb{E_0}[D_t]}{(1+\tilde{R})^t}
+P_0^* &amp;= \frac{\mathbb{E_0}[\tilde D_1]}{1 + \widetilde r} + \frac{\mathbb{E_0}[\tilde D_2]}{(1 + \widetilde r)^2} + \cdots + \frac{\mathbb{E_0}[\tilde D_{\infty}]}{(1 + \widetilde r)^{\infty}} \\
+&amp;= \sum^{\infty}_{t=1}\frac{\mathbb{E_0}[\tilde D_t]}{(1+\widetilde{r})^t}
 \end{aligned}
 </span></p>
 </section>
 <section id="ゴードン成長モデル" class="level3" data-number="2.1.5">
 <h3 data-number="2.1.5" class="anchored" data-anchor-id="ゴードン成長モデル"><span class="header-section-number">2.1.5</span> ゴードン成長モデル</h3>
-<p>期待DPSが<strong>一定の割合で成長</strong>していくと仮定した割引配当モデルを<strong>ゴードン成長モデル</strong>という。 直近の実現したDPSを<span class="math inline">D_0</span>と置き、将来にわたってこの配当の期待値が一定割合<span class="math inline">G</span>%で成長していくと仮定する。つまり1時点先の配当額が<span class="math inline">(1 + G)D_0</span>となる、と仮定する。 すると、<span class="math inline">t</span>時点先の配当額<span class="math inline">\mathbb{E}[D_t]</span>は、 <span class="math display">
+<p>期待DPSが<strong>一定の割合で成長</strong>していくと仮定した割引配当モデルを<strong>ゴードン成長モデル</strong>という。 直近の実現したDPSを<span class="math inline">D_0</span>と置き、将来にわたってこの配当の期待値が一定割合<span class="math inline">G</span>%で成長していくと仮定する。つまり1時点先の配当額が<span class="math inline">(1 + G)D_0</span>となる、と仮定する。 すると、<span class="math inline">t</span>時点先の配当額<span class="math inline">\mathbb{E}[D_t]</span>は、</p>
+<p><span class="math display">
 \begin{aligned}
 \mathbb{E}[D_t] &amp;= D_0 \times \underbrace{(1+G) \times \cdots \times (1+G)}_{複利でt回}\\
 &amp;= (1+G)^tD_0
 \end{aligned}
-</span> で表すことができる。 一定割合で配当額が成長する株式の理論価値<span class="math inline">P_0</span>を配当割引モデルで計算すると， <span class="math display">
+</span></p>
+<p>で表すことができる。 一定割合で配当額が成長する株式の理論価値<span class="math inline">P_0</span>を配当割引モデルで計算すると，</p>
+<p><span class="math display">
 \begin{aligned}
-P_0 &amp;= \frac{(1+G) D_0}{(1+\tilde{R})} + \frac{(1+G)^2 D_0}{(1+\tilde{R})^3} + \frac{(1+G)^3 D_0}{(1+\tilde{R})^3} + \cdots \\
-    &amp;= \sum^{\infty}_{t=1}\frac{(1+G)^tD_0}{(1+\tilde{R})^t} \\
-    &amp;=\frac{(1+G)D_0}{\tilde{R}-G}
+P_0 &amp;= \frac{(1+G) D_0}{(1+\widetilde{r})} + \frac{(1+G)^2 D_0}{(1+\widetilde{r})^3} + \frac{(1+G)^3 D_0}{(1+\widetilde{r})^3} + \cdots \\
+    &amp;= \sum^{\infty}_{t=1}\frac{(1+G)^tD_0}{(1+\widetilde{r})^t} \\
+    &amp;=\frac{(1+G)D_0}{\widetilde{r}-G}
 \end{aligned}
-</span> 2本目の式から3本目の式への計算で、<strong>等比級数の和の公式</strong>を利用している。</p>
+</span></p>
+<p>2本目の式から3本目の式への計算で、<strong>等比級数の和の公式</strong>を利用している。</p>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -459,28 +484,38 @@ P_0 &amp;= \frac{(1+G) D_0}{(1+\tilde{R})} + \frac{(1+G)^2 D_0}{(1+\tilde{R})^3}
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>初項<span class="math inline">a</span>，公比<span class="math inline">r</span>の等比数列 <span class="math display">
+<p>初項<span class="math inline">a</span>，公比<span class="math inline">r</span>の等比数列</p>
+<p><span class="math display">
 a, ar, ar^2, ar^3, \dots , ar^{n-1},ar^n , \dots
-</span> がある。この等比数列の和を<span class="math inline">S_n</span>で表す。 <span class="math display">
+</span></p>
+<p>がある。この等比数列の和を<span class="math inline">S_n</span>で表す。</p>
+<p><span class="math display">
 S_n = a + ar + ar^2 + \cdots + ar^{n-1} + \cdots
-</span> 両辺に<span class="math inline">r</span>を乗じると， <span class="math display">
+</span></p>
+<p>両辺に<span class="math inline">r</span>を乗じると，</p>
+<p><span class="math display">
 rS_n =  ar + ar^2 + \cdots + ar^{n-1} + ar^{n} + \cdots
-</span> となる。そして，<span class="math inline">S_n - rS_n</span>を計算すると， <span class="math display">
+</span></p>
+<p>となる。そして，<span class="math inline">S_n - rS_n</span>を計算すると，</p>
+<p><span class="math display">
 \begin{aligned}
 S_n - r S_n &amp;= a\\
 (1-r)S_n &amp;= a\\
 S_n &amp;= \frac{a}{1-r}
 \end{aligned}
-</span> 上のゴードン成長モデルの初項は<span class="math inline">(1+G)D_0/(1+\tilde R)</span>，公比は<span class="math inline">(1 +G)/(1+\tilde R)</span>なので， <span class="math display">
+</span></p>
+<p>上のゴードン成長モデルの初項は<span class="math inline">(1+G)D_0/(1+\widetilde r)</span>，公比は<span class="math inline">(1 +G)/(1+\widetilde r)</span>なので，</p>
+<p><span class="math display">
 \begin{aligned}
 S_n
-%P_0^* &amp;= \frac{(1+G)D_0}{1+ \tilde R} + \frac{(1+G)^2 D_0}{(1+ \tilde R)^2} + \frac{(1+G)^3 D_0}{(1+ \tilde R)^3} + \cdots \\
-&amp;= \displaystyle  \frac{\frac{(1+G)D_0}{(1 + \tilde R)}}{1 - \frac{1+G}{1+\tilde R}}\\
-&amp;= \displaystyle  \frac{\frac{(1+G)}{(1 + \tilde R)}D_0}{\frac{(1+ \tilde R) - (1+G)}{1+\tilde R}}\\
-%&amp;= \displaystyle  \frac{\frac{(1+G)}{(1 + \tilde R)}D_0}{\frac{\tilde R - G}{1+\tilde R}}\\
-&amp;= \displaystyle  \frac{1+G}{\tilde R - G}D_0\\
+%P_0^* &amp;= \frac{(1+G)D_0}{1+ \widetilde r} + \frac{(1+G)^2 D_0}{(1+ \widetilde r)^2} + \frac{(1+G)^3 D_0}{(1+ \widetilde r)^3} + \cdots \\
+&amp;= \displaystyle  \frac{\frac{(1+G)D_0}{(1 + \widetilde r)}}{1 - \frac{1+G}{1+\widetilde r}}\\
+&amp;= \displaystyle  \frac{\frac{(1+G)}{(1 + \widetilde r)}D_0}{\frac{(1+ \widetilde r) - (1+G)}{1+\widetilde r}}\\
+%&amp;= \displaystyle  \frac{\frac{(1+G)}{(1 + \widetilde r)}D_0}{\frac{\widetilde r - G}{1+\widetilde r}}\\
+&amp;= \displaystyle  \frac{1+G}{\widetilde r - G}D_0\\
 \end{aligned}
-</span> ただし，<span class="math inline">\tilde{R} \not = G</span>の場合のみである。</p>
+</span></p>
+<p>ただし，<span class="math inline">\widetilde{r} \not = G</span>の場合のみである。</p>
 </div>
 </div>
 </section>
@@ -498,11 +533,15 @@ S_n
 </div>
 <div class="callout-body-container callout-body">
 <p>1年後の期待DPSが100万円で配当支払後に即解散する予定(=DPSがゼロ)の企業の理論株価を考える。 たとえば，確率50%で配当が200となるが，確率50％で配当が0となる株式を考えてみる。期待配当は，<span class="math inline">0.5 \times 200 + 0.5 \times 0 = 100</span>となる。</p>
-<p>リスク調整済みの割引率<span class="math inline">r = 0.25</span>であるときの現在価値は<span class="math inline">100/(1 + 0.25)</span>で理論株価は80万円となる。 この株式を購入するか検討している投資家にとって、「現時点でこの株式を購入し、1年後に配当を受け取ることは一種の投資プロジェクト」とみなせる。 この投資プロジェクトに対して必要な投資額は現時点の株価<span class="math inline">P_0</span>であり、現時点で評価した成果は配当として受け取り予定の将来キャッシュフローの現在価値<span class="math inline">P^*_0</span>である。 よって、 <span class="math display">
+<p>リスク調整済みの割引率<span class="math inline">r = 0.25</span>であるときの現在価値は<span class="math inline">100/(1 + 0.25)</span>で理論株価は80万円となる。 この株式を購入するか検討している投資家にとって、「現時点でこの株式を購入し、1年後に配当を受け取ることは一種の投資プロジェクト」とみなせる。 この投資プロジェクトに対して必要な投資額は現時点の株価<span class="math inline">P_0</span>であり、現時点で評価した成果は配当として受け取り予定の将来キャッシュフローの現在価値<span class="math inline">P^*_0</span>である。 よって、</p>
+<p><span class="math display">
 NPV = -P_0 + P_0^*
-</span> したがって、市場価値が理論株価以下である限り、NPVが非負となるためこの株式を購入することが経済合理的である。 <span class="math display">
+</span></p>
+<p>したがって、市場価値が理論株価以下である限り、NPVが非負となるためこの株式を購入することが経済合理的である。</p>
+<p><span class="math display">
 NPV  \geq 0 \Leftrightarrow P_0 \leq P^*_0 =80
-</span> つまり株式を80未満の価格で購入できれば、NPVがプラスとなる。</p>
+</span></p>
+<p>つまり株式を80未満の価格で購入できれば、NPVがプラスとなる。</p>
 </div>
 </div>
 </section>
@@ -515,22 +554,29 @@ NPV  \geq 0 \Leftrightarrow P_0 \leq P^*_0 =80
 <p>いま、銘柄Aと銘柄Bの2銘柄のみが投資対象である場合を考える。 それぞれの銘柄への投資割合を<span class="math inline">w_A</span>と<span class="math inline">w_B</span>とし、<span class="math inline">w_A + w_B = 1</span>とする。</p>
 <ul>
 <li>元本 <span class="math inline">X</span></li>
-<li>投資銘柄Aのリターン <span class="math inline">1 + R_A</span></li>
-<li>投資銘柄Bのリターン <span class="math inline">1 + R_B</span></li>
+<li>投資銘柄Aのリターン <span class="math inline">1 + r_A</span></li>
+<li>投資銘柄Bのリターン <span class="math inline">1 + r_B</span></li>
 </ul>
-<p>元本<span class="math inline">X</span>のうち<span class="math inline">w_A</span>分だけ銘柄Aに投資すると、1年後に期待値で<span class="math inline">\mathbb{E}[X \times w_A \times (1+R_A)]</span>になる。銘柄Bについても同様に考えると、手元にある元本を全額銘柄AとBに振り分けると、 <span class="math display">
+<p>元本<span class="math inline">X</span>のうち<span class="math inline">w_A</span>分だけ銘柄Aに投資すると、1年後に期待値で<span class="math inline">\mathbb{E}[X \times w_A \times (1+r_A)]</span>になる。銘柄Bについても同様に考えると、手元にある元本を全額銘柄AとBに振り分けると、</p>
+<p><span class="math display">
 \begin{aligned}
-(1+R_A) w_A X + ( 1 + R_B) w_B X
-&amp;= w_AX + w_AR_AX + w_BX + w_B R_B X\\
-&amp;= \left [\underbrace{(w_A+w_B)}_{\text{定義より} = 1}+(w_AR_A+w_BR_B) \right ]X\\&amp;=(1+w_AR_A+w_BR_B)X
+(1 + r_A) w_A X + ( 1 + r_B) w_B X
+&amp; = w_A X + w_A r_A X + w_B X + w_B r_B X\\
+&amp; = \left [\underbrace{(w_A + w_B)}_{\text{定義より} = 1}+(w_A r_A + w_B r_B) \right ]X\\
+&amp; = (1 + w_A r_A + w_B r_B) X
 \end{aligned}
-</span> となる。元本を2銘柄に投資すると、1年後に<span class="math inline">(1+w_AR_A+w_BR_B)X</span>となる。 1年後の価値と初期投資額の比としてこのポートフォリオのリターン<span class="math inline">R_P</span>を計算する。 <span class="math display">
+</span></p>
+<p>となる。元本を2銘柄に投資すると、1年後に<span class="math inline">(1+w_Ar_A+w_Br_B)X</span>となる。 1年後の価値と初期投資額の比としてこのポートフォリオのリターン<span class="math inline">r_P</span>を計算する。</p>
+<p><span class="math display">
 \begin{aligned}
-\frac{\overbrace{(1+R_A)w_AX+(1+R_B)w_BX}^{将来時点の評価額}}{\underbrace{X}_{初期投資}} &amp; = 1 + w_A R_A + w_B R_B
+\frac{\overbrace{(1 + r_A) w_A X + (1 + r_B)w_B X}^{将来時点の評価額}}{\underbrace{X}_{初期投資}} &amp; = 1 + w_A r_A + w_B r_B
 \end{aligned}
-</span> ここで、<span class="math inline">w_AR_A + w_B R_B = R_P</span>とおくと、 <span class="math display">
-\text{ポートフォリオのリターン} = 1 + R_P
-</span> となる。 元本を除いたポートフォリオのリターン<span class="math inline">R_P</span>は、構成銘柄のリターンを保有比率で加重平均した値となる。</p>
+</span></p>
+<p>ここで、<span class="math inline">w_A r_A + w_B r_B = r_P</span>とおくと、</p>
+<p><span class="math display">
+\text{ポートフォリオのリターン} = 1 + r_P
+</span></p>
+<p>となる。 元本を除いたポートフォリオのリターン<span class="math inline">r_P</span>は、構成銘柄のリターンを保有比率で加重平均した値となる。</p>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -541,37 +587,40 @@ NPV  \geq 0 \Leftrightarrow P_0 \leq P^*_0 =80
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>リターンの定義<span class="math inline">(P_t - P_{t-1})/P_{t-1} = P_t/P_{t-1} -1</span>は<strong>ネット・リターン</strong>(net return)と呼ばれるものである。 これにたいして，元本も含めたリターン<span class="math inline">1 + R_t = P_t/P_{t-1}</span>は<strong>グロス・リターン</strong>(gross return)という。</p>
+<p>リターンの定義<span class="math inline">(P_t - P_{t-1})/P_{t-1} = P_t/P_{t-1} -1</span>は<strong>ネット・リターン</strong>(net return)と呼ばれるものである。ここでは小文字の<span class="math inline">r</span>で表す。 これにたいして，元本も含めたリターン<span class="math inline">1 + R_t = P_t/P_{t-1}</span>は<strong>グロス・リターン</strong>(gross return)という。ここでは大文字の<span class="math inline">R</span>で表す。</p>
 </div>
 </div>
 <p><strong>ポートフォリオ構築時には、各銘柄の実現リターンはわからない</strong>ので(つまり確率変数)、かわりに期待値や分散を評価する。</p>
 <p>銘柄Aと銘柄Bのネット・リターンの</p>
 <ul>
-<li>期待値<span class="math inline">\mathbb{E}[R_A]</span>と<span class="math inline">\mathbb{E}[R_B]</span>をそれぞれ<span class="math inline">(\mu_A,\mu_B)</span></li>
-<li>分散<span class="math inline">\mathbb{V}[R_A]</span>と<span class="math inline">\mathbb{V}[R_B]</span>をそれぞれ<span class="math inline">(\sigma^2_A,\sigma^2_B)</span></li>
-<li>共分散<span class="math inline">\mathbb{Cov}[R_A, R_B]</span>を<span class="math inline">\sigma_{AB}</span></li>
+<li>期待値<span class="math inline">\mathbb{E}[r_A]</span>と<span class="math inline">\mathbb{E}[r_B]</span>をそれぞれ<span class="math inline">(\mu_A,\mu_B)</span></li>
+<li>分散<span class="math inline">\mathbb{V}[r_A]</span>と<span class="math inline">\mathbb{V}[r_B]</span>をそれぞれ<span class="math inline">(\sigma^2_A,\sigma^2_B)</span></li>
+<li>共分散<span class="math inline">\mathbb{Cov}[r_A, r_B]</span>を<span class="math inline">\sigma_{AB}</span></li>
 </ul>
 <p>で表す。</p>
-<p>リターン<span class="math inline">R_A</span>と<span class="math inline">R_B</span>の相関係数を<span class="math inline">\rho</span>と表記する。相関係数の定義から、 <span class="math display">
+<p>リターン<span class="math inline">r_A</span>と<span class="math inline">r_B</span>の相関係数を<span class="math inline">\rho</span>と表記する。相関係数の定義から、</p>
+<p><span class="math display">
 \begin{aligned}
 \rho
-%&amp;= \frac{\mathbb{E}[(R_A - \bar R_A)(R_B - \bar R_B)]}{\mathbb{E}[(R_A - \bar R_A)^2]}
+%&amp;= \frac{\mathbb{E}[(r_A - \bar r_A)(r_B - \bar r_B)]}{\mathbb{E}[(r_A - \bar r_A)^2]}
 &amp;= \frac{\sigma _{AB}}{\sigma _A \sigma _B} \\
 \Leftrightarrow \sigma_{AB} &amp; = \rho\sigma_A\sigma_B
 \end{aligned}
-</span> が成立する。</p>
-<p>上の式より、<span class="math inline">R_P = w_A R_A + w_B R_B</span>であるから、その期待値<span class="math inline">\mathbb{E}[R_P] = \mu_P</span>も各銘柄の期待リターンの加重平均となる。ここで投資割合<span class="math inline">w_A</span>と<span class="math inline">w_B</span>はパラメータであり，<span class="math inline">R_A, R_B</span>は確率変数である。 <span class="math display">
+</span></p>
+<p>が成立する。</p>
+<p>上の式より、<span class="math inline">r_P = w_A r_A + w_B r_B</span>であるから、その期待値<span class="math inline">\mathbb{E}[r_P] = \mu_P</span>も各銘柄の期待リターンの加重平均となる。ここで投資割合<span class="math inline">w_A</span>と<span class="math inline">w_B</span>はパラメータであり，<span class="math inline">r_A, r_B</span>は確率変数である。</p>
+<p><span class="math display">
 \begin{aligned}
-\mathbb{E}[R_p] = \mu_P &amp;= \mathbb{E}[w_A R_A + w_B R_B]\\
-&amp;= w_A \mathbb{E}[R_A] + w_B \mathbb{E}[R_B]\\
+\mathbb{E}[R_p] = \mu_P &amp;= \mathbb{E}[w_A r_A + w_B r_B]\\
+&amp;= w_A \mathbb{E}[r_A] + w_B \mathbb{E}[r_B]\\
 &amp;=w_A\mu_A+w_B\mu_B
 \end{aligned}
 </span></p>
-<p>ポートフォリオPの分散<span class="math inline">\mathbb{V}[R_P] = \sigma^2_P</span>は各銘柄の分散及び相関係数を用いて計算できる。</p>
+<p>ポートフォリオPの分散<span class="math inline">\mathbb{V}[r_P] = \sigma^2_P</span>は各銘柄の分散及び相関係数を用いて計算できる。</p>
 <p><span class="math display">
 \begin{aligned}
-\mathbb{V}[R_P] = \sigma_P^2 &amp;= \mathbb{V}[w_A R_A + w_B R_B]\\
-&amp;= w_A^2 \mathbb{V}[R_A] + w_b^2 \mathbb{V}[R_B] + 2 w_A w_B \mathbb{Cov}[R_A,R_B]\\
+\mathbb{V}[r_P] = \sigma_P^2 &amp;= \mathbb{V}[w_A r_A + w_B r_B]\\
+&amp;= w_A^2 \mathbb{V}[r_A] + w_b^2 \mathbb{V}[r_B] + 2 w_A w_B \mathbb{Cov}[r_A,r_B]\\
 &amp;= w_A^2 \sigma_A^2 + w_B^2 \sigma_B^2 + 2w_A w_B \sigma _{AB}\\
 &amp;= w^2_A \sigma^2_A + w^2_B \sigma^2_B +
 \underbrace{2 w_A w_B \rho \sigma_A \sigma_B}_{ここの\rho の符号が重要}
@@ -584,24 +633,31 @@ NPV  \geq 0 \Leftrightarrow P_0 \leq P^*_0 =80
 <p>保有比率<span class="math inline">(w_A,w_B)</span>を変化させたときのポートフォリオの<span class="math inline">\mu_P</span>と<span class="math inline">\sigma_P</span>がそのように変化するかを確認する。</p>
 <p><span class="math display">
 \begin{aligned}
-\mathbb{V}[R_P] = \sigma_P^2 &amp;= w^2_A \sigma^2_A + w^2_B \sigma^2_B + 2\rho{w_Aw_B\sigma_A\sigma_B}\\
+\mathbb{V}[r_P] = \sigma_P^2 &amp;= w^2_A \sigma^2_A + w^2_B \sigma^2_B + 2\rho{w_Aw_B\sigma_A\sigma_B}\\
 &amp;= (w_A \sigma_A + w_B \sigma_B)^2 - 2w_A  w_B \sigma _A \sigma_B + 2\rho{w_Aw_B\sigma_A\sigma_B}\\
 &amp;= (w_A \sigma_A + w_B \sigma_B)^2 - (2 + 2\rho ) w_A w_B\sigma_A\sigma_B\\
 &amp;=(w_{A} \sigma_{A} + w_{B}\sigma_{B})^{2} - \underbrace{2(1-\rho )w_{A}w_{B} \sigma_{A}\sigma_{B}}_{ここ重要}
 \end{aligned}
-</span> <span class="math inline">0 \leq w_{A} \leq 1</span>かつ <span class="math inline">0 \leq w_{B} \leq 1</span>のとき、 <span class="math display">
+</span></p>
+<p><span class="math inline">0 \leq w_{A} \leq 1</span>かつ <span class="math inline">0 \leq w_{B} \leq 1</span>のとき、</p>
+<p><span class="math display">
 2 ( 1- \rho ) w_A w_b \sigma _A \sigma _B \geq 0
-</span> となる(<span class="math inline">\rho = 1</span>のときのみ<span class="math inline">0</span>となる)。 したがって、 <span class="math display">
+</span></p>
+<p>となる(<span class="math inline">\rho = 1</span>のときのみ<span class="math inline">0</span>となる)。 したがって、</p>
+<p><span class="math display">
 \begin{aligned}
 \sigma_P^2 = (w_{A}\sigma_{A}+w_{B}\sigma_{B})^{2} - \underbrace{2(1-\rho )w_{A}w_{B} \sigma_{A}\sigma_{B}}_{\geq 0}
 \end{aligned}
-</span> から、 <span class="math display">
+</span></p>
+<p>から、</p>
+<p><span class="math display">
 \begin{aligned}
 &amp; \sigma _P^2 \leq (w_A \sigma _A + w_B \sigma _B)^2 \\
 \Longleftrightarrow &amp; \sigma_{P}  \leq
 \underbrace{w_{A}\sigma_{A}+w_{B}\sigma_{B}}_{リスクの加重平均}
 \end{aligned}
-</span> となり，ポートフォリオのリスクを表す標準偏差<span class="math inline">\sigma_P</span>が銘柄AとBの標準偏差の加重平均<span class="math inline">w_{A}\sigma_{A} + w_{B} \sigma_{B}</span>より少なくとも低くなることがわかる。 これを<strong>分散投資効果</strong>という。</p>
+</span></p>
+<p>となり，ポートフォリオのリスクを表す標準偏差<span class="math inline">\sigma_P</span>が銘柄AとBの標準偏差の加重平均<span class="math inline">w_{A}\sigma_{A} + w_{B} \sigma_{B}</span>より少なくとも低くなることがわかる。 これを<strong>分散投資効果</strong>という。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># text p.65</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 設定</span></span>
@@ -636,9 +692,10 @@ NPV  \geq 0 \Leftrightarrow P_0 \leq P^*_0 =80
 <p><img src="Chap02_files/figure-html/diversified_investment-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>完全な負の相関<span class="math inline">(\rho=-1)</span>であるの場合、<span class="math inline">\sigma^{2}_{P}=0</span>のポートフォリオを構築できる。 確認のため、2銘柄の価格が完全な負の相関<span class="math inline">\rho = -1</span>をもつとき、ポートフォリオPのリスク<span class="math inline">\sigma_P</span>は <span class="math display">
+<p>完全な負の相関<span class="math inline">(\rho=-1)</span>であるの場合、<span class="math inline">\sigma^{2}_{P}=0</span>のポートフォリオを構築できる。 確認のため、2銘柄の価格が完全な負の相関<span class="math inline">\rho = -1</span>をもつとき、ポートフォリオPのリスク<span class="math inline">\sigma_P</span>は</p>
+<p><span class="math display">
 \begin{aligned}
-\mathbb{V}[R_P] = \sigma ^2_P &amp;=(w_{A}\sigma_{A}+w_{B}\sigma_{B})^{2}-2(1- (-1))w_{A}w_{B} \sigma_{A}\sigma_{B}\\
+\mathbb{V}[r_P] = \sigma ^2_P &amp;=(w_{A}\sigma_{A}+w_{B}\sigma_{B})^{2}-2(1- (-1))w_{A}w_{B} \sigma_{A}\sigma_{B}\\
 &amp;= (w_{A}\sigma_{A}+w_{B}\sigma_{B})^{2} -4w_{A}w_{B} \sigma_{A}\sigma_{B}\\
 &amp;= w_A ^2 \sigma _A^2 + w_B^2\sigma _B^2 + 2w_A w_B \sigma_A \sigma_B -4w_{A}w_{B} \sigma_{A}\sigma_{B}\\
 &amp;= w_A ^2 \sigma _A^2 - 2w_{A}w_{B} \sigma_{A}\sigma_{B} + w_B^2\sigma _B^2 \\
@@ -679,7 +736,8 @@ NPV  \geq 0 \Leftrightarrow P_0 \leq P^*_0 =80
 <p><img src="Chap02_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>このケースでは、<span class="math inline">\sigma_A = 0.2</span>、<span class="math inline">\sigma_B = 0.3</span>となっているため、<span class="math inline">0.2w_A = 0.3w_B</span>となる保有割合を考える。 <span class="math display">
+<p>このケースでは、<span class="math inline">\sigma_A = 0.2</span>、<span class="math inline">\sigma_B = 0.3</span>となっているため、<span class="math inline">0.2w_A = 0.3w_B</span>となる保有割合を考える。</p>
+<p><span class="math display">
 \begin{aligned}
 0.2 w_A &amp;= 0.3w_B\\
 0.2 w_A &amp;= 0.3(1-w_A)\\
@@ -687,7 +745,8 @@ NPV  \geq 0 \Leftrightarrow P_0 \leq P^*_0 =80
 0.5 w_A &amp;= 0.3\\
 w_A &amp;= 0.6
 \end{aligned}
-</span> となるため、銘柄Aに60％、銘柄Bに40%を投資することで、リスクゼロで期待リターン<span class="math inline">0.6\times0.1 + 0.4 \times 0.2 = 0.14</span>を獲得することができる。</p>
+</span></p>
+<p>となるため、銘柄Aに60％、銘柄Bに40%を投資することで、リスクゼロで期待リターン<span class="math inline">0.6\times0.1 + 0.4 \times 0.2 = 0.14</span>を獲得することができる。</p>
 </section>
 <section id="空売りの効果" class="level3" data-number="2.2.3">
 <h3 data-number="2.2.3" class="anchored" data-anchor-id="空売りの効果"><span class="header-section-number">2.2.3</span> 空売りの効果</h3>
@@ -730,27 +789,30 @@ w_A &amp;= 0.6
 <section id="安全資産の導入" class="level3" data-number="2.2.4">
 <h3 data-number="2.2.4" class="anchored" data-anchor-id="安全資産の導入"><span class="header-section-number">2.2.4</span> 安全資産の導入</h3>
 <p><strong>安全資産の購入</strong>についても考える。</p>
-<p>安全資産Fのリターンを<span class="math inline">R_F</span>、 ポートフォリオPの保有比率を<span class="math inline">w_F</span>とおく（安全資産のリターンは確実に実現する成果なので，確率変数を表すチルダをつけてない）。 以降は，確率変数にはなるべくチルダをつける。銘柄Aと銘柄Bと安全資産の投資割合をそれぞれ<span class="math inline">w_A, w_B, w_F</span>で表す。</p>
-<p>まず銘柄Aと安全資産の2資産からなるポートフォリオを考える。 つまり各資産への投資割合を<span class="math inline">w_A + w_F = 1,\quad w_B = 0</span> とする場合を考える。 この安全資産と銘柄AからなるポートフォリオPの(ネット)リターン<span class="math inline">\tilde R_P</span>は， <span class="math display">
-\tilde R_{P} = w_{F} R_{F} + w_{A} \tilde R_{A}
-</span> となり，このポートフォリオの期待値は， <span class="math display">
+<p>安全資産Fのリターンを<span class="math inline">r_F</span>、 ポートフォリオPの保有比率を<span class="math inline">w_F</span>とおく（安全資産のリターンは確実に実現する成果なので，確率変数を表すチルダをつけてない）。 以降は，確率変数にはなるべくチルダをつける。銘柄Aと銘柄Bと安全資産の投資割合をそれぞれ<span class="math inline">w_A, w_B, w_F</span>で表す。</p>
+<p>まず銘柄Aと安全資産の2資産からなるポートフォリオを考える。 つまり各資産への投資割合を<span class="math inline">w_A + w_F = 1,\quad w_B = 0</span> とする場合を考える。 この安全資産と銘柄AからなるポートフォリオPの(ネット)リターン<span class="math inline">\widetilde r_P</span>は，</p>
+<p><span class="math display">
+\widetilde r_{P} = w_{F} R_{F} + w_{A} \widetilde r_{A}
+</span></p>
+<p>となり，このポートフォリオの期待値は，</p>
+<p><span class="math display">
 \begin{aligned}
-\mu_{P} =\mathbb{E}[R_P] &amp;=\mathbb{E}[ w_F R_{F} + w_{A} \tilde{R_A} ]\\
-&amp;=w_F R_{F}+w_{A} \mathbb{E}[\tilde{R_A}]\\
+\mu_{P} =\mathbb{E}[r_P] &amp;=\mathbb{E}[ w_F R_{F} + w_{A} \widetilde{r_A} ]\\
+&amp;=w_F R_{F}+w_{A} \mathbb{E}[\widetilde{r_A}]\\
 &amp;=w_F R_{F}+w_{A} \mu_{A}\\
 &amp;=(1-w_A) R_{F}+w_{A} \mu_{A}\\
-&amp;=R_{F} - w_{A}R_F + w_A\mu_A\\
-&amp;=R_{F} + w_A(\underbrace{\mu_A - R_F}_{\tiny リスクプレミアム})
+&amp;=R_{F} - w_{A}r_F + w_A\mu_A\\
+&amp;=R_{F} + w_A(\underbrace{\mu_A - r_F}_{\tiny リスクプレミアム})
 \end{aligned}
 </span></p>
-<p>となる。もちろん安全資産のリターンは確率変数でないので，期待値をとってもそのままである。 <span class="math inline">\mu_{A}-R_{F}</span> はリスク資産である銘柄Aの<strong>リスクプレミアム</strong>を表している。通常，リスクのある資産の期待リターンは安全資産のリターンより大きいため，リスクプレミアムは正の値となる。したがって，リスク資産への投資割合<span class="math inline">w_A</span>を1単位増加させれば，<span class="math inline">\mathbb{E}[R_P]</span>はリスクプレミアム分増加する</p>
+<p>となる。もちろん安全資産のリターンは確率変数でないので，期待値をとってもそのままである。 <span class="math inline">\mu_{A}-R_{F}</span> はリスク資産である銘柄Aの<strong>リスクプレミアム</strong>を表している。通常，リスクのある資産の期待リターンは安全資産のリターンより大きいため，リスクプレミアムは正の値となる。したがって，リスク資産への投資割合<span class="math inline">w_A</span>を1単位増加させれば，<span class="math inline">\mathbb{E}[r_P]</span>はリスクプレミアム分増加する</p>
 <p>つぎに，ポートフォリオのリスクを表す標準偏差<span class="math inline">\sigma _P</span>とリターンの関係は次式で表せる。まず安全資産のリスクはゼロであるため，リスク資産の銘柄Ａを保有する分だけリスクが生じる。</p>
 <p>つぎに，ポートフォリオのリスクを表す標準偏差<span class="math inline">\sigma _P</span>とリターンの関係は次式で表せる。まず安全資産のリスクはゼロであるため，リスク資産の銘柄Ａを保有する分だけリスクが生じる。</p>
 <p><span class="math display">
 \begin{aligned}
-\sigma_P^2 = \mathbb{V}[R_P]  &amp;= \mathbb{V}[w_FR_F + w_A R_A]\\
-&amp;= \mathbb{V}[w_A R_A]\\
-&amp;= w_A^2 \mathbb{V}[R_A]\\
+\sigma_P^2 = \mathbb{V}[r_P]  &amp;= \mathbb{V}[w_Fr_F + w_A r_A]\\
+&amp;= \mathbb{V}[w_A r_A]\\
+&amp;= w_A^2 \mathbb{V}[r_A]\\
 &amp;= w_A^2 \sigma _A^2 \\
 \sigma _P &amp; = |w_A| \sigma_A
 \end{aligned}
@@ -765,14 +827,14 @@ w_A = \frac{\sigma_P}{\sigma _A}
 <p>のように，リスク資産である銘柄Aへの投資割合<span class="math inline">w_A</span>が，ポートフォリオPとリスク資産Aのリスクの割合で決定されることがわかる。これを，ポートフォリオの期待リターン<span class="math inline">\mu_P</span>に代入すると，</p>
 <p><span class="math display">
 \begin{aligned}
-\mu_{P} &amp;= R_F + w_A(\mu_A - R_F)\\
-&amp; = R_F + \frac{\sigma_P}{\sigma _A}(\mu_A - R_F) \\
+\mu_{P} &amp;= r_F + w_A(\mu_A - r_F)\\
+&amp; = r_F + \frac{\sigma_P}{\sigma _A}(\mu_A - r_F) \\
 &amp;= R_{F}+\frac{\mu_{A}-R_{F}}{\sigma_{A}}\sigma_{P}
 \end{aligned}
 </span></p>
-<p>となり，期待リターン<span class="math inline">\mu_P</span>は，切片が<span class="math inline">R_F</span>，傾きが<span class="math inline">(\mu_A - R_F)/\sigma_A</span>とする<span class="math inline">\sigma_P</span>の線形関数となる。</p>
+<p>となり，期待リターン<span class="math inline">\mu_P</span>は，切片が<span class="math inline">r_F</span>，傾きが<span class="math inline">(\mu_A - r_F)/\sigma_A</span>とする<span class="math inline">\sigma_P</span>の線形関数となる。</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>R_F <span class="ot">=</span> <span class="fl">0.01</span></span>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>r_F <span class="ot">=</span> <span class="fl">0.01</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>mu_A <span class="ot">&lt;-</span> <span class="fl">0.1</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>sigma_A <span class="ot">&lt;-</span> <span class="fl">0.2</span></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>mu_B <span class="ot">&lt;-</span> <span class="fl">0.2</span></span>
@@ -782,7 +844,7 @@ w_A = \frac{\sigma_P}{\sigma _A}
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>wb <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> wa</span>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">mu_p =</span> R_F <span class="sc">+</span> wa<span class="sc">*</span>(mu_A <span class="sc">-</span> R_F),</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">mu_p =</span> r_F <span class="sc">+</span> wa<span class="sc">*</span>(mu_A <span class="sc">-</span> r_F),</span>
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">sigma_p =</span> <span class="fu">abs</span>(wa)<span class="sc">*</span>sigma_A,</span>
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">label=</span> <span class="fu">c</span>(</span>
 <span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rep</span>(<span class="st">""</span>,<span class="dv">100</span>),</span>
@@ -808,24 +870,27 @@ w_A = \frac{\sigma_P}{\sigma _A}
 <section id="資産のポートフォリオ" class="level3" data-number="2.2.5">
 <h3 data-number="2.2.5" class="anchored" data-anchor-id="資産のポートフォリオ"><span class="header-section-number">2.2.5</span> 3資産のポートフォリオ</h3>
 <p>リスク資産AとB，安全資産Fの3資産に投資するポートフォリオを考える。 ここで，<span class="math inline">w_A + w_B &gt; 0</span>を仮定し，少なくとも少しはリスク資産を保有するケースを考える。 当然だけれど，<span class="math inline">w_A = w_B =0</span>のケースでは，安全資産のみを保有するケースとなり，リスクも無く，リターンも確定している。</p>
-<p>3資産A,B,Fへの投資割合をそれぞれ<span class="math inline">w_A</span>，<span class="math inline">w_B</span>,<span class="math inline">w_F</span>とすると， 3資産からなるポートフォリオの期待リターンは次のように計算できる。 <span class="math display">
+<p>3資産A,B,Fへの投資割合をそれぞれ<span class="math inline">w_A</span>，<span class="math inline">w_B</span>,<span class="math inline">w_F</span>とすると， 3資産からなるポートフォリオの期待リターンは次のように計算できる。</p>
+<p><span class="math display">
 \begin{aligned}
-\mathbb{E}[R_{P}] &amp;= w_FR_F + w_A \mathbb{E} [\tilde R_A] + w_B \mathbb{E}[ \tilde R_B] \\
+\mathbb{E}[R_{P}] &amp;= w_Fr_F + w_A \mathbb{E} [\widetilde r_A] + w_B \mathbb{E}[ \widetilde r_B] \\
 &amp; =
-w_{F} R_{F} + (w_{A} + w_{B}) \left(\frac{w_{A}}{w_{A}+w_{B}} \mathbb{E} [\tilde R_{A}] + \frac{w_{B}}{w_{A}+w_{B}} \mathbb{E}[ \tilde R_{B} ]\right)
+w_{F} R_{F} + (w_{A} + w_{B}) \left(\frac{w_{A}}{w_{A}+w_{B}} \mathbb{E} [\widetilde r_{A}] + \frac{w_{B}}{w_{A}+w_{B}} \mathbb{E}[ \widetilde r_{B} ]\right)
 \end{aligned}
-</span> 安全資産への投資割合<span class="math inline">w_F</span>とリスク資産への投資割合<span class="math inline">w_C = w_A + w_B</span>とまとめて，式を変形させる。 安全資産への投資以外の資金で構築したリスク資産AとBからなるポートフォリオを<span class="math inline">P_C</span>を考えると，<span class="math inline">P_C</span>の期待リターン<span class="math inline">R_C</span>は次のように計算できる。 <span class="math display">
+</span></p>
+<p>安全資産への投資割合<span class="math inline">w_F</span>とリスク資産への投資割合<span class="math inline">w_C = w_A + w_B</span>とまとめて，式を変形させる。 安全資産への投資以外の資金で構築したリスク資産AとBからなるポートフォリオを<span class="math inline">P_C</span>を考えると，<span class="math inline">P_C</span>の期待リターン<span class="math inline">R_C</span>は次のように計算できる。</p>
+<p><span class="math display">
 \begin{aligned}
-R_{C} &amp;= \frac{w_{A}}{w_{A}+w_{B}} \mathbb{E}[\tilde R_{A}] + \frac{w_{B}}{w_{A}+w_{B}}\mathbb{E}[ \tilde R_{B}]\\
+R_{C} &amp;= \frac{w_{A}}{w_{A}+w_{B}} \mathbb{E}[\widetilde r_{A}] + \frac{w_{B}}{w_{A}+w_{B}}\mathbb{E}[ \widetilde r_{B}]\\
 \end{aligned}
 </span></p>
 <p>安全資産FとポートフォリオCを保有した場合の期待リターンは次式となる。</p>
 <p><span class="math display">
 \begin{aligned}
-\mu_{P} &amp; = \mathbb{E}[w_F R_F + w_A R_A + w_B R_B]\\
-&amp;= w_FR_F + w_A \mathbb{E}[R_A] + w_B \mathbb{E}[R_B]\\
-&amp;= w_FR_F + (w_A + w_B) \underbrace{ \left( \frac{w_A}{w_A + w_B} \mathbb{E}[R_A] + \frac{w_B}{w_A + w_B} \mathbb{E}[R_B] \right )}_{=w_C\text{とおく}}\\
-&amp;= w_F R_F + w_{C}\mu_C
+\mu_{P} &amp; = \mathbb{E}[w_F r_F + w_A r_A + w_B r_B]\\
+&amp;= w_Fr_F + w_A \mathbb{E}[r_A] + w_B \mathbb{E}[r_B]\\
+&amp;= w_Fr_F + (w_A + w_B) \underbrace{ \left( \frac{w_A}{w_A + w_B} \mathbb{E}[r_A] + \frac{w_B}{w_A + w_B} \mathbb{E}[r_B] \right )}_{=w_C\text{とおく}}\\
+&amp;= w_F r_F + w_{C}\mu_C
 \end{aligned}
 </span></p>
 <p>安全資産と2つのリスク資産からなるポートフォリオの期待リターンは，安全資産の期待リターンとリスク資産の期待リターンの和となる。</p>
@@ -881,7 +946,7 @@ R_{C} &amp;= \frac{w_{A}}{w_{A}+w_{B}} \mathbb{E}[\tilde R_{A}] + \frac{w_{B}}{w
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>mu_b    <span class="ot">&lt;-</span> <span class="fl">0.2</span> <span class="co"># 株式Bの期待収益率</span></span>
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>sigma_b <span class="ot">&lt;-</span> <span class="fl">0.3</span> <span class="co"># 株式Bの分散</span></span>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>rho     <span class="ot">&lt;-</span> <span class="fl">0.2</span> <span class="co"># 相関係数</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>R_F     <span class="ot">&lt;-</span> <span class="fl">0.01</span> <span class="co"># 無リスク利子率</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>r_F     <span class="ot">&lt;-</span> <span class="fl">0.01</span> <span class="co"># 無リスク利子率</span></span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>mu_p    <span class="ot">&lt;-</span>  w <span class="sc">*</span> mu_a <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">-</span> w) <span class="sc">*</span> mu_b <span class="co"># ポートフォリオの期待リターン</span></span>
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>sigma_p <span class="ot">&lt;-</span> <span class="fu">sqrt</span>((w <span class="sc">*</span> sigma_a <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">-</span> w) <span class="sc">*</span> sigma_b)<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span> <span class="dv">2</span><span class="sc">*</span>(<span class="dv">1</span> <span class="sc">-</span> rho)<span class="sc">*</span>w<span class="sc">*</span>(<span class="dv">1</span> <span class="sc">-</span> w)<span class="sc">*</span>sigma_a<span class="sc">*</span>sigma_b) <span class="co"># ポートフォリオの分散</span></span>
@@ -899,7 +964,7 @@ R_{C} &amp;= \frac{w_{A}}{w_{A}+w_{B}} \mathbb{E}[\tilde R_{A}] + \frac{w_{B}}{w
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>wb <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> wa</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">mu_p =</span> R_F <span class="sc">+</span> wa<span class="sc">*</span>(mu_A <span class="sc">-</span> R_F),</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">mu_p =</span> r_F <span class="sc">+</span> wa<span class="sc">*</span>(mu_A <span class="sc">-</span> r_F),</span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">sigma_p =</span> <span class="fu">abs</span>(wa) <span class="sc">*</span> sigma_A</span>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df) <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">y =</span> sigma_p, <span class="at">x =</span> mu_p) <span class="sc">+</span> <span class="fu">geom_line</span>()  <span class="sc">+</span> <span class="fu">coord_flip</span>()</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -932,7 +997,7 @@ R_{C} &amp;= \frac{w_{A}}{w_{A}+w_{B}} \mathbb{E}[\tilde R_{A}] + \frac{w_{B}}{w
 </div>
 </div>
 <p>この立体図を等高線を使って表現したものが以下の図である。 青いラインは予算制約であり、予算の範囲内で購入可能な財の組み合わせを意味している。つまり、この予算制約と無差別曲線が接する点が、予算内で達成可能な最も高い効用水準を表している。</p>
-<p>無リスク利子率が10%で，リスクプレミアムが5％，βが1.2の場合の期待リターンは，<span class="math inline">R_F + \beta \times (R_M - R_F) = 0.1 + 1.2 \times 0.05 = 0.16</span>となる。このときの無差別曲線は，<span class="math inline">U = 0.16</span>となるような点を結んだ曲線となる。</p>
+<p>無リスク利子率が10%で，リスクプレミアムが5％，βが1.2の場合の期待リターンは，<span class="math inline">r_F + \beta \times (R_M - r_F) = 0.1 + 1.2 \times 0.05 = 0.16</span>となる。このときの無差別曲線は，<span class="math inline">U = 0.16</span>となるような点を結んだ曲線となる。</p>
 <div class="cell" data-fig.aligned="center">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">contour</span>(x, y, U, <span class="at">method =</span> <span class="st">"edge"</span>, <span class="at">labcex =</span> <span class="dv">1</span>,<span class="at">lwd =</span> <span class="dv">2</span>)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">100</span><span class="sc">/</span><span class="dv">6</span>, <span class="at">b =</span> <span class="sc">-</span><span class="dv">4</span><span class="sc">/</span><span class="dv">6</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">"blue"</span>) <span class="co">#予算制約線</span></span>
@@ -1074,9 +1139,9 @@ CAPMの第一命題
 <p>市場ポートフォリオは接点ポートフォリオと一致し、効率的フロンティア(資本市場線)上に位置する。</p>
 </div>
 </div>
-<p>投資家は市場ポートフォリオに投資するとき、<span class="math inline">\sigma_M</span>のリスクを背負う見返りとして<span class="math inline">R_F</span>に加えて<span class="math inline">\mu_M-R_F</span>だけ追加的な報酬を期待する。 この追加的な報酬を<strong>市場リスクプレミアム</strong>(market risk premium)という。したがってこの命題の下では、資本市場線を市場リスクプレミアム<span class="math inline">(\mu_M-R_F</span>)を利用して、以下のように表せる。</p>
+<p>投資家は市場ポートフォリオに投資するとき、<span class="math inline">\sigma_M</span>のリスクを背負う見返りとして<span class="math inline">r_F</span>に加えて<span class="math inline">\mu_M-r_F</span>だけ追加的な報酬を期待する。 この追加的な報酬を<strong>市場リスクプレミアム</strong>(market risk premium)という。したがってこの命題の下では、資本市場線を市場リスクプレミアム<span class="math inline">(\mu_M-r_F</span>)を利用して、以下のように表せる。</p>
 <p><span class="math display">
-\mu_P = R_F + \frac{\mu_M - R_F}{\sigma_M} \sigma_P
+\mu_P = r_F + \frac{\mu_M - r_F}{\sigma_M} \sigma_P
 </span></p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -1089,19 +1154,20 @@ CAPMの第一命題
 <li><strong>パッシブ運用：</strong>幅広い銘柄に分散投資し、市場平均と同じようなパフォーマンスを目指す運用手法</li>
 <li><strong>アクティブ運用：</strong>市場平均を上回るパフォーマンスを目指し、投資銘柄を絞ったり、投資比率を工夫したりする運用方法</li>
 </ul>
-<p>任意のポートフォリオの収益性を測る指標として、<strong>シャープ・レシオ</strong>が提唱されている。シャープ・レシオは追加的なリスク・テイクによってどれだけリスクプレミアムを改善できるのかを表す指標。CAPMの第一命題によると、市場ポートフォリオはシャープ・レシオを最大化するという意味で最も効率的なポートフォリオであり、資本市場線の傾き<span class="math inline">\frac{\mu_M - R_P}{\sigma_M}</span>は市場ポートフォリオのシャープ・レシオと一致する。</p>
+<p>任意のポートフォリオの収益性を測る指標として、<strong>シャープ・レシオ</strong>が提唱されている。シャープ・レシオは追加的なリスク・テイクによってどれだけリスクプレミアムを改善できるのかを表す指標。CAPMの第一命題によると、市場ポートフォリオはシャープ・レシオを最大化するという意味で最も効率的なポートフォリオであり、資本市場線の傾き<span class="math inline">\frac{\mu_M - r_P}{\sigma_M}</span>は市場ポートフォリオのシャープ・レシオと一致する。</p>
 <p><span class="math display">
-\frac{\mu_P-R_F}{\sigma_P}
+\frac{\mu_P-r_F}{\sigma_P}
 </span></p>
 </section>
 <section id="capmの第二命題" class="level3" data-number="2.4.3">
 <h3 data-number="2.4.3" class="anchored" data-anchor-id="capmの第二命題"><span class="header-section-number">2.4.3</span> CAPMの第二命題</h3>
 <p>第二命題は個々の資産のリスクとリターンのトレードオフを数式で表現したもの。 ある証券に投資するときのリスクと、その証券に投資するときの期待リターンとの関係を知ることができるようになる。各投資家が証券<span class="math inline">i</span>を追加的に保有する際、重要となるのは市場ポートフォリオとの相関。分散が大きい資産であっても、市場ポートフォリオと負に相関していれば、その資産を追加的に保有することでポートフォリオ全体のリスクは低減される。CAPMの第二命題は、この相関を以下の<strong>マーケット・ベータ</strong>として定量化する。 ※<span class="math inline">R_i</span>は証券<span class="math inline">i</span>のリターン、<span class="math inline">R_M</span>は市場ポートフォリオのリターン</p>
-<p>この<span class="math inline">\beta_i</span>は市場ポートフォリオのリスクを1としてベンチマーク化し、その証券のリスクがベンチマークの1を上回るか下回るかを測るもの。<span class="math inline">\beta_i</span>が大きいほど証券<span class="math inline">i</span>は投資家にとってリスクが大きいことを意味する。証券iのリスクはその証券のリターンの標準偏差ではなく、この<span class="math inline">\beta_i</span>によって測られる。 <span class="math display">
+<p>この<span class="math inline">\beta_i</span>は市場ポートフォリオのリスクを1としてベンチマーク化し、その証券のリスクがベンチマークの1を上回るか下回るかを測るもの。<span class="math inline">\beta_i</span>が大きいほど証券<span class="math inline">i</span>は投資家にとってリスクが大きいことを意味する。証券iのリスクはその証券のリターンの標準偏差ではなく、この<span class="math inline">\beta_i</span>によって測られる。</p>
+<p><span class="math display">
 \beta_i = \frac{\mathbb{Cov}[R_i, R_M]}{\mathbb{Var}[R_M]}
 </span></p>
 <p>金融市場全体が均衡しているには，リスクの高い証券はその分だけ期待リターンも高くなければならない。 <span class="math inline">\beta_i</span>が低いにもかかわらず期待リターンが高い証券があるなら、投資家は市場ポートフォリオから離れてその証券をさらに買い増しするインセンティブを持つ。 その結果、市場価格が上がり、期待リターンが下がるため、<span class="math inline">\beta_i</span>に応じた期待リターンが均衡で実現される。 CAPMの第二命題はこの均衡におけるリスクとリターンのトレードオフの関係を記述した式である。</p>
-<p>これまでは市場リスクプレミアムを<span class="math inline">\mu_M - R_F</span>と表記していたが、以後ではより一般的な<span class="math inline">\mathbb{E}[R_M] - R_F</span>と表記する。</p>
+<p>これまでは市場リスクプレミアムを<span class="math inline">\mu_M - r_F</span>と表記していたが、以後ではより一般的な<span class="math inline">\mathbb{E}[R_M] - r_F</span>と表記する。</p>
 <div class="callout-important callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1112,19 +1178,19 @@ CAPMの第二命題
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>各証券のリスクプレミアムは、その証券のマーケット・ベータに比例する。 この式は、証券<span class="math inline">i</span>のリスクプレミアム<span class="math inline">\mathbb{E}[R_i]-R_F</span>を、<span class="math inline">\beta_i</span>と市場リスクプレミアム<span class="math inline">\mathbb{E}[R_M]-R_F</span>に分解している。</p>
+<p>各証券のリスクプレミアムは、その証券のマーケット・ベータに比例する。 この式は、証券<span class="math inline">i</span>のリスクプレミアム<span class="math inline">\mathbb{E}[R_i]-r_F</span>を、<span class="math inline">\beta_i</span>と市場リスクプレミアム<span class="math inline">\mathbb{E}[R_M]-r_F</span>に分解している。</p>
 </div>
 </div>
-<p>第二項の<span class="math inline">\mathbb{E}[R_M]-R_F</span>は個々の証券には依存しない定数である。</p>
+<p>第二項の<span class="math inline">\mathbb{E}[R_M]-r_F</span>は個々の証券には依存しない定数である。</p>
 <p><span class="math display">
 \begin{aligned}
-\mathbb{E}[R_i]-R_F = \beta_i (\mathbb{E}[R_M] - R_F)\\
+\mathbb{E}[R_i]-r_F = \beta_i (\mathbb{E}[R_M] - r_F)\\
 \text{ただし、 } \beta = \frac{Cov[R_i,R_M]}{Var[R_M]}
 \end{aligned}
 </span></p>
 <p>通常、市場リスクプレミアムは正の値をとるので、CAPMの第二命題によると、個々の証券のリスクプレミアムは<span class="math inline">\beta_i</span>に関して線形に増加する。 <span class="math inline">\beta_i</span>はあくまで市場ポートフォリオとの相関でリスクを定量化しているのがポイント。 いくら個々の証券のリスクが大きくても、それが市場ポートフォリオと相関しない固有リスクであれば、リスクプレミアムには反映されない。 期待値をとる前の<span class="math inline">R_i</span>を分解して確認する。</p>
 <p><span class="math display">
-R_i = R_F + \beta_i (R_M - R_F) + \varepsilon_i
+R_i = r_F + \beta_i (R_M - r_F) + \varepsilon_i
 </span></p>
 <p>ここで<span class="math inline">\varepsilon_i</span>は期待値ゼロで<span class="math inline">R_M</span>と相関しない誤差項である。</p>
 <p><span class="math display">
@@ -1137,7 +1203,7 @@ Var[R_i] &amp;= \mathbb{Var}[\beta_i R_M + \varepsilon_i]\\
 &amp; = \underbrace{\beta_i^2 \mathbb{Var}[R_M]}_{\tiny 市場ポートフォリオとの相関による寄与分} + \underbrace{\mathbb{Var}[\varepsilon_i]}_{\tiny 誤差項による寄与分}
 \end{aligned}
 </span></p>
-<p><span class="math inline">R_i</span>の分散を計算すると、市場ポートフォリオとの相関による寄与分と誤差項による寄与分に分解できる。 誤差項の分散が大きければその分だけ<span class="math inline">R_i</span>の分散も大きくなるが、証券<span class="math inline">i</span>のリスクプレミアムは<span class="math inline">\mathbb{E}[R_M]-R_F</span>のままで変化はない。</p>
+<p><span class="math inline">R_i</span>の分散を計算すると、市場ポートフォリオとの相関による寄与分と誤差項による寄与分に分解できる。 誤差項の分散が大きければその分だけ<span class="math inline">R_i</span>の分散も大きくなるが、証券<span class="math inline">i</span>のリスクプレミアムは<span class="math inline">\mathbb{E}[R_M]-r_F</span>のままで変化はない。</p>
 </section>
 <section id="証券市場線" class="level3" data-number="2.4.4">
 <h3 data-number="2.4.4" class="anchored" data-anchor-id="証券市場線"><span class="header-section-number">2.4.4</span> 証券市場線</h3>
@@ -1150,11 +1216,14 @@ Var[R_i] &amp;= \mathbb{Var}[\beta_i R_M + \varepsilon_i]\\
 <p>今までは，リスク資産が銘柄AとBの二つしかない場合を分析してきたが，現実は多くのリスク資産が存在し、海外株式や債券、REIT(不動産投資信託)といったその他の投資可能な金融資産を含めればその数は飛躍的に増加する。 本節での平均分散アプローチやCAPMは危険資産の数が任意の<span class="math inline">N</span>個であっても成立する。 ただしその場合は<strong>行列での表記</strong>が必須となる(第7章やサポートサイト4.5節参照)。</p>
 <p>一般に，平均分散の意味で効率的なポートフォリオ(<strong>平均分散ポートフォリオ</strong>)を計算するには、目標期待リターンを所与として、それを実現するポートフォリオの中でリスクを最小化するものを求める。 得られた期待リターンとリスクのペアを一点として、目標期待リターンを動かすとリスク・リターン平面上に双曲線が描ける。 この双曲線を<strong>平均分散フロンティア</strong>と呼び、効率的フロンティアはその上半分の領域である(確認済み)。</p>
 <p>一般に投資可能な資産の数が増えると、平均分散フロンティアは左上に移動し、投資家はより望ましいポートフォリオが実現できるようになる。 リスク資産<span class="math inline">A</span>と<span class="math inline">B</span>に加えて<span class="math inline">C</span>が投資可能な状況を考えると投資可能な資産が増えたからと言って必ずしもその資産に投資する必要はない。<span class="math inline">w_C=0</span>とすれば、投資家は危険資産<span class="math inline">A</span>と<span class="math inline">B</span>のみに投資可能だった場合と同じ投資機会集合を実現できる。 新しい危険資産が既存資産の組み合わせによって完全に再現できるような極端な例を除けば分散投資のメリットが生じるため、投資家はより望ましいリスク・リターンのトレードオフを実現できる。</p>
-<p>統計学における分散の定義は，<span class="math inline">N</span>個の確率変数<span class="math inline">R_1,R_2,\cdots,R_N</span>の共分散行列<span class="math inline">\Sigma</span>の対角成分の和である。 <span class="math display">
+<p>統計学における分散の定義は，<span class="math inline">N</span>個の確率変数<span class="math inline">R_1,R_2,\cdots,R_N</span>の共分散行列<span class="math inline">\Sigma</span>の対角成分の和である。</p>
+<p><span class="math display">
 \begin{align*}
 \sigma^2=\sum_{i=1}^N\sum_{j=1}^N\sigma_{ij}=\sum_{i=1}^N\sigma_{ii}
 \end{align*}
-</span> ここで，<span class="math inline">\sigma_{ij}</span>は<span class="math inline">R_i</span>と<span class="math inline">R_j</span>の共分散であり，<span class="math inline">\sigma_{ii}</span>は<span class="math inline">R_i</span>の分散である。 共分散行列<span class="math inline">\Sigma</span>は対称行列であり，対角成分は分散を表す。 また，<span class="math inline">R_i</span>と<span class="math inline">R_j</span>の共分散は<span class="math inline">\sigma_{ij}=\sigma_{ji}</span>である。 共分散行列の対角成分以外の成分は共分散を表す。 <span class="math display">
+</span></p>
+<p>ここで，<span class="math inline">\sigma_{ij}</span>は<span class="math inline">R_i</span>と<span class="math inline">R_j</span>の共分散であり，<span class="math inline">\sigma_{ii}</span>は<span class="math inline">R_i</span>の分散である。 共分散行列<span class="math inline">\Sigma</span>は対称行列であり，対角成分は分散を表す。 また，<span class="math inline">R_i</span>と<span class="math inline">R_j</span>の共分散は<span class="math inline">\sigma_{ij}=\sigma_{ji}</span>である。 共分散行列の対角成分以外の成分は共分散を表す。</p>
+<p><span class="math display">
 \begin{align*}
 \Sigma=
 \begin{bmatrix}
@@ -1215,25 +1284,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // flash "checked"
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "コピーしました");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "コピーしました");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
+    button.setAttribute("title", "完了");
     setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
-      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -1261,50 +1313,31 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      let href = ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
     });
   }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
       });
-    }
+      return popup.innerHTML;
+    });
   }
 });
 </script>

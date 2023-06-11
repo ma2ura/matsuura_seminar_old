@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.280">
+<meta name="generator" content="quarto-1.0.37">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -12,15 +12,10 @@
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
-ul.task-list li input[type="checkbox"] {
-  width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
-  vertical-align: middle;
-}
 </style>
 
 
@@ -43,11 +38,11 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
-  "location": "sidebar",
+  "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
-  "panel-placement": "start",
-  "type": "textbox",
+  "panel-placement": "end",
+  "type": "overlay",
   "limit": 20,
   "language": {
     "search-no-results-text": "一致なし",
@@ -81,10 +76,37 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-sidebar floating">
+<body class="nav-sidebar floating nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">実証会計・ファイナンスのノート</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/"><i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-reader-toggle nav-link" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
       <h1 class="quarto-secondary-nav-title">実証会計・ファイナンスのノート</h1>
@@ -95,25 +117,17 @@ ul.task-list li input[type="checkbox"] {
   </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
-    <div class="sidebar-title mb-0 py-0">
-      <a href="./">実証会計・ファイナンスのノート</a> 
-        <div class="sidebar-tools-main">
-  <a href="" class="quarto-reader-toggle sidebar-tool" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
-  <div class="quarto-reader-toggle-btn">
-  <i class="bi"></i>
-  </div>
-</a>
-</div>
-    </div>
-      </div>
       <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
         </div>
+        <div class="sidebar-tools-collapse">
+    <a href="https://so-ichi.com" title="" class="sidebar-tool px-1"><i class="bi bi-house"></i></a>
+    <a href="https://twitter.com/matsuura_rits" title="" class="sidebar-tool px-1"><i class="bi bi-twitter"></i></a>
+</div>
       </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
@@ -149,7 +163,12 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Summary</span></a>
+  <a href="./Chap06.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">ファクターモデルの導入</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Summary</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -162,7 +181,7 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
+        <nav id="TOC" role="doc-toc">
     <h2 id="toc-title">目次</h2>
    
   <ul>
@@ -184,6 +203,7 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title d-none d-lg-block">実証会計・ファイナンスのノート</h1>
+<p class="subtitle lead">専門演習1</p>
 </div>
 
 
@@ -203,7 +223,6 @@ ul.task-list li input[type="checkbox"] {
       <p class="date">2023年6月7日</p>
     </div>
   </div>
-  
     
   </div>
   
@@ -220,9 +239,12 @@ ul.task-list li input[type="checkbox"] {
 <p>この教科書では、紛らわしい表現を避けるため、様々な要素(利子率とか割引率とか投資収益率とか)を記号で表現します。ここでは、それらの記号の意味を説明しておくので、分からなくなったら随時ここに戻って確認するようにしてください。</p>
 <ul>
 <li>キャッシュ・フロー(<strong>C</strong>ash <strong>F</strong>low)：<span class="math inline">CF</span></li>
-<li>無リスク利子率(<strong>R</strong>isk-<strong>F</strong>ree rate)：<span class="math inline">R_F</span></li>
+<li>無リスク利子率(<strong>R</strong>isk-<strong>F</strong>ree rate)：<span class="math inline">r_F</span></li>
+<li>ネット・リターン(net return) : <span class="math inline">r</span></li>
+<li>グロス・リターン(gross return) : <span class="math inline">R = 1 + r</span></li>
 <li>現在価値(<strong>P</strong>resent <strong>V</strong>alue)：<span class="math inline">PV</span></li>
-<li>期間や時点(<strong>T</strong>ime)：<span class="math inline">T</span></li>
+<li>銘柄(i) : <span class="math inline">i = 1, 2, \dots , n, \dots , N</span></li>
+<li>期間や時点(<strong>T</strong>ime)：<span class="math inline">t = 1, 2, \dots , T</span></li>
 </ul>
 <p>次に、定数(constant)と確率変数(random variable)について説明します。</p>
 <p><strong>定数</strong>とはある特定の数を意味します。例えば、<span class="math inline">1</span>や<span class="math inline">52</span>や<span class="math inline">0.1</span>などです。 定数は定まった数ですので、不確実性はありません。</p>
@@ -231,28 +253,40 @@ ul.task-list li input[type="checkbox"] {
 <section id="数式" class="level3">
 <h3 class="anchored" data-anchor-id="数式">数式</h3>
 <p>よく出てくるものをまとめておきます。</p>
-<p>足し算をまとめて書くときは、<span class="math inline">\sum</span>を使います。 いま、<span class="math inline">x_1, x_2, \dots, x_N</span>という<span class="math inline">N</span>個の数値があるとして、それを足し合わせるときは以下のように書きます。 <span class="math display">
+<p>足し算をまとめて書くときは、<span class="math inline">\sum</span>を使います。 いま、<span class="math inline">x_1, x_2, \dots, x_N</span>という<span class="math inline">N</span>個の数値があるとして、それを足し合わせるときは以下のように書きます。</p>
+<p><span class="math display">
 x_1 + x_2 + x_3 + \cdots + x_n
-</span> これを<span class="math inline">\sum</span>を使って書くと以下のようになります。 <span class="math display">
+</span></p>
+<p>これを<span class="math inline">\sum</span>を使って書くと以下のようになります。</p>
+<p><span class="math display">
 \sum _{i = 1}^n x_i
-</span> このほうがシンプルです。</p>
-<p>掛け算をまとめて書くときは、<span class="math inline">\prod</span>を使います。 いま、<span class="math inline">x_1, x_2, \dots, x_N</span>という<span class="math inline">N</span>個の数値があるとして、それを掛け合わせるときは以下のように書きます。 <span class="math display">
+</span></p>
+<p>このほうがシンプルです。</p>
+<p>掛け算をまとめて書くときは、<span class="math inline">\prod</span>を使います。 いま、<span class="math inline">x_1, x_2, \dots, x_N</span>という<span class="math inline">N</span>個の数値があるとして、それを掛け合わせるときは以下のように書きます。</p>
+<p><span class="math display">
 x_1 \times x_2 \times x_3 \times \cdots \times x_n
-</span> これを<span class="math inline">\prod</span>を使って書くと以下のようになります。 <span class="math display">
+</span></p>
+<p>これを<span class="math inline">\prod</span>を使って書くと以下のようになります。</p>
+<p><span class="math display">
 \prod _{i = 1}^n x_i
 </span></p>
 <p>離散的な変数<span class="math inline">x</span>の期待値は以下のように書きます。</p>
 <p><span class="math display">
 \mathbb{E}[x] = \sum _{i = 1}^n x_i p_i
-</span> ここで、<span class="math inline">p_i</span>は<span class="math inline">x_i</span>が観測される確率です。 たとえばサイコロの出目<span class="math inline">X</span>は<span class="math inline">\{1,2,3,4,6\}</span>の値を、それぞれ<span class="math inline">1/6</span>の確率で出す確率変数です。サイコロの出目の期待値は、 <span class="math display">
+</span></p>
+<p>ここで、<span class="math inline">p_i</span>は<span class="math inline">x_i</span>が観測される確率です。 たとえばサイコロの出目<span class="math inline">X</span>は<span class="math inline">\{1,2,3,4,6\}</span>の値を、それぞれ<span class="math inline">1/6</span>の確率で出す確率変数です。サイコロの出目の期待値は、</p>
+<p><span class="math display">
 \begin{align*}
 \mathbb{E}[X] &amp;= \frac 16 \times 1 + \frac 16 \times 2 + \frac 16 \times 3 + \frac 16 \times 4 + \frac 16 \times 5 + \frac 16 \times 6\\
 &amp; = 3.5
 \end{align*}
-</span> となります。</p>
-<p>次に、確率変数の分散は、 <span class="math display">
+</span></p>
+<p>となります。</p>
+<p>次に、確率変数の分散は、</p>
+<p><span class="math display">
 \mathbb{V}[x] = \sum _{i = 1}^n (x_i - \mathbb{E}[x])^2 p_i
-</span> と書きます。これもサイコロの例で考えてみましょう。 サイコロの出目の分散は、</p>
+</span></p>
+<p>と書きます。これもサイコロの例で考えてみましょう。 サイコロの出目の分散は、</p>
 <p><span class="math display">
 \begin{align*}
 \mathbb{V}[X] &amp;= \frac 16 \times (1 - 3.5)^2 + \frac 16 \times (2 - 3.5)^2 + \frac 16 \times (3 - 3.5)^2 \\
@@ -287,13 +321,15 @@ x_1 \times x_2 \times x_3 \times \cdots \times x_n
 </div>
 <p>1つめの式は、定数<span class="math inline">a</span>の期待値は<span class="math inline">a</span>であることを意味します。 2つめの式は、定数<span class="math inline">a</span>と確率変数<span class="math inline">\tilde X</span>の積の期待値は、定数<span class="math inline">a</span>と確率変数<span class="math inline">\tilde X</span>の期待値の積に等しいことを意味します。 3つめの式は、確率変数<span class="math inline">\tilde X</span>に定数<span class="math inline">a</span>を足したものの期待値は、確率変数<span class="math inline">\tilde X</span>の期待値に定数<span class="math inline">a</span>を足したものに等しいことを意味します。 4つめの式は、確率変数<span class="math inline">\tilde X</span>と確率変数<span class="math inline">\tilde Y</span>の和の期待値は、確率変数<span class="math inline">\tilde X</span>の期待値と確率変数<span class="math inline">\tilde Y</span>の期待値の和に等しいことを意味します。</p>
 <p>特に4つめの公式は重要で、<strong>和の期待値は期待値の和</strong>となることを意味してます。よく使うので覚えておいてください。</p>
-<p>正6面体のサイコロの出目<span class="math inline">X</span>と正4面体のサイコロの出目<span class="math inline">Y</span>の和の期待値は、 <span class="math display">
+<p>正6面体のサイコロの出目<span class="math inline">X</span>と正4面体のサイコロの出目<span class="math inline">Y</span>の和の期待値は、</p>
+<p><span class="math display">
 \begin{align*}
 \mathbb{E}[X] &amp;= 3.5\\
 \mathbb{E}[Y] &amp;= \frac 14 \times 1 + \frac 14 \times 2 + \frac 14 \times 3 + \frac 14 \times 4 = 2.5\\
 \mathbb{E}[X + Y] &amp;= \mathbb{E}[X] + \mathbb{E}[Y] = 3.5 + 2.5 = 6
 \end{align*}
-</span> となります。</p>
+</span></p>
+<p>となります。</p>
 </section>
 <section id="分散の特徴" class="level3">
 <h3 class="anchored" data-anchor-id="分散の特徴">分散の特徴</h3>
@@ -321,14 +357,16 @@ x_1 \times x_2 \times x_3 \times \cdots \times x_n
 </div>
 <p>1つめの式は、定数<span class="math inline">a</span>の分散は<span class="math inline">0</span>であることを意味します。自明ですね。 2つめの式は、定数<span class="math inline">a</span>と確率変数<span class="math inline">\tilde X</span>の積の分散は、定数<span class="math inline">a</span>の2乗と確率変数<span class="math inline">\tilde X</span>の分散の積に等しいことを意味します。1つめの式から明らかですね。</p>
 <p>3つめの式は、確率変数<span class="math inline">\tilde X</span>に定数<span class="math inline">a</span>を足したものの分散は、確率変数<span class="math inline">\tilde X</span>の分散に等しいことを意味します。 4つめの式は、確率変数<span class="math inline">\tilde X</span>と確率変数<span class="math inline">\tilde Y</span>の和の分散は、確率変数<span class="math inline">\tilde X</span>の分散と確率変数<span class="math inline">\tilde Y</span>の分散と共分散の和に等しいことを意味します。これもよく出てくるので覚えておいてください。</p>
-<p>5つめの式は、確率変数<span class="math inline">\tilde X</span>の分散は、確率変数<span class="math inline">\tilde X</span>の2乗の期待値から確率変数<span class="math inline">\tilde X</span>の期待値の2乗を引いたものに等しいことを意味します。 つまり分散の計算は、確率変数の2乗の期待値から期待値の2乗を引くことで計算できるということです。これ重要です。 先のサイコロの例で確認してみます。 <span class="math display">
+<p>5つめの式は、確率変数<span class="math inline">\tilde X</span>の分散は、確率変数<span class="math inline">\tilde X</span>の2乗の期待値から確率変数<span class="math inline">\tilde X</span>の期待値の2乗を引いたものに等しいことを意味します。 つまり分散の計算は、確率変数の2乗の期待値から期待値の2乗を引くことで計算できるということです。これ重要です。 先のサイコロの例で確認してみます。</p>
+<p><span class="math display">
 \begin{align*}
 \mathbb{V}[X] &amp;= \mathbb{E}[X^2] - \mathbb{E}[X]^2 \\
 &amp;= \frac 16 \times 1^2 + \frac 16 \times 2^2 + \frac 16 \times 3^2 + \frac 16 \times 4^2 + \frac 16 \times 5^2 + \frac 16 \times 6^2 - 3.5^2 \\
 &amp;= 15.16667 - 12.25 \\
 &amp;= 2.916667
 \end{align*}
-</span> となり、上で計算した分散と一致します。</p>
+</span></p>
+<p>となり、上で計算した分散と一致します。</p>
 
 
 </section>
@@ -376,25 +414,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // flash "checked"
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "コピーしました");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "コピーしました");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
+    button.setAttribute("title", "完了");
     setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
-      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -422,50 +443,31 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      let href = ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
     });
   }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
       });
-    }
+      return popup.innerHTML;
+    });
   }
 });
 </script>

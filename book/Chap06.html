@@ -1,0 +1,1634 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.280">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>実証会計・ファイナンスのノート - 6&nbsp; ファクターモデルの導入</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./summary.html" rel="next">
+<link href="./Chap05.html" rel="prev">
+<link href="./favicon.ico" rel="icon">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "一致なし",
+    "search-matching-documents-text": "一致した文書",
+    "search-copy-link-title": "検索へのリンクをコピー",
+    "search-hide-matches-text": "追加の検索結果を非表示",
+    "search-more-match-text": "追加の検索結果",
+    "search-more-matches-text": "追加の検索結果",
+    "search-clear-button-title": "消去",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "検索"
+  }
+}</script>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
+
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">実証会計・ファイナンスのノート</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/"><i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-reader-toggle nav-link" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">ファクターモデルの導入</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        <div class="sidebar-tools-collapse">
+    <a href="https://so-ichi.com" title="" class="sidebar-tool px-1"><i class="bi bi-house"></i></a>
+    <a href="https://twitter.com/matsuura_rits" title="" class="sidebar-tool px-1"><i class="bi bi-twitter"></i></a>
+</div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">はじめに</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Chap01.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">会計入門</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Chap02.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">ファイナンス入門</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Chap03.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">R言語入門</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Chap04.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">財務データの取得と可視化</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Chap05.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">株式データの取得と可視化</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Chap06.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">ファクターモデルの導入</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Summary</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">目次</h2>
+   
+  <ul>
+  <li><a href="#ファクター構築の準備" id="toc-ファクター構築の準備" class="nav-link active" data-scroll-target="#ファクター構築の準備"><span class="toc-section-number">6.1</span>  ファクター構築の準備</a>
+  <ul class="collapse">
+  <li><a href="#市場ポートフォリオの構築" id="toc-市場ポートフォリオの構築" class="nav-link" data-scroll-target="#市場ポートフォリオの構築"><span class="toc-section-number">6.1.1</span>  市場ポートフォリオの構築</a></li>
+  <li><a href="#ポートフォリオソート" id="toc-ポートフォリオソート" class="nav-link" data-scroll-target="#ポートフォリオソート"><span class="toc-section-number">6.1.2</span>  ポートフォリオ・ソート</a></li>
+  </ul></li>
+  <li><a href="#capmの実証的な検証" id="toc-capmの実証的な検証" class="nav-link" data-scroll-target="#capmの実証的な検証"><span class="toc-section-number">6.2</span>  CAPMの実証的な検証</a>
+  <ul class="collapse">
+  <li><a href="#capmを検証する意義" id="toc-capmを検証する意義" class="nav-link" data-scroll-target="#capmを検証する意義"><span class="toc-section-number">6.2.1</span>  CAPMを検証する意義</a></li>
+  <li><a href="#時系列回帰" id="toc-時系列回帰" class="nav-link" data-scroll-target="#時系列回帰"><span class="toc-section-number">6.2.2</span>  時系列回帰</a></li>
+  <li><a href="#ポートフォリオごとの回帰" id="toc-ポートフォリオごとの回帰" class="nav-link" data-scroll-target="#ポートフォリオごとの回帰"><span class="toc-section-number">6.2.3</span>  ポートフォリオごとの回帰</a></li>
+  <li><a href="#capmアルファ" id="toc-capmアルファ" class="nav-link" data-scroll-target="#capmアルファ"><span class="toc-section-number">6.2.4</span>  CAPMアルファ</a></li>
+  </ul></li>
+  <li><a href="#fama-frenchの3ファクターモデル" id="toc-fama-frenchの3ファクターモデル" class="nav-link" data-scroll-target="#fama-frenchの3ファクターモデル"><span class="toc-section-number">6.3</span>  Fama-Frenchの3ファクター・モデル</a>
+  <ul class="collapse">
+  <li><a href="#線形ファクターモデル" id="toc-線形ファクターモデル" class="nav-link" data-scroll-target="#線形ファクターモデル"><span class="toc-section-number">6.3.1</span>  線形ファクター・モデル</a></li>
+  <li><a href="#サイズファクターとバリューファクター" id="toc-サイズファクターとバリューファクター" class="nav-link" data-scroll-target="#サイズファクターとバリューファクター"><span class="toc-section-number">6.3.2</span>  サイズ・ファクターとバリュー・ファクター</a></li>
+  <li><a href="#銘柄のランク付け" id="toc-銘柄のランク付け" class="nav-link" data-scroll-target="#銘柄のランク付け"><span class="toc-section-number">6.3.3</span>  銘柄のランク付け</a></li>
+  <li><a href="#時価総額とbemeに基づくポートフォリオソート" id="toc-時価総額とbemeに基づくポートフォリオソート" class="nav-link" data-scroll-target="#時価総額とbemeに基づくポートフォリオソート"><span class="toc-section-number">6.3.4</span>  時価総額とBE/MEに基づくポートフォリオ・ソート</a></li>
+  <li><a href="#ファクターリターンの計算" id="toc-ファクターリターンの計算" class="nav-link" data-scroll-target="#ファクターリターンの計算"><span class="toc-section-number">6.3.5</span>  ファクター・リターンの計算</a></li>
+  <li><a href="#ff3アルファ" id="toc-ff3アルファ" class="nav-link" data-scroll-target="#ff3アルファ"><span class="toc-section-number">6.3.6</span>  FF3アルファ</a></li>
+  </ul></li>
+  <li><a href="#パフォーマンス評価尺度としてのアルファ" id="toc-パフォーマンス評価尺度としてのアルファ" class="nav-link" data-scroll-target="#パフォーマンス評価尺度としてのアルファ"><span class="toc-section-number">6.4</span>  パフォーマンス評価尺度としてのアルファ</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">ファクターモデルの導入</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="ファクター構築の準備" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="ファクター構築の準備"><span class="header-section-number">6.1</span> ファクター構築の準備</h2>
+<ol type="1">
+<li>CAPMの実証的検証に必要な市場ポートフォリオの構築</li>
+<li>ある特徴に基づいて各銘柄をランキングにし，ランキングに応じたポートフォリオの構築</li>
+</ol>
+<section id="市場ポートフォリオの構築" class="level3" data-number="6.1.1">
+<h3 data-number="6.1.1" class="anchored" data-anchor-id="市場ポートフォリオの構築"><span class="header-section-number">6.1.1</span> 市場ポートフォリオの構築</h3>
+<p>市場ポートフォリオ (market portfolio)とは，<strong>市場に存在する全ての危険資産を時価総額比率で保有したポートフォリオ</strong>をいいます。 厳密には，リスク資産には株式や債券に代表される金融資産の他、不動産や貴金属などの実物資産も含まれますが、実用上はTOPIXやS&amp;P500といった株価指数と同一視されることが多いです。</p>
+<p>ここでは，データとして入手可能な<strong>全銘柄の時価総額と個別銘柄の時価総額の比率をウェイト</strong>として市場ポートフォリオを構築します。</p>
+<p>毎年1月に年次リバランスを想定し，前年度末の時価総額に比例した保有費率の計算をします。</p>
+<section id="rの事前" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="rの事前">Rの事前</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># いつものやつ</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom) <span class="co"># データフレームを整形するパッケージ</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggthemes)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>mystyle <span class="ot">&lt;-</span> <span class="fu">list</span> (<span class="co">#  ggplotのテーマ</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_calc</span>(), <span class="co"># ggthemesパッケージ</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_calc</span>(), <span class="co"># ggthemesパッケージ</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">element_text</span>(</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">size=</span><span class="dv">12</span>,  <span class="co">#  フォントサイズ</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">family =</span> <span class="st">"HiraKakuProN-W3"</span> <span class="co"># ヒラギノフォント</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>第6章で使うデータを読み込みます。 第5章で作成し，保存したcsvファイルを読み込みます。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ファイルの読み込み</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>monthly_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/ch05_output1.csv"</span>) <span class="co"># 第5章の最後で保存した</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>annual_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/ch05_output2.csv"</span>) <span class="co"># 第5章の最後で保存した</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>ここでもデータの構造を確認しておきます。 <code>monthly_data</code>は<strong>月次の</strong>株価の終値，一株当り配当額，発行済株式数，調整係数，無リスク利子率，時価総額といった株式データが収録されています。 <code>annual_data</code>は<strong>年次の</strong>売上高や当期純利益など財務データが収録されています。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(monthly_data)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 95,040
+Columns: 24
+$ year        &lt;dbl&gt; 2015, 2015, 2015, 2015, 2015, 2015, 2015, 2015, 2015, 2015…
+$ month       &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3, 4, 5, 6, 7…
+$ month_ID    &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,…
+$ firm_ID     &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
+$ stock_price &lt;dbl&gt; 954, 960, 1113, 1081, 1317, 1366, 1353, 1209, 1291, 1407, …
+$ DPS         &lt;dbl&gt; 0, 0, 0, 0, 0, 29, 0, 0, 0, 0, 0, 29, 0, 0, 0, 0, 0, 40, 0…
+$ n_shares    &lt;dbl&gt; 2422000, 2422000, 2422000, 2422000, 2422000, 2422000, 2422…
+$ adj_coef    &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
+$ R_F         &lt;dbl&gt; 6.506826e-04, 5.834099e-04, 6.114423e-04, 6.848180e-04, 7.…
+$ ME          &lt;dbl&gt; 2310588000, 2325120000, 2695686000, 2618182000, 3189774000…
+$ R           &lt;dbl&gt; NA, 0.006289308, 0.159375000, -0.028751123, 0.218316374, 0…
+$ Re          &lt;dbl&gt; NA, 0.005705898, 0.158763558, -0.029435941, 0.217579602, 0…
+$ industry_ID &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 1, 1, 1, 1…
+$ sales       &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 5948.96, 5…
+$ OX          &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 564.14, 56…
+$ NFE         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 50.66750, …
+$ X           &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 513.48, 51…
+$ OA          &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 13865.58, …
+$ FA          &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 4642.16, 4…
+$ OL          &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 4534.22, 4…
+$ FO          &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 3959.70, 3…
+$ BE          &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 10013.82, …
+$ lagged_BE   &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ ROE         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(annual_data)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 7,920
+Columns: 18
+$ firm_ID     &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4…
+$ year        &lt;dbl&gt; 2015, 2016, 2017, 2018, 2019, 2020, 2015, 2016, 2017, 2018…
+$ annual_R    &lt;dbl&gt; NA, 0.99727265, 0.68786382, -0.21361287, 0.64683576, -0.28…
+$ annual_R_F  &lt;dbl&gt; 7.432089e-03, 5.649890e-04, 4.884804e-05, 5.786109e-03, -7…
+$ annual_Re   &lt;dbl&gt; NA, 0.99670766, 0.68781497, -0.21939898, 0.64760569, -0.28…
+$ industry_ID &lt;dbl&gt; NA, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
+$ sales       &lt;dbl&gt; NA, 5948.96, 6505.06, 6846.38, 7572.24, 7537.63, 3505.75, …
+$ OX          &lt;dbl&gt; NA, 564.14, 691.18, 751.29, 958.53, 778.37, 45.82, 51.25, …
+$ NFE         &lt;dbl&gt; NA, 50.667498, 29.543157, 86.486500, 298.049774, -65.45877…
+$ X           &lt;dbl&gt; NA, 513.48, 661.64, 664.80, 660.48, 843.83, 40.07, 49.37, …
+$ OA          &lt;dbl&gt; NA, 13865.58, 13952.58, 18818.48, 18190.00, 20462.86, 2977…
+$ FA          &lt;dbl&gt; NA, 4642.16, 7743.99, 7284.72, 9735.13, 10274.25, 2258.33,…
+$ OL          &lt;dbl&gt; NA, 4534.22, 5111.22, 5137.28, 5487.96, 5371.38, 1840.35, …
+$ FO          &lt;dbl&gt; NA, 3959.70, 6159.02, 10123.91, 11362.22, 13772.15, 2340.8…
+$ BE          &lt;dbl&gt; NA, 10013.82, 10426.33, 10842.01, 11074.95, 11593.58, 1054…
+$ lagged_BE   &lt;dbl&gt; NA, NA, 10013.82, 10426.33, 10842.01, 11074.95, NA, 1054.9…
+$ ROE         &lt;dbl&gt; NA, NA, 0.06607269, 0.06376165, 0.06091859, 0.07619267, NA…
+$ ME          &lt;dbl&gt; 3577.294, 6883.324, 11376.990, 8694.752, 13957.518, 9708.9…</code></pre>
+</div>
+</div>
+<p>市場ポートフォリオの構築に用いるウェイト<span class="math inline">w</span>は次のように計算します。 <span class="math inline">ME_{i,t}</span>は<span class="math inline">t</span>期末における銘柄<span class="math inline">i</span>の時価総額を表します。 分母は，<span class="math inline">N</span>個ある全銘柄の時価総額を合計しています。</p>
+<p><span class="math display">
+w_{i,t}^M = \frac{ME_{i,t-1}^{12\text{月}}}{\sum_{j = 1}^N ME_{j,t-1}^{12\text{月}}}
+</span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/KM_fig_6-1.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">図6.1 市場ポートフォリオを作成する際の各銘柄の保有比率</figcaption><p></p>
+</figure>
+</div>
+<p>この銘柄ごとの保有費率を計算するために，前年度末の時価総額を計算し，<code>lagged_ME</code>に代入します。 <code>annual_data</code>は2015年から2020年のデータが入っています。 <code>lag()</code>で前期末の時価総額を<code>lagged_ME</code>に代入しようとしても2015年の前年のデータは存在しないので，欠損値になることに注意しましょう。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>annual_data <span class="ot">&lt;-</span> annual_data <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(firm_ID) <span class="sc">%&gt;%</span> <span class="co"># 企業ごとに</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">lagged_ME =</span> <span class="fu">lag</span>(ME)) <span class="sc">%&gt;%</span> <span class="co"># 前期末時価総額</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>() <span class="co"># グループ化解除</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>この処理の結果がおおよそこんな感じになっているはずです。</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">firm_ID</th>
+<th style="text-align: right;">year</th>
+<th style="text-align: right;">ME</th>
+<th style="text-align: right;">lagged_ME</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">2015</td>
+<td style="text-align: right;">3577.294</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">2016</td>
+<td style="text-align: right;">6883.324</td>
+<td style="text-align: right;">3577.294</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">2017</td>
+<td style="text-align: right;">11376.990</td>
+<td style="text-align: right;">6883.324</td>
+</tr>
+</tbody>
+</table>
+<p>この<code>lagged_ME</code>を使って保有費率を計算します。 年度ごとに時価総額を合計し、ある企業の前期末時価総額を合計時価総額で割ることで保有費率<code>w_M</code>を計算します。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>annual_data <span class="ot">&lt;-</span> annual_data <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span> <span class="co"># 年度ごとに</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">w_M =</span> lagged_ME <span class="sc">/</span> <span class="fu">sum</span>(lagged_ME, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># ウェイト</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        ) <span class="sc">%&gt;%</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>()</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>2015年の<code>lagged_ME</code>は欠損値なので，<code>w_M</code>も欠損値になっていますが，2015年のデータはもう使わないので無視します。</p>
+<p>次に，2016年以降の欠損値の行は，削除するのではなく保有費率<code>w_M</code>をゼロに置き換えることで投資しないことを表します。 <code>mutate()</code>と<code>replace()</code>を用いて変数の置き換えをします。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>annual_data <span class="ot">&lt;-</span> annual_data <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>( <span class="co"># w_Mの欠損値を0に置き換える</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">w_M =</span> <span class="fu">replace</span>(w_M, year <span class="sc">&gt;=</span> <span class="dv">2016</span> <span class="sc">&amp;</span> <span class="fu">is.na</span>(w_M), <span class="dv">0</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>replace()</code>関数は，第1引数のデータに対して，第2引数の条件を満たす要素を，第3引数の値に置き換えます。 ここでは，<code>w_M</code>に対して，<code>year</code>が2016以上で，かつ<code>w_M</code>が欠損値の場合の<code>w_M</code>を0に置き換えています。</p>
+<p>作成した保有費率を表すウェイト<code>w_M</code>の合計が1になっているかどうかを確認します。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>annual_data <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">weight_sum =</span> <span class="fu">sum</span>(w_M)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 2
+   year weight_sum
+  &lt;dbl&gt;      &lt;dbl&gt;
+1  2015      NA   
+2  2016       1.00
+3  2017       1.00
+4  2018       1   
+5  2019       1   
+6  2020       1.00</code></pre>
+</div>
+</div>
+<p>確認できました。 これまでの操作で変数を追加した<code>annual_data</code>に<code>monthly_data</code>に結合します。 <strong>完全外部結合</strong>(full outer join)を行います。 完全外部結合とは，データベースを連結する操作の1つで、2つのデータフレームからそれぞれ特定のキーとなる列を指定して，キーの値が一致する行同士は連結し、一致しない残りの行もそのまますべて抽出するものです。</p>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+内部結合と外部結合
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>内部結合(inner join)とは，最も単純なタイプの結合で，キーとなる変数が等しいときに観測値のペアを対応付ける操作をいいます。 内部結合の最も重要な特性は、キーが一致しない行は結果に含まれないということです。 つまり、一般的に内部結合は多くのデータが落ちるため，あまり分析に使用しません。</p>
+<p>内部結合は両方のデータベースに存在する観測値のみを保持しますが，<strong>外部結合</strong>は、少なくとも1つのテーブルに存在する観測値を保持します。 外部結合には以下の3つがあります。</p>
+<ul>
+<li>左結合(left join)は、xのすべてのオブザベーションを保持します。</li>
+<li>右結合(right join)は、yのすべてのオブザベーションを保持します。</li>
+<li>完全結合(full join)は、xとyのすべてのオブザベーションを保持します。</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/R4D_join.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">外部結合の例</figcaption><p></p>
+</figure>
+</div>
+<p>最もよく使われる結合は左結合です。 他のテーブルから追加データを調べるときはいつもこれを使います。 左結合はデフォルトの結合であるべきで、他の結合を選択する強い理由がない限り、これを使用します。</p>
+<p>外部結合をベン図で表すとこうなります。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/R4D_outer_join.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">外部結合のベン図</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>では<code>full_join()</code>関数を使って，<code>annual_data</code>と<code>monthly_data</code>を<code>year</code>と<code>firm_ID</code>の2つのキーで結合し，その結果を<code>monthly_data</code>に代入します。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>monthly_data <span class="ot">&lt;-</span> annual_data <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year, firm_ID, w_M) <span class="sc">%&gt;%</span> <span class="co"># 必要な変数のみ</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(monthly_data, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"year"</span>, <span class="st">"firm_ID"</span>)) <span class="sc">%&gt;%</span> <span class="co"># 完全外部結合</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>w_M, w_M) <span class="co"># w_Mを最終列に移動</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>できあがった拡大データセット<code>monthly_data</code>を確認します。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(monthly_data)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 95,040
+Columns: 25
+$ year        &lt;dbl&gt; 2015, 2015, 2015, 2015, 2015, 2015, 2015, 2015, 2015, 2015…
+$ firm_ID     &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
+$ month       &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3, 4, 5, 6, 7…
+$ month_ID    &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,…
+$ stock_price &lt;dbl&gt; 954, 960, 1113, 1081, 1317, 1366, 1353, 1209, 1291, 1407, …
+$ DPS         &lt;dbl&gt; 0, 0, 0, 0, 0, 29, 0, 0, 0, 0, 0, 29, 0, 0, 0, 0, 0, 40, 0…
+$ n_shares    &lt;dbl&gt; 2422000, 2422000, 2422000, 2422000, 2422000, 2422000, 2422…
+$ adj_coef    &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
+$ R_F         &lt;dbl&gt; 6.506826e-04, 5.834099e-04, 6.114423e-04, 6.848180e-04, 7.…
+$ ME          &lt;dbl&gt; 2310588000, 2325120000, 2695686000, 2618182000, 3189774000…
+$ R           &lt;dbl&gt; NA, 0.006289308, 0.159375000, -0.028751123, 0.218316374, 0…
+$ Re          &lt;dbl&gt; NA, 0.005705898, 0.158763558, -0.029435941, 0.217579602, 0…
+$ industry_ID &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 1, 1, 1, 1…
+$ sales       &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 5948.96, 5…
+$ OX          &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 564.14, 56…
+$ NFE         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 50.66750, …
+$ X           &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 513.48, 51…
+$ OA          &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 13865.58, …
+$ FA          &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 4642.16, 4…
+$ OL          &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 4534.22, 4…
+$ FO          &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 3959.70, 3…
+$ BE          &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 10013.82, …
+$ lagged_BE   &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ ROE         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ w_M         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 2.233661e-…</code></pre>
+</div>
+</div>
+<p>準備が整ったので，市場ポートフォリオの月次リターンを計算します。 <span class="math inline">t</span>時点における市場ポートフォリオのリターン<span class="math inline">R_{M,t}</span>は、個別銘柄のリターン<span class="math inline">R_{i,t}</span>とウェイト<span class="math inline">w_{i,t}^M</span>の積の合計で表されます。</p>
+<p><span class="math display">
+R_{M,t} = \sum_{i=1}^{N} w_{i,t}^M R_{i,t}
+</span></p>
+<p>これをRで実装します。 <code>monthly_data</code>を<code>month_ID</code>でグループ化し，<code>summarise()</code>関数を用いて，<code>R_M</code>を計算し，その後で<code>mutate()</code>関数を用いて，<code>R_Me</code>を計算し，その結果を<code>factor_data</code>に代入します。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>factor_data <span class="ot">&lt;-</span> monthly_data <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(month_ID <span class="sc">&gt;=</span> <span class="dv">13</span>) <span class="sc">%&gt;%</span> <span class="co"># 2016以降のデータを抽出</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(month_ID) <span class="sc">%&gt;%</span> <span class="co"># 月次データを月ごとに</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">R_F =</span> R_F[<span class="dv">1</span>], <span class="co"># 無リスク金利を抽出</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">R_M =</span> <span class="fu">sum</span>(w_M <span class="sc">*</span> R, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># 月次リターンの加重平均</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">R_Me =</span> R_M <span class="sc">-</span> R_F) <span class="co"># 月次超過リターン変数を作成</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>factor_data</code>の中身を<code>summary()</code>で確認します。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(factor_data)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    month_ID          R_F                  R_M                 R_Me          
+ Min.   :13.00   Min.   :-2.329e-04   Min.   :-0.102438   Min.   :-0.102438  
+ 1st Qu.:27.75   1st Qu.:-4.107e-05   1st Qu.:-0.011056   1st Qu.:-0.010890  
+ Median :42.50   Median : 3.870e-05   Median : 0.006081   Median : 0.006186  
+ Mean   :42.50   Mean   : 9.991e-05   Mean   : 0.004100   Mean   : 0.004000  
+ 3rd Qu.:57.25   3rd Qu.: 1.323e-04   3rd Qu.: 0.031698   3rd Qu.: 0.031649  
+ Max.   :72.00   Max.   : 6.326e-04   Max.   : 0.111043   Max.   : 0.110819  </code></pre>
+</div>
+</div>
+<p>作成した市場ポートフォリオの超過リターンをヒストグラムにして分布を確認します。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 市場ポートフォリオの月次超過リターンをヒストグラムで可視化</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(factor_data) <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x =</span> R_Me) <span class="sc">+</span> <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"市場ポートフォリオの月次超過リターン"</span>, <span class="at">y =</span> <span class="st">"度数"</span>) <span class="sc">+</span> mystyle</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Chap06_files/figure-html/ch06_08-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>次に、市場ポートフォリオの累積リターンを計算します。 計算の仮定は以下の通りです。</p>
+<ol type="1">
+<li><code>month_ID</code>が13の月初から運用スタートし、バイアンドホールドで運用すると仮定する。</li>
+<li>毎年1月にコストなしでリバランスし、リバランス前後で元本の変動はないと仮定する。</li>
+</ol>
+<p>市場ポートフォリオの累積グロス・リターンを計算します。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>df_g <span class="ot">&lt;-</span> factor_data <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">gross_R_M =</span> <span class="dv">1</span> <span class="sc">+</span> R_M, <span class="co"># rに1足してグラスリターン</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">cumulative_gross_R_M =</span> <span class="fu">cumprod</span>(gross_R_M) <span class="co"># 累積グロスリターン</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>作成した累積グロス・リターンを折れ線グラフで可視化します。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df_g) <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x =</span> month_ID, <span class="at">y =</span> cumulative_gross_R_M) <span class="sc">+</span> <span class="fu">geom_line</span>()</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> g <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Month ID"</span>, <span class="at">y =</span> <span class="st">"累積グロスリターン"</span>) <span class="sc">+</span> mystyle</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(g)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Chap06_files/figure-html/ch06_09b-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>累積リターンであることが一発で分かるように、始点を1として、折れ線グラフを描き直します。 <code>rbind()</code>で始点となるデータを追加し、<code>geom_hline()</code>で始点の水準を点線で図示します。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ch06_10: 市場ポートフォリオの累積リターンの可視化 (2)</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>df_g <span class="ot">&lt;-</span> factor_data <span class="sc">%&gt;%</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gross_R_M =</span> <span class="dv">1</span> <span class="sc">+</span> R_M,</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">cumulative_gross_R_M =</span> <span class="fu">cumprod</span>(gross_R_M)) <span class="sc">%&gt;%</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(month_ID, cumulative_gross_R_M) <span class="sc">%&gt;%</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">1</span>), .) <span class="co"># 折れ線グラフの始点を追加</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 折れ線グラフを作成</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df_g) <span class="sc">+</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> month_ID, <span class="at">y =</span> cumulative_gross_R_M)) <span class="sc">+</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">1</span>, <span class="at">linetype =</span> <span class="st">"dotted"</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span> <span class="co"># 元本の水準を点線で図示</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Month ID"</span>, <span class="at">y =</span> <span class="st">"Cumulative Gross Return"</span>) <span class="sc">+</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="sc">+</span> <span class="fu">ylim</span>(<span class="fl">0.5</span>,<span class="fl">1.5</span>) <span class="sc">+</span>  mystyle</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(g)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Chap06_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="ポートフォリオソート" class="level3" data-number="6.1.2">
+<h3 data-number="6.1.2" class="anchored" data-anchor-id="ポートフォリオソート"><span class="header-section-number">6.1.2</span> ポートフォリオ・ソート</h3>
+<p>ある特性に基づいて株式銘柄をランキングにし、そのランキングに基づいてポートフォリオを構築することを<strong>ポートフォリオ・ソート</strong>と呼びます。 ポートフォリオ・ソートは、ファクター・モデルの検証において重要な手法です。 ここでは<strong>前年度末の時価総額</strong>に基づいて、企業を10個のグループに分類して、実現リターンの比較をしてみましょう。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/KM_fig_6-2.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">図6.2 前年度末の時価総額に基づくポートフォリオ・ソート</figcaption><p></p>
+</figure>
+</div>
+<p>Rで時価総額ランキングを作成するには、<code>ntile()</code>関数を用います。 <code>ntile()</code>関数は、データを指定した数のグループに分類します。 以下のコードでは、<code>mutate()</code>関数で<code>ME_rank10</code>を新たに作成しています。 <code>ME_rank10</code>は、<code>lagged_ME</code>変数を<code>ntile()</code>関数で10個に分類し、<code>as.factor()</code>関数で因子型に変換したものです。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ch06_11: 前年度末の時価総額に基づくポートフォリオ・ソート (1)</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>annual_data <span class="ot">&lt;-</span> annual_data <span class="sc">%&gt;%</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span> <span class="co"># 年度ごとに</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">ME_rank10 =</span> <span class="fu">as.factor</span>(<span class="fu">ntile</span>(lagged_ME, <span class="dv">10</span>))</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> <span class="co"># ntile()関数を用いて十個のグループに分類</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="co"># グループ化解除</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(annual_data)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 21
+  firm_ID  year annual_R annual_R_F annual_Re industry_ID sales    OX   NFE
+    &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1       1  2015   NA      0.00743      NA              NA   NA    NA   NA  
+2       1  2016    0.997  0.000565      0.997           1 5949.  564.  50.7
+3       1  2017    0.688  0.0000488     0.688           1 6505.  691.  29.5
+4       1  2018   -0.214  0.00579      -0.219           1 6846.  751.  86.5
+5       1  2019    0.647 -0.000770      0.648           1 7572.  959. 298. 
+6       1  2020   -0.284  0.000380     -0.285           1 7538.  778. -65.5
+# ℹ 12 more variables: X &lt;dbl&gt;, OA &lt;dbl&gt;, FA &lt;dbl&gt;, OL &lt;dbl&gt;, FO &lt;dbl&gt;,
+#   BE &lt;dbl&gt;, lagged_BE &lt;dbl&gt;, ROE &lt;dbl&gt;, ME &lt;dbl&gt;, lagged_ME &lt;dbl&gt;, w_M &lt;dbl&gt;,
+#   ME_rank10 &lt;fct&gt;</code></pre>
+</div>
+</div>
+<p><code>ME_rank10</code>の値と、年・ランキングごとの会社数を確認してみましょう。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(annual_data<span class="sc">$</span>ME_rank10)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   1    2    3    4    5    6    7    8    9   10 NA's 
+ 643  642  641  641  640  640  640  640  639  639 1515 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(annual_data<span class="sc">$</span>year,  annual_data<span class="sc">$</span>ME_rank10)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      
+         1   2   3   4   5   6   7   8   9  10
+  2015   0   0   0   0   0   0   0   0   0   0
+  2016 125 124 124 124 124 124 124 124 124 124
+  2017 127 127 127 127 127 127 127 127 127 127
+  2018 127 127 127 127 127 127 127 127 126 126
+  2019 131 131 131 131 130 130 130 130 130 130
+  2020 133 133 132 132 132 132 132 132 132 132</code></pre>
+</div>
+</div>
+<p>ここでは、<code>ME_rank10</code>の値が10の企業が時価総額ランキングの上位10%に、1の企業が時価総額ランキングの下位10%に属することを意味します。</p>
+<p>前回と同様に、<code>full_join()</code>関数で<code>monthly_data</code>と<code>annual_data</code>を結合します。 <code>drop_na()</code>関数で欠損行を削除し、<code>group_by()</code>関数で<code>month_ID</code>と<code>ME_rank10</code>に関してグループ化した上で、<code>summarize()</code>関数で月次超過リターン<code>Re</code>の平均値を計算して、<code>Re</code>変数としています。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ch06_13: 前年度末の時価総額に基づくポートフォリオ・ソート (2)</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>ME_sorted_portfolio <span class="ot">&lt;-</span> annual_data <span class="sc">%&gt;%</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year, firm_ID, ME_rank10) <span class="sc">%&gt;%</span> <span class="co"># 年次データから追加したい情報を抽出</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(monthly_data, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"year"</span>, <span class="st">"firm_ID"</span>)) <span class="sc">%&gt;%</span> <span class="co"># yearとfirm_IDをキーに月次データと結合</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> <span class="co"># 欠損行を削除</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(month_ID, ME_rank10) <span class="sc">%&gt;%</span> <span class="co"># month_IDとME_rank10に関してグループ化</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Re =</span> <span class="fu">mean</span>(Re)) <span class="sc">%&gt;%</span> <span class="co"># 各グループで月次超過リターンの平均値を計算</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>ME_sorted_portfolio</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 600 × 3
+   month_ID ME_rank10     Re
+      &lt;dbl&gt; &lt;fct&gt;      &lt;dbl&gt;
+ 1       13 1         0.0291
+ 2       13 2         0.0272
+ 3       13 3         0.0353
+ 4       13 4         0.0545
+ 5       13 5         0.0460
+ 6       13 6         0.0438
+ 7       13 7         0.0530
+ 8       13 8         0.0398
+ 9       13 9         0.0536
+10       13 10        0.0478
+# ℹ 590 more rows</code></pre>
+</div>
+</div>
+<p>準備が出来たので、各ポートフォリオの平均超過リターンを可視化してみましょう。 これにより、時価総額の大きい企業のポートフォリオが、時価総額の小さい企業のポートフォリオよりも高い、あるいは低いリターンを上げているかどうかを確認することができます。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ch06_14: 各ポートフォリオの平均超過リターンを可視化</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>ME_cross_sectional_return <span class="ot">&lt;-</span> ME_sorted_portfolio <span class="sc">%&gt;%</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ME_rank10) <span class="sc">%&gt;%</span> <span class="co"># ME_rank10に関してグループ化</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_Re =</span> <span class="fu">mean</span>(Re)) <span class="co"># 月次超過リターンの平均値を計算</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(ME_cross_sectional_return) <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x =</span> ME_rank10, <span class="at">y =</span> mean_Re)</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> g <span class="sc">+</span> <span class="fu">geom_col</span>() <span class="co"># 棒グラフ</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> g <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">"時価総額ランク"</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"平均月次超過リターン"</span>)</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> g <span class="sc">+</span> <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="sc">+</span> <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="fl">0.02</span>) <span class="sc">+</span> mystyle</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(g)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Chap06_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>小型株ほど月次超過リターンの平均が高いことが分かりました。 このように、時価総額の大きい企業のポートフォリオと小さい企業のポートフォリオのリターンの差を<strong>サイズ・プレミアム</strong>と呼びます。</p>
+<p>先ほどは各ポートフォリオの区分を同じウェイトで保有した場合のリターンを計算しましたが，コラムでは，時価総額の大きさに応じてウェイトを変えた時価総額加重ポートフォリオを作成して，先ほどの結果を再現してみる。</p>
+<p>まずは等加重の場合のコードを確認する。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ch06_15a: 簿価時価比率に基づくポートフォリオ・ソート（等加重の場合）</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>annual_data <span class="ot">&lt;-</span> annual_data <span class="sc">%&gt;%</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lagged_BEME =</span> lagged_BE <span class="sc">/</span> lagged_ME) <span class="sc">%&gt;%</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">BEME_rank10 =</span> <span class="fu">as.factor</span>(<span class="fu">ntile</span>(lagged_BEME, <span class="dv">10</span>))) <span class="sc">%&gt;%</span> <span class="co"># 簿価時価比率に基づいて十個のグループに分類</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>BEME_sorted_portfolio <span class="ot">&lt;-</span> annual_data <span class="sc">%&gt;%</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year, firm_ID, BEME_rank10, lagged_ME) <span class="sc">%&gt;%</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(monthly_data, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"year"</span>, <span class="st">"firm_ID"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(month_ID, BEME_rank10) <span class="sc">%&gt;%</span></span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Re =</span> <span class="fu">mean</span>(Re)) <span class="sc">%&gt;%</span> <span class="co"># 月次超過リターンの平均値を計算</span></span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 作図</span></span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(BEME_sorted_portfolio, BEME_rank10) <span class="sc">%&gt;%</span></span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_Re =</span> <span class="fu">mean</span>(Re)) <span class="sc">%&gt;%</span></span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">x =</span> BEME_rank10, <span class="at">y =</span> mean_Re)) <span class="sc">+</span></span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="sc">+</span> <span class="co"># y = 0の直線を追加</span></span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"BE/ME Rank"</span>, <span class="at">y =</span> <span class="st">"Mean Monthly Excess Return"</span>) <span class="sc">+</span></span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.005</span>, <span class="fl">0.02</span>)) <span class="sc">+</span> mystyle</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Chap06_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>次に時価総額加重の場合のコードを確認します。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ch06_15b: 簿価時価比率に基づくポートフォリオ・ソート（時価総額加重の場合）</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 中盤で保有比率wと月次超過リターンReを計算している箇所を除けば,ch06_15aと全く同じ</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>annual_data <span class="ot">&lt;-</span> annual_data <span class="sc">%&gt;%</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lagged_BEME =</span> lagged_BE <span class="sc">/</span> lagged_ME) <span class="sc">%&gt;%</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">BEME_rank10 =</span> <span class="fu">as.factor</span>(<span class="fu">ntile</span>(lagged_BEME, <span class="dv">10</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>BEME_sorted_portfolio <span class="ot">&lt;-</span> annual_data <span class="sc">%&gt;%</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year, firm_ID, BEME_rank10, lagged_ME) <span class="sc">%&gt;%</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(monthly_data, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"year"</span>, <span class="st">"firm_ID"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(month_ID, BEME_rank10) <span class="sc">%&gt;%</span></span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">w =</span> lagged_ME <span class="sc">/</span> <span class="fu">sum</span>(lagged_ME)) <span class="sc">%&gt;%</span> <span class="co"># 各ポートフォリオで保有比率を計算</span></span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Re =</span> <span class="fu">sum</span>(w <span class="sc">*</span> Re)) <span class="sc">%&gt;%</span> <span class="co"># 時価総額加重の月次超過リターンを計算</span></span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(BEME_sorted_portfolio, BEME_rank10) <span class="sc">%&gt;%</span></span>
+<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_Re =</span> <span class="fu">mean</span>(Re)) <span class="sc">%&gt;%</span></span>
+<span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">x =</span> BEME_rank10, <span class="at">y =</span> mean_Re)) <span class="sc">+</span></span>
+<span id="cb32-23"><a href="#cb32-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb32-24"><a href="#cb32-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"BE/ME Rank"</span>, <span class="at">y =</span> <span class="st">"Mean Monthly Excess Return"</span>) <span class="sc">+</span></span>
+<span id="cb32-25"><a href="#cb32-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.005</span>, <span class="fl">0.02</span>)) <span class="sc">+</span> mystyle</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Chap06_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>結果が異なっていることに注意しましょう。</p>
+<p>次節では，この現象を，資産価格モデルの1つであるCAPM(Capital Asset Pricing Model)が説明できるかどうかを検証します。</p>
+</section>
+</section>
+<section id="capmの実証的な検証" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="capmの実証的な検証"><span class="header-section-number">6.2</span> CAPMの実証的な検証</h2>
+<section id="capmを検証する意義" class="level3" data-number="6.2.1">
+<h3 data-number="6.2.1" class="anchored" data-anchor-id="capmを検証する意義"><span class="header-section-number">6.2.1</span> CAPMを検証する意義</h3>
+<p>まずはCAPMの復習から始めましょう。 CAPMは，資産の期待リターンを，市場ポートフォリオの期待リターンと市場ポートフォリオとの共分散で説明するモデルです。</p>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+CAPM
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>第1命題</strong>: 市場ポートフォリオは接点ポートフォリオと一致し，効率的フ ロンティア(資本市場線)上に位置する.</li>
+<li><strong>第2命題</strong>: 各証券のリスクプレミアムは，その証券のマーケット・ベータ に比例する.</li>
+</ul>
+<p><span class="math display">
+\mathbb{E}[R_i] - R_F = \beta_i \left ( \mathbb{E}[R_M] - R_F \right )
+</span> ただし， <span class="math display">
+\beta_i = \frac{\mathrm{COV}_{R_i,  R_M}}{\mathrm{Var}_M}
+</span></p>
+</div>
+</div>
+<p>このCAPMを回帰式で表現すると次のようになります。</p>
+<p><span class="math display">
+R_{i,t}^e = \beta_i \times R_{M,t}^e + \varepsilon_{i,t}
+</span> ここで、<span class="math inline">R^e_{i,t} = R_{i,t} - R_{F,t}</span>である。 つまり、<span class="math inline">t</span>時点における証券<span class="math inline">i</span>の実現超過リターン<span class="math inline">R_{i,t}^e</span>は、<span class="math inline">t</span>時点における市場ポートフォリオの実現超過リターン<span class="math inline">R_{M,t}^e</span>と、証券<span class="math inline">i</span>の市場ポートフォリオに対するベータ係数<span class="math inline">\beta_i</span>の積に、誤差項<span class="math inline">\varepsilon_{i,t}</span>を加えたものとして表現されます。</p>
+<p>また、誤差項<span class="math inline">\varepsilon_{i,t}</span>に関して次の仮定を置きます。</p>
+<ul>
+<li><span class="math inline">\varepsilon _{i,t}</span>は独立同一分布(i.i.d.)に従う</li>
+<li><span class="math inline">E[\varepsilon_{i,t}] = 0</span></li>
+<li><span class="math inline">E[R_{M,t}^e , \ \varepsilon_{i,t} ] = 0</span></li>
+</ul>
+<p>こうすることで、CAPM式を線形回帰モデルで表現できるので、<span class="math inline">\beta_i</span>の推定が可能となります。</p>
+</section>
+<section id="時系列回帰" class="level3" data-number="6.2.2">
+<h3 data-number="6.2.2" class="anchored" data-anchor-id="時系列回帰"><span class="header-section-number">6.2.2</span> 時系列回帰</h3>
+<p>CAPM式は任意の<span class="math inline">i</span>証券で成立するモデルのため、ポートフォリオにも応用できます。 つまりあるポートフォリオの超過リターンを、市場ポートフォリオの超過リターンと、そのポートフォリオに対するベータ係数の積で説明することができます。</p>
+<p><span class="math display">
+R_{P,t}^e = \alpha _P + \beta_P R_{M,t}^e + \varepsilon_{P,t}
+</span></p>
+<p>CAPMの式と比較すると、切片である<span class="math inline">\alpha _P</span>が追加されていることが分かります。 もし証券市場にCAPMの関係が成立しているなら、<span class="math inline">\alpha _P</span>はゼロとなっているはずです。 この<span class="math inline">\alpha</span>を調べることで、CAPMの検証が可能となります。</p>
+<p>ここでは、<strong>時系列回帰</strong>を使って、市場ポートフォリオの超過リターンを説明変数として、各ポートフォリオの超過リターンを説明するモデルを推定します。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 市場ポートフォリオの超過リターンを追加</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>ME_sorted_portfolio <span class="ot">&lt;-</span> factor_data <span class="sc">%&gt;%</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>R_F) <span class="sc">%&gt;%</span> <span class="co"># 無リスク金利は重複するので結合前に削除</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(ME_sorted_portfolio, <span class="at">by =</span> <span class="st">"month_ID"</span>) <span class="sc">%&gt;%</span> <span class="co"># month_IDをキーに</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>R_Me, R_Me) <span class="co"># R_Meを最終列へ移動</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>factor_data</code>と<code>ME_sorted_portfolio</code>を<code>month_ID</code>で結合て，<code>ME_sorted_portfolio</code>に代入してます。要するに，<code>ME_sorted_portfolio</code>に<code>factor_data</code>を追加しているだけです。</p>
+<p>次に，時価総額が最小の企業群<code>ME_rank10 == 1</code>を<code>filter()</code>で抽出し，超過リターン<code>Re</code>を市場ポートフォリオの超過リターン<code>R_Me</code>で<code>lm()</code>関数で回帰します。 <code>data = .</code>とすることで，<code>lm()</code>関数の第二引数にデータを代入するようにしています。 最後に，結果を<code>tidy()</code>関数でデータフレームに変換しています。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>ME_sorted_portfolio <span class="sc">%&gt;%</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ME_rank10 <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="co"># 時価総額が最小のポートフォリオを抽出</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lm</span>(Re <span class="sc">~</span> R_Me, <span class="at">data =</span> .) <span class="sc">%&gt;%</span> <span class="co"># 回帰</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="co"># 結果をデータフレームに変換</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+  term        estimate std.error statistic       p.value
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;
+1 (Intercept)   0.0121   0.00404      3.00 0.00395      
+2 R_Me          0.654    0.0976       6.70 0.00000000937</code></pre>
+</div>
+</div>
+<p>次はこの回帰式を図示します。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>df_rank1 <span class="ot">&lt;-</span> ME_sorted_portfolio <span class="sc">%&gt;%</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ME_rank10 <span class="sc">==</span> <span class="dv">1</span>) <span class="co"># 散布図と回帰式を描画</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df_rank1) <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x =</span> R_Me, <span class="at">y =</span> Re)</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> g <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">color =</span> <span class="st">"black"</span>)</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> g <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">"市場ポートフォリオの超過リターン"</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"小型株ポートフォリオの超過リターン"</span>) <span class="sc">+</span> mystyle</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(g)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Chap06_files/figure-html/ch06_18-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="ポートフォリオごとの回帰" class="level3" data-number="6.2.3">
+<h3 data-number="6.2.3" class="anchored" data-anchor-id="ポートフォリオごとの回帰"><span class="header-section-number">6.2.3</span> ポートフォリオごとの回帰</h3>
+<p>次に，時価総額ランクごとに回帰分析を行います。 複数のグループに同じ処理を繰り返して適用したい場合，3つの方法があります。</p>
+<ol type="1">
+<li><code>for</code>ループを使う</li>
+<li>基本関数である<code>apply</code>関数を使う</li>
+<li><code>tidyverse</code>の<code>purrr</code>パッケージの<code>map</code>関数を使う</li>
+</ol>
+<section id="forループを使う方法" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="forループを使う方法">forループを使う方法</h4>
+<p>最初に，<code>for</code>ループを使って，時価総額ランクごとに回帰分析を行います。 次のソースコードの構造は，次のようになっています。</p>
+<ol type="1">
+<li>空のリスト<code>CAPM_results</code>を作成</li>
+<li><code>for</code>で繰り返す範囲を指定</li>
+<li><code>ME_rank10</code>のグループを抽出し，</li>
+<li><code>lm()</code>関数で平均超過リターンを市場超過リターンで回帰</li>
+<li><code>tidy()</code>関数でデータフレームに変換</li>
+<li>分析しているランクを示す変数<code>ME_rank10</code>を作成</li>
+<li><code>select()</code>関数で<code>ME_rank10</code>を第一列に移動</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>CAPM_results <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="cn">NA</span>) <span class="co"># 空のリスト作成</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>){ <span class="co"># i を1から10まで</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  CAPM_results[[i]] <span class="ot">&lt;-</span> ME_sorted_portfolio <span class="sc">%&gt;%</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(ME_rank10 <span class="sc">==</span> i) <span class="sc">%&gt;%</span> <span class="co"># ランクごとに</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lm</span>(Re <span class="sc">~</span> R_Me, <span class="at">data =</span> .) <span class="sc">%&gt;%</span> <span class="co"># 回帰</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tidy</span>() <span class="sc">%&gt;%</span> <span class="co"># データ整形</span></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">ME_rank10 =</span> i) <span class="sc">%&gt;%</span> <span class="co"># 推定対象のポートフォリオ名を保存</span></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(ME_rank10, <span class="fu">everything</span>()) <span class="co"># ME_rank10を第一列に移動</span></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>これでリスト型オブジェクトである<code>CAPM_results</code>に各ポートフォリオの回帰の推定結果が入りました。 <code>CAPM_results</code>はリスト型になっているので，<code>rbind</code>を<code>do.call</code>関数で実行することで，データフレームに変換します。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>CAPM_results <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, CAPM_results)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="co"># do.call()関数を用いてリストの中身を1つのデータフレームに統合</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(CAPM_results)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 20 × 6
+   ME_rank10 term         estimate std.error statistic  p.value
+       &lt;int&gt; &lt;chr&gt;           &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+ 1         1 (Intercept)  0.0121     0.00404     3.00  3.95e- 3
+ 2         1 R_Me         0.654      0.0976      6.70  9.37e- 9
+ 3         2 (Intercept)  0.0106     0.00375     2.83  6.44e- 3
+ 4         2 R_Me         0.711      0.0908      7.83  1.19e-10
+ 5         3 (Intercept)  0.0120     0.00312     3.86  2.90e- 4
+ 6         3 R_Me         0.770      0.0754     10.2   1.42e-14
+ 7         4 (Intercept)  0.00957    0.00289     3.31  1.62e- 3
+ 8         4 R_Me         0.848      0.0699     12.1   1.54e-17
+ 9         5 (Intercept)  0.00728    0.00234     3.11  2.86e- 3
+10         5 R_Me         0.896      0.0565     15.9   9.35e-23
+11         6 (Intercept)  0.00653    0.00195     3.34  1.45e- 3
+12         6 R_Me         0.904      0.0472     19.2   9.39e-27
+13         7 (Intercept)  0.00284    0.00173     1.64  1.06e- 1
+14         7 R_Me         0.943      0.0418     22.6   2.16e-30
+15         8 (Intercept)  0.00122    0.00168     0.723 4.73e- 1
+16         8 R_Me         0.956      0.0407     23.5   2.59e-31
+17         9 (Intercept)  0.000406   0.00144     0.282 7.79e- 1
+18         9 R_Me         1.03       0.0349     29.5   1.33e-36
+19        10 (Intercept) -0.000659   0.00113    -0.582 5.63e- 1
+20        10 R_Me         1.06       0.0273     38.9   2.93e-43</code></pre>
+</div>
+</div>
+<p>これで<code>CAPM_results</code>に規模グループごとの回帰の推定結果が入りました。</p>
+</section>
+<section id="lapplyループを使う方法" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="lapplyループを使う方法">lapplyループを使う方法</h4>
+<p>複数のグループに同じ処理を繰り返す2番目の方法は，基本関数である<code>apply</code>関数を使う方法です。ここではリスト型オブジェクトに対して処理を繰り返す<code>lapply()</code>関数を使います。</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+<code>lapply()</code>関数
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>lapply()</code>関数は，<strong>リスト型のオブジェクト</strong>に対して，指定した関数を適用する関数です。 <code>lapply()</code>関数は2つの引数をとり，1つ目がデータが入ったリスト型のオブジェクト，2つ目が適用する関数となります。 <code>lapply()</code>関数は，リスト型に関数を適用してリスト型のオブジェクトを返します。</p>
+</div>
+</div>
+<p>まず時価総額ランク<code>ME_rank10</code>ごとに，<code>ME_sorted_portfolio</code>を分割するために<code>split()</code>関数を使います。</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+<code>split()</code>関数
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>ベクトルやデータフレームといったオブジェクトを、指定した要素ごとに分割したいとき，<code>split()</code>関数を使います。 <code>split()</code>関数は2つの引数をとり，1つ目がデータが入ったオブジェクト，2つ目が分割するための基準となる変数となります。分割後はリスト型になります。</p>
+</div>
+</div>
+<p>次のソースコードでは，</p>
+<ol type="1">
+<li><code>split()</code>で<code>ME_sorted_portfolio</code>を<code>ME_rank10</code>を基準に分割</li>
+<li>線形回帰結果を出力する<code>estimate_CAPM</code>関数を定義</li>
+<li><code>lapply()</code>関数を使って，<code>estimate_CAPM</code>関数を各グループに適用</li>
+</ol>
+<p>という処理を行っています。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>ME_sorted_portfolio_splitted <span class="ot">&lt;-</span> <span class="fu">split</span>(ME_sorted_portfolio, ME_sorted_portfolio<span class="sc">$</span>ME_rank10) <span class="co"># データを分割してリスト型に</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 独自関数を定義</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>estimate_CAPM <span class="ot">&lt;-</span> <span class="cf">function</span>(return_data) {</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  lm_results <span class="ot">&lt;-</span> <span class="fu">lm</span>(Re <span class="sc">~</span> R_Me, <span class="at">data =</span> return_data) <span class="co"># 線形回帰</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>  tidied_lm_results <span class="ot">&lt;-</span> <span class="fu">tidy</span>(lm_results) <span class="co"># tidy()関数でデータ整形</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>CAPM_results_by_lapply <span class="ot">&lt;-</span> <span class="fu">lapply</span>(ME_sorted_portfolio_splitted, estimate_CAPM) <span class="co">#</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>for</code>ループに比べて，ソースコードがかなりシンプルになったかと思います。</p>
+</section>
+<section id="purrrのmap関数を使う方法" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="purrrのmap関数を使う方法">purrrの<code>map()</code>関数を使う方法</h4>
+<p><code>tidyverse</code>の<code>purrr</code>パッケージの<code>map()</code>関数を使ってグループごとに処理を繰り返す方法について説明します。 <code>purrr</code>パッケージは，<code>tidyverse</code>の1つで，リスト型オブジェクトに対して処理を繰り返す関数を提供しています。 基本関数の<code>apply</code>系関数よりも，<code>purrr</code>パッケージの<code>map()</code>関数を使った方が，コードがシンプルになり読みやすくなります。</p>
+<p>以下では，<code>purrr</code>の<code>map()</code>関数を使って時価総額ランクごとに線形回帰を行います。 以下では，グループごとにデータを分割し、分割されたデータを各セルに埋め込む<code>nest()</code>関数を使って，<code>ME_rank10</code>ごとにグループ化しています。 <code>group_by()</code>と<code>nest()</code>をまとめた<code>group_nest()</code>関数を使います。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>ME_sorted_portfolio <span class="sc">%&gt;%</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_nest</span>(ME_rank10) <span class="sc">%&gt;%</span> <span class="co"># ランクごとにグループ化しセルに埋め込む</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">CAPM_regression =</span> <span class="fu">map</span>(data, <span class="sc">~</span><span class="fu">lm</span>(Re <span class="sc">~</span> R_Me, <span class="at">data =</span> .)), <span class="co"># 回帰</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">CAPM_summary =</span> <span class="fu">map</span>(CAPM_regression, tidy) <span class="co"># tidy()を適用</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> <span class="co"># tidy()関数を用いて線形回帰の結果を整理</span></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(data, CAPM_regression)) <span class="sc">%&gt;%</span> <span class="co"># 線形回帰の結果のみを抽出</span></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(<span class="at">cols =</span> CAPM_summary) <span class="sc">%&gt;%</span> <span class="co"># nest()関数による畳み込みを解除</span></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 20 × 6
+   ME_rank10 term         estimate std.error statistic  p.value
+   &lt;fct&gt;     &lt;chr&gt;           &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+ 1 1         (Intercept)  0.0121     0.00404     3.00  3.95e- 3
+ 2 1         R_Me         0.654      0.0976      6.70  9.37e- 9
+ 3 2         (Intercept)  0.0106     0.00375     2.83  6.44e- 3
+ 4 2         R_Me         0.711      0.0908      7.83  1.19e-10
+ 5 3         (Intercept)  0.0120     0.00312     3.86  2.90e- 4
+ 6 3         R_Me         0.770      0.0754     10.2   1.42e-14
+ 7 4         (Intercept)  0.00957    0.00289     3.31  1.62e- 3
+ 8 4         R_Me         0.848      0.0699     12.1   1.54e-17
+ 9 5         (Intercept)  0.00728    0.00234     3.11  2.86e- 3
+10 5         R_Me         0.896      0.0565     15.9   9.35e-23
+11 6         (Intercept)  0.00653    0.00195     3.34  1.45e- 3
+12 6         R_Me         0.904      0.0472     19.2   9.39e-27
+13 7         (Intercept)  0.00284    0.00173     1.64  1.06e- 1
+14 7         R_Me         0.943      0.0418     22.6   2.16e-30
+15 8         (Intercept)  0.00122    0.00168     0.723 4.73e- 1
+16 8         R_Me         0.956      0.0407     23.5   2.59e-31
+17 9         (Intercept)  0.000406   0.00144     0.282 7.79e- 1
+18 9         R_Me         1.03       0.0349     29.5   1.33e-36
+19 10        (Intercept) -0.000659   0.00113    -0.582 5.63e- 1
+20 10        R_Me         1.06       0.0273     38.9   2.93e-43</code></pre>
+</div>
+</div>
+<p>これで，時価総額ランク1〜10ごとに線形回帰を行った結果，切片<code>(Intercept)</code>と説明変数<code>R_Me</code>の係数<code>estimate</code>，標準誤差<code>std.error</code>，<span class="math inline">t</span>値<code>statistic</code>，<span class="math inline">p</span>値<code>p.value</code>が計算されています。</p>
+</section>
+</section>
+<section id="capmアルファ" class="level3" data-number="6.2.4">
+<h3 data-number="6.2.4" class="anchored" data-anchor-id="capmアルファ"><span class="header-section-number">6.2.4</span> CAPMアルファ</h3>
+<p>CAPMが成立している世界では，<span class="math inline">\alpha _P</span>はゼロとなるはずです。 そこで，時価総額ランクに応じて10個に分けた企業群ごとの<span class="math inline">\alpha _P</span>を図示してみます。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># : CAPMアルファの可視化</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>df_g <span class="ot">&lt;-</span> CAPM_results <span class="sc">%&gt;%</span></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"(Intercept)"</span>) <span class="sc">%&gt;%</span> <span class="co"># 切片を抽出</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ME_rank10 =</span> <span class="fu">as.factor</span>(ME_rank10)) <span class="co"># ME_rank10をファクター型</span></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df_g) <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x =</span> ME_rank10, <span class="at">y =</span> estimate)</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> g <span class="sc">+</span> <span class="fu">geom_col</span>() <span class="sc">+</span> <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>)</span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> g <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">"時価総額ランク"</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"CAPMアルファ"</span>)</span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> g <span class="sc">+</span> <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.003</span>, <span class="fl">0.013</span>)) <span class="sc">+</span> mystyle</span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(g)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Chap06_files/figure-html/ch06_23-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>小型株ほどCAPMアルファが高く，時価総額が大きくなるにつれて<span class="math inline">\alpha _P</span>がゼロに近づいていることが分かります。 各グループの回帰分析の切片が統計的にゼロかどうかを確認するために、検定してみます。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># : CAPMアルファの統計的な有意性を評価</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>CAPM_results <span class="sc">%&gt;%</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"(Intercept)"</span>) <span class="sc">%&gt;%</span> <span class="co"># 定数項に関する推定結果のみを抽出</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">CAPM_alpha =</span> estimate, <span class="at">p_value =</span> p.value) <span class="sc">%&gt;%</span> <span class="co"># 列名を変更</span></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">significance =</span> <span class="fu">cut</span>(p_value,</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>                            <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.01</span>, <span class="fl">0.05</span>, <span class="fl">0.1</span>, <span class="dv">1</span>),</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>                            <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"***"</span>, <span class="st">"**"</span>, <span class="st">"*"</span>, <span class="st">""</span>),</span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>                            <span class="at">include.lowest =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> <span class="co"># 統計的に有意な結果を*で強調</span></span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ME_rank10, CAPM_alpha, p_value, significance) <span class="co"># 出力したい列を指定</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 4
+   ME_rank10 CAPM_alpha  p_value significance
+       &lt;int&gt;      &lt;dbl&gt;    &lt;dbl&gt; &lt;fct&gt;       
+ 1         1   0.0121   0.00395  "***"       
+ 2         2   0.0106   0.00644  "***"       
+ 3         3   0.0120   0.000290 "***"       
+ 4         4   0.00957  0.00162  "***"       
+ 5         5   0.00728  0.00286  "***"       
+ 6         6   0.00653  0.00145  "***"       
+ 7         7   0.00284  0.106    ""          
+ 8         8   0.00122  0.473    ""          
+ 9         9   0.000406 0.779    ""          
+10        10  -0.000659 0.563    ""          </code></pre>
+</div>
+</div>
+<p>分析結果より，<code>ME_rank10</code>が7から10のグループでは，CAPMアルファは<span class="math inline">p</span>統計量が10%以上となっており，統計的にゼロと異なっているかどうか分かりません。</p>
+<p>次に，<code>R_Me</code>の回帰係数を取り出し，<code>CAPM_beta</code>という列名に変更します。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># : 証券市場線の推定</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>ME_cross_sectional_return <span class="ot">&lt;-</span> CAPM_results <span class="sc">%&gt;%</span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"R_Me"</span>) <span class="sc">%&gt;%</span> <span class="co"># R_Meの係数に関する推定結果のみを抽出</span></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">CAPM_beta =</span> estimate) <span class="sc">%&gt;%</span> <span class="co"># 推定値をestimateからCAPM_betaに名称変更</span></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ME_rank10, CAPM_beta) <span class="sc">%&gt;%</span></span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ME_rank10 =</span> <span class="fu">as.factor</span>(ME_rank10)) <span class="sc">%&gt;%</span> <span class="co"># ME_rank10を整数型からファクター型に</span></span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(ME_cross_sectional_return, ., <span class="at">by =</span> <span class="st">"ME_rank10"</span>) <span class="co"># 超過リターンのデータと結合</span></span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>mean_R_Me <span class="ot">&lt;-</span> <span class="fu">mean</span>(factor_data<span class="sc">$</span>R_Me) <span class="co"># 市場ポートフォリオの実現超過リターンにより証券市場線の傾きを推定</span></span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(ME_cross_sectional_return) <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x =</span> CAPM_beta, <span class="at">y =</span> mean_Re)</span>
+<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> g <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">slope =</span> mean_R_Me)</span>
+<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> g <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">"市場ベータ"</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"平均超過リターン"</span>)</span>
+<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> g <span class="sc">+</span> <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.2</span>), <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>))</span>
+<span id="cb46-16"><a href="#cb46-16" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> g <span class="sc">+</span> <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.02</span>)) <span class="sc">+</span> mystyle</span>
+<span id="cb46-17"><a href="#cb46-17" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(g)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Chap06_files/figure-html/ch06_25-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="fama-frenchの3ファクターモデル" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="fama-frenchの3ファクターモデル"><span class="header-section-number">6.3</span> Fama-Frenchの3ファクター・モデル</h2>
+<section id="線形ファクターモデル" class="level3" data-number="6.3.1">
+<h3 data-number="6.3.1" class="anchored" data-anchor-id="線形ファクターモデル"><span class="header-section-number">6.3.1</span> 線形ファクター・モデル</h3>
+<p>線形ファクター・モデルとは、超過リターンをファクター・リターンの線形結合として表すモデルです。 <span class="math inline">N</span>個のファクター<span class="math inline">F^n</span>と誤差項<span class="math inline">\varepsilon_i</span>の線形結合として銘柄<span class="math inline">i</span>の<span class="math inline">t</span>時点における超過リターン<span class="math inline">R_{i,t}</span>を表すとします。 <span class="math display">
+R_{i,t}^e = \beta_i^1 F_t^1 + \beta_i^2 F_t^2 + \cdots + \beta_i^N F_t^N + \varepsilon_{i,t}
+</span></p>
+</section>
+<section id="サイズファクターとバリューファクター" class="level3" data-number="6.3.2">
+<h3 data-number="6.3.2" class="anchored" data-anchor-id="サイズファクターとバリューファクター"><span class="header-section-number">6.3.2</span> サイズ・ファクターとバリュー・ファクター</h3>
+<p>ここでは，<strong>Fama-Frenchの3ファクター・モデル</strong>(以下，FF3モデル)について説明します。 「CAPMでリターンを説明しようとすると，小型株やバリュー株がアルファをもつ」という実証結果をうけて，FF3モデルはこれらのファクターをモデルに加えて次のようなモデルを作りました。</p>
+<p><span class="math display">
+R_{i,t}^e = \beta_i^M R_{M,t}^e + \beta_i^{SMB} SMB_t + \beta_i^{HML} HML_t + \varepsilon_{i,t}
+</span> ここで，</p>
+<ul>
+<li><span class="math inline">SMB_t</span>はサイズ・ファクターで，小型株と大型株の平均リターンの差を表します。サイズは時価総額の大きさで測ります。</li>
+<li><span class="math inline">HML_t</span>はバリュー・ファクターで，バリュー株とグロース株の平均リターンの差を表します。バリューは簿価時価比率で測ります。</li>
+</ul>
+<p>実際に<span class="math inline">SMB</span>と<span class="math inline">HML</span>を計算する方法は，次の通りです。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/KM_fig6-4.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">SMBとHMLの計算方法</figcaption><p></p>
+</figure>
+</div>
+<p>すべての銘柄を上の図のように6分割し，各グループごとに時価総額加重ポートフォリオを作成します。</p>
+<p>大型株(Big)に属するB/H，B/N，B/Lの3グループをそれぞれ1/3ずつの割合で総額<span class="math inline">x</span>円を空売り(ショート)して，それで得た<span class="math inline">x</span>円を小型株(Small)に属するS/H，S/N，S/Lのポートフォリオに1/3ずつ総額<span class="math inline">x</span>円を購入(ロング)する，という投資戦略を実行した場合のリターンがサイズ・ファクター<span class="math inline">SMB</span>となる。</p>
+<p><span class="math display">
+SMB_t = \underbrace{\left ( \frac{S/H_t + S/N_t + S/L_t}{3} \right)}_{\text{小型株の平均リターン}} - \underbrace{\left ( \frac{B/H_t + B/N_t + B/L_t}{3} \right)}_{\text{大型株の平均リターン}}
+</span></p>
+<p>同様に，バリュー・ファクター<span class="math inline">HML</span>も次のように計算します。 <span class="math display">
+HML_t = \underbrace{\left ( \frac{S/H_t + B/H_t}{2} \right)}_{\text{バリュー株の平均リターン}} - \underbrace{\left ( \frac{S/L_t + B/L_t}{2} \right)}_{\text{グロース株の平均リターン}}
+</span></p>
+</section>
+<section id="銘柄のランク付け" class="level3" data-number="6.3.3">
+<h3 data-number="6.3.3" class="anchored" data-anchor-id="銘柄のランク付け"><span class="header-section-number">6.3.3</span> 銘柄のランク付け</h3>
+<p>実際にシミュレーション・データを使ってファクターを計算してみます。 最初に，上の図で示したような6つの時価総額でウェイト付けたポートフォリオを作成するために，</p>
+<ul>
+<li>前年度の時価総額 <code>lagged_ME</code></li>
+<li>前年度の簿価時価比率 <code>lagged_BEME</code></li>
+</ul>
+<p>で銘柄をランク付けします。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>annual_data <span class="ot">&lt;-</span> annual_data <span class="sc">%&gt;%</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lagged_ME =</span> <span class="fu">replace</span>(lagged_ME, <span class="fu">is.na</span>(lagged_BEME), <span class="cn">NA</span>)) <span class="sc">%&gt;%</span> <span class="co"># lagged_BEMEがNAのときlagged_MEもNAに</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span> <span class="co"># 年度ごとに</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ME_rank2 =</span> <span class="fu">as.factor</span>(<span class="fu">ntile</span>(lagged_ME, <span class="dv">2</span>))) <span class="sc">%&gt;%</span> <span class="co"># 2つのグループに分ける</span></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>簿価時価比率に基づくランク付け (1)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>annual_data <span class="sc">%&gt;%</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">BEME_percent_rank =</span> <span class="fu">percent_rank</span>(lagged_BEME)) <span class="sc">%&gt;%</span> <span class="co"># 年度ごとに簿価時価比率のパーセンタイル順位を計算</span></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(firm_ID, year, lagged_BEME, ME_rank2, BEME_percent_rank) <span class="sc">%&gt;%</span></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 7,920 × 5
+   firm_ID  year lagged_BEME ME_rank2 BEME_percent_rank
+     &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;                &lt;dbl&gt;
+ 1       1  2015      NA     &lt;NA&gt;              NA      
+ 2       1  2016      NA     &lt;NA&gt;              NA      
+ 3       1  2017       1.45  1                  0.729  
+ 4       1  2018       0.916 1                  0.529  
+ 5       1  2019       1.25  1                  0.626  
+ 6       1  2020       0.793 1                  0.481  
+ 7       2  2015      NA     &lt;NA&gt;              NA      
+ 8       2  2016       0.258 1                  0.0331 
+ 9       2  2017       0.193 1                  0.0158 
+10       2  2018       0.124 1                  0.00631
+# ℹ 7,910 more rows</code></pre>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+<code>percent_rank()</code>関数
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>dplyr</code>パッケージの<code>percent_rank()</code>関数は，データのパーセンタイル順位を計算する関数です。 パーセンタイル順位とは，データの中で自分の値が何パーセントに位置するかを表す数値です。 50パーセンタイルは中央値を意味します。</p>
+</div>
+</div>
+<p>任意のパーセンタイルでデータを分析したいので，先ほどの<code>ntile()</code>関数ではなく，<code>percent_rank()</code>関数をつかってパーセンタイル順位を計算し，30％と70％のパーセンタイルで3つのグループに分けます。 そのパーセンタイル順序を基準として，<code>cut()</code>関数で3つのグループに分けます。</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+<code>cut()</code>関数
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>cut()</code>関数は，データを指定した区間に分割する関数です。 <code>cut()</code>関数は4つの引数をとり，1つ目がデータが入ったオブジェクト，2つ目が区間の境界値，3つ目が区間のラベル，4つ目が区間の境界値に含めるかどうかを指定する引数です。</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>annual_data <span class="ot">&lt;-</span> annual_data <span class="sc">%&gt;%</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span> <span class="co"># 年度ごとに</span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">BEME_percent_rank =</span> <span class="fu">percent_rank</span>(lagged_BEME)) <span class="sc">%&gt;%</span> <span class="co"># 簿価時価比率のパーセンタイル順位を計算</span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> <span class="co"># グループ化解除</span></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">BEME_rank3 =</span> <span class="fu">cut</span>(BEME_percent_rank,</span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>                          <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.3</span>, <span class="fl">0.7</span>, <span class="dv">1</span>),</span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>                          <span class="at">labels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>),</span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>                          <span class="at">include.lowest =</span> <span class="cn">TRUE</span>)) <span class="co"># BEME_percent_rankの値に応じて1から3までBEME_rank3の値を定義</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="時価総額とbemeに基づくポートフォリオソート" class="level3" data-number="6.3.4">
+<h3 data-number="6.3.4" class="anchored" data-anchor-id="時価総額とbemeに基づくポートフォリオソート"><span class="header-section-number">6.3.4</span> 時価総額とBE/MEに基づくポートフォリオ・ソート</h3>
+<p>次に，時価総額と簿価時価比率に基づくポートフォリオ・ソートを行います。 先ほど，時価総額と簿価時価比率に基づくランク付けを行ったので、ここでは時価総額と簿価時価比率のランクを組み合わせて，6つのポートフォリオを作成します。</p>
+<p><code>interaction()</code>関数を使って，複数のカテゴリー変数を組み合わせて新しいカテゴリー変数を作成します。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>annual_data <span class="ot">&lt;-</span> annual_data <span class="sc">%&gt;%</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">FF_portfolio_type =</span> <span class="fu">interaction</span>(ME_rank2, BEME_rank3)) <span class="co"># ME_rank2とBEME_rank3の組合せ</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>annual_data</code>データフレームに<code>FF_portfolio_type</code>という新しいカテゴリー変数が追加されました。 <code>interaction()</code>関数で作成されたカテゴリー変数を確認してみます。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(annual_data<span class="sc">$</span>FF_portfolio_type)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] &lt;NA&gt; &lt;NA&gt; 1.3  1.2  1.2  1.2 
+Levels: 1.1 2.1 1.2 2.2 1.3 2.3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(annual_data<span class="sc">$</span>FF_portfolio_type)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ 1.1  2.1  1.2  2.2  1.3  2.3 
+ 773 1149 1130 1430 1299  623 </code></pre>
+</div>
+</div>
+<p><code>interaction()</code>関数で作成されたカテゴリー変数が、<code>ME_rank2</code>と<code>BEME_rank3</code>のランクを組み合わせたものであることがわかります。 このままだと見づらいので、<code>fct_recode()</code>関数を使って、カテゴリー変数の水準を変更します。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>annual_data <span class="ot">&lt;-</span> annual_data <span class="sc">%&gt;%</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">FF_portfolio_type =</span> <span class="fu">fct_recode</span>(FF_portfolio_type, <span class="co"># ラベル変更</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">SL =</span> <span class="st">"1.1"</span>,</span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">BL =</span> <span class="st">"2.1"</span>,</span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">SN =</span> <span class="st">"1.2"</span>,</span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">BN =</span> <span class="st">"2.2"</span>,</span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">SH =</span> <span class="st">"1.3"</span>,</span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">BH =</span> <span class="st">"2.3"</span>))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>これでSmallとBig、Low・Neutral・Highの組み合わせを意味する<code>SL</code>、<code>BL</code>、<code>SN</code>、<code>BN</code>、<code>SH</code>、<code>BH</code>の6つのカテゴリーを持つカテゴリー変数が作成されました。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>annual_data <span class="sc">%&gt;%</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(FF_portfolio_type) <span class="sc">%&gt;%</span> <span class="co"># 6グループごとに</span></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="co">#  group_by(ME_rank2, BEME_rank3) %&gt;% # ME_rank2とBEME_rank3のペアでグループ化</span></span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_BEME =</span> <span class="fu">mean</span>(lagged_BEME),</span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_ME =</span> <span class="fu">mean</span>(lagged_ME),</span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_N_stocks =</span> <span class="fu">n</span>() <span class="sc">/</span> <span class="fu">length</span>(<span class="fu">unique</span>(year))) <span class="sc">%&gt;%</span></span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="co"># 欠損データを削除</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 4
+  FF_portfolio_type mean_BEME mean_ME mean_N_stocks
+  &lt;fct&gt;                 &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
+1 SL                    0.416  11601.          155.
+2 BL                    0.468 414941.          230.
+3 SN                    0.973  11868.          226 
+4 BN                    0.960 211793.          286 
+5 SH                    1.97   11023.          260.
+6 BH                    1.72  151135.          125.</code></pre>
+</div>
+</div>
+<p>準備ができたので、あとは年度ごとに各ポートフォリオの時価総額加重<code>lagged_ME</code>に基づいて保有比率<code>w</code>を計算します。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>annual_data <span class="ot">&lt;-</span> annual_data <span class="sc">%&gt;%</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, FF_portfolio_type) <span class="sc">%&gt;%</span> <span class="co"># yearとFF_portfolio_typeのペアでグループ化</span></span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">w =</span> lagged_ME  <span class="sc">/</span> <span class="fu">sum</span>(lagged_ME, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> <span class="co"># 各ポートフォリオ内で時価総額加重の保有比率を計算</span></span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>6グループへの投資割合を示すウェイト<code>w</code>を計算しました。 このウェイトを使って、各ポートフォリオの月次の時価総額加重の平均リターンを計算します。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>FF_portfolio <span class="ot">&lt;-</span> annual_data <span class="sc">%&gt;%</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year, firm_ID, FF_portfolio_type, ME_rank2, BEME_rank3, w) <span class="sc">%&gt;%</span> <span class="co"># 使う偏すのみ</span></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(monthly_data, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"year"</span>, <span class="st">"firm_ID"</span>)) <span class="sc">%&gt;%</span> <span class="co"># 月次データと結合</span></span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(month_ID, FF_portfolio_type) <span class="sc">%&gt;%</span> <span class="co"># 月と6グループ</span></span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">ME_rank2 =</span> ME_rank2[<span class="dv">1</span>], <span class="co"># グラフ作成用に残す</span></span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">BEME_rank3 =</span> BEME_rank3[<span class="dv">1</span>], <span class="co"># グラフ作成用に残す</span></span>
+<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">R =</span> <span class="fu">sum</span>(w <span class="sc">*</span> R, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="co"># 各ポートフォリオの月次リターンを計算</span></span>
+<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">R_F =</span> R_F[<span class="dv">1</span>] <span class="co"># 無リスク利子率</span></span>
+<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb60-12"><a href="#cb60-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="co"># 欠損データを削除</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>FF_portfolio</code>データフレームには、6つのポートフォリオの月次の時価総額加重の平均リターン<code>R</code>が計算されています。 <code>R</code>から無リスク利子率<code>R_F</code>を引いた超過リターン<code>Re</code>を計算します。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>FF_mean_return <span class="ot">&lt;-</span> FF_portfolio <span class="sc">%&gt;%</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Re =</span> R <span class="sc">-</span> R_F) <span class="sc">%&gt;%</span> <span class="co"># 超過リターン</span></span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(FF_portfolio_type) <span class="sc">%&gt;%</span> <span class="co"># FF_portfolio_typeでグループ化</span></span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">ME_rank2 =</span> ME_rank2[<span class="dv">1</span>],</span>
+<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">BEME_rank3 =</span> BEME_rank3[<span class="dv">1</span>],</span>
+<span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_Re =</span> <span class="fu">mean</span>(Re)</span>
+<span id="cb61-8"><a href="#cb61-8" aria-hidden="true" tabindex="-1"></a>    ) <span class="co"># 各ポートフォリオの超過リターンの平均値を計算</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>計算した超過リターンを簿価時価比率グループを横軸とした棒グラフにします。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(FF_mean_return) <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x =</span> BEME_rank3, <span class="at">y =</span> mean_Re, <span class="at">fill =</span> ME_rank2)</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> g <span class="sc">+</span> <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="co"># 棒グラフを作成</span></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> g <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">"簿価時価比率ランク"</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"月次超過リターン"</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">fill=</span><span class="st">"時価総額ランク"</span>)</span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> g <span class="sc">+</span> <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> BEME_rank3, <span class="at">y =</span> mean_Re, <span class="at">group =</span> ME_rank2, <span class="at">label =</span> FF_portfolio_type), <span class="co"># (x, y)座標を指定して各ポートフォリオの名前をグラフに挿入</span></span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="co"># 棒グラフが重ならないよう文字ラベルを上にずらす</span></span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.9</span>)</span>
+<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a>            ) <span class="co"># ME_rank2のサブグループで文字ラベルが左右にずれるよう調整</span></span>
+<span id="cb62-8"><a href="#cb62-8" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> g <span class="sc">+</span> mystyle</span>
+<span id="cb62-9"><a href="#cb62-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(g)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Chap06_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>次に、時価総額と簿価時価比率で分けた6グループの両端のグループの超過リターンを比較します。 具体的には、B/LグループとS/Hグループの累積グロス・リターンを比較するために、基準点を1とする折れ線グラフを書いてみます。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>initial_point <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">month_ID =</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">12</span>), <span class="co"># 累積リターンの起点を定義</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>                            <span class="at">cumulative_gross_R =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>),</span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>                            <span class="at">FF_portfolio_type =</span> <span class="fu">c</span>(<span class="st">"BL"</span>, <span class="st">"SH"</span>))</span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a>FF_CR <span class="ot">&lt;-</span> FF_portfolio <span class="sc">%&gt;%</span></span>
+<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(FF_portfolio_type) <span class="sc">%&gt;%</span> <span class="co"># グループ別</span></span>
+<span id="cb63-7"><a href="#cb63-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb63-8"><a href="#cb63-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">cumulative_gross_R =</span> <span class="fu">cumprod</span>(<span class="dv">1</span> <span class="sc">+</span> R) <span class="co"># グロス・リターンを累積</span></span>
+<span id="cb63-9"><a href="#cb63-9" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> </span>
+<span id="cb63-10"><a href="#cb63-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb63-11"><a href="#cb63-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(FF_portfolio_type <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"BL"</span>, <span class="st">"SH"</span>)) <span class="sc">%&gt;%</span> <span class="co"># B/LグループとS/Hグループのみ</span></span>
+<span id="cb63-12"><a href="#cb63-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(month_ID, cumulative_gross_R, FF_portfolio_type) <span class="sc">%&gt;%</span> <span class="co"># 必要な変数のみ</span></span>
+<span id="cb63-13"><a href="#cb63-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rbind</span>(initial_point, .) <span class="co"># initial_pointを第一行に挿入</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>これで<code>FF_CR</code>データフレームには、B/LグループとS/Hグループの累積グロス・リターン<code>cumulative_gross_R</code>が計算されたので、作図してみます。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(FF_CR) <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x =</span> month_ID, <span class="at">y =</span> cumulative_gross_R, <span class="at">linetype =</span> FF_portfolio_type, <span class="at">color =</span> FF_portfolio_type) </span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> g <span class="sc">+</span> <span class="fu">geom_line</span>() <span class="sc">+</span>   <span class="fu">scale_linetype_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"longdash"</span>, <span class="st">"solid"</span>))</span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> g <span class="sc">+</span> <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">1</span>, <span class="at">linetype =</span> <span class="st">"dotted"</span>)</span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> g <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">"月次ID"</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"累積グロス・リターン"</span>) <span class="sc">+</span> mystyle</span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(g)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Chap06_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="ファクターリターンの計算" class="level3" data-number="6.3.5">
+<h3 data-number="6.3.5" class="anchored" data-anchor-id="ファクターリターンの計算"><span class="header-section-number">6.3.5</span> ファクター・リターンの計算</h3>
+<p>6グループから構成されるポートフォリオの月次リターンを計算したので、次にサイズ・ファクター<span class="math inline">SMB_t</span>とバリュー・ファクター<span class="math inline">HML_t</span>を計算します。 サイズ・ファクターは、小型株ポートフォリオの平均リターンと大型株ポートフォリオの平均リターンの差を計算し、バリュー・ファクターは、バリュー株ポートフォリオの平均リターンとグロース株ポートフォリオの平均リターンの差を計算します。 よって、各ポートフォリオのリターンを加減するために、<code>pivot_wider()</code>関数を使って、縦長のデータを横長のデータに変換します。</p>
+<p>イメージ図は以下のとおりです。 <img src="img/kaisetsu.png" class="img-fluid" alt="データ操作"></p>
+<p>やってみましょう。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>FF_portfolio <span class="ot">&lt;-</span> FF_portfolio <span class="sc">%&gt;%</span></span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">id_cols =</span> month_ID, </span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> FF_portfolio_type, </span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> R) <span class="co"># FF_portfolio_typeの値に基づく列を作成し, 縦長から横長のデータに変換</span></span>
+<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(FF_portfolio)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 7
+  month_ID      SL       BL       SN       BN        SH       BH
+     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+1       13  0.0344  0.0487   0.0408   0.0432   0.0493    0.0379 
+2       14  0.0162  0.0188   0.0392   0.0432   0.0265    0.0400 
+3       15 -0.0114 -0.0650  -0.00748 -0.0583  -0.000905 -0.0360 
+4       16 -0.0509 -0.00970 -0.0296   0.0132  -0.00850   0.0161 
+5       17 -0.0504 -0.00648 -0.0208  -0.00310 -0.0139   -0.00901
+6       18 -0.0101 -0.0453  -0.0210  -0.0259  -0.0198   -0.0309 </code></pre>
+</div>
+</div>
+<p>これで6グループごとのリターンが6つの変数として並んだので、サイズ・ファクターとバリュー・ファクターを計算します。 以下では、<code>mutate()</code>関数でバリュー・ファクター変数として<span class="math inline">SMB</span>と<span class="math inline">HML</span>を定義通りに計算しています。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ch06_38 : SMBとHMLの構築 (2)</span></span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>factor_data <span class="ot">&lt;-</span> FF_portfolio <span class="sc">%&gt;%</span></span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">SMB =</span> (SH <span class="sc">+</span> SN <span class="sc">+</span> SL) <span class="sc">/</span> <span class="dv">3</span> <span class="sc">-</span> (BH <span class="sc">+</span> BN <span class="sc">+</span> BL) <span class="sc">/</span> <span class="dv">3</span>, <span class="co"># SMBを計算</span></span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">HML =</span> (SH <span class="sc">+</span> BH) <span class="sc">/</span> <span class="dv">2</span> <span class="sc">-</span> (SL <span class="sc">+</span> BL) <span class="sc">/</span> <span class="dv">2</span> <span class="co"># HMLを計算</span></span>
+<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">%&gt;%</span> </span>
+<span id="cb67-6"><a href="#cb67-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(month_ID, SMB, HML) <span class="sc">%&gt;%</span> <span class="co"># 月とバリュー・ファクターのみ</span></span>
+<span id="cb67-7"><a href="#cb67-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(factor_data, <span class="at">by =</span> <span class="st">"month_ID"</span>) <span class="sc">%&gt;%</span> <span class="co"># 3ファクターの実現値をfactor_dataに集約</span></span>
+<span id="cb67-8"><a href="#cb67-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(<span class="st">"SMB"</span>, <span class="st">"HML"</span>), <span class="fu">c</span>(<span class="st">"SMB"</span>, <span class="st">"HML"</span>)) <span class="co"># SMBとHMLを最後列に移動</span></span>
+<span id="cb67-9"><a href="#cb67-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(factor_data)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 6
+  month_ID       R_F      R_M     R_Me      SMB     HML
+     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
+1       13 0.0000433  0.0458   0.0458  -0.00178 0.00200
+2       14 0.0000346  0.0284   0.0284  -0.00670 0.0158 
+3       15 0.0000393 -0.0580  -0.0580   0.0465  0.0198 
+4       16 0.0000662 -0.00107 -0.00114 -0.0362  0.0341 
+5       17 0.0000360 -0.00642 -0.00645 -0.0222  0.0170 
+6       18 0.0000257 -0.0371  -0.0371   0.0171  0.00232</code></pre>
+</div>
+</div>
+</section>
+<section id="ff3アルファ" class="level3" data-number="6.3.6">
+<h3 data-number="6.3.6" class="anchored" data-anchor-id="ff3アルファ"><span class="header-section-number">6.3.6</span> FF3アルファ</h3>
+<p>CAPMではアルファがゼロにはならず、小型株で大きなアルファが観察されました。 しかし、FF3モデルでは、サイズ・ファクターとバリュー・ファクターを考慮することで、アルファがゼロになることが予測されます。 実際に、FF3モデルを推定してみましょう。</p>
+<p><span class="math display">
+R_{P,t}^e = \alpha_P^{FF3} + \beta_P^M  R_{M,t}^e + \beta_P^{SMB} SMB_t + \beta_P^{HML} HML_t + \varepsilon_{P,t}
+</span></p>
+<p>この回帰モデルのパラメータを、いままで計算してきたデータを使って推定します。 とりわけ<span class="math inline">\alpha_{P}^{FF3}</span>の値に注目します。 <span class="math inline">\alpha_{P}^{FF3}</span>は、FF3モデルのアルファと呼ばれ、ポートフォリオ<span class="math inline">P</span>のリスク・プレミアムを計算する際に使われます。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>ME_sorted_portfolio <span class="ot">&lt;-</span> ME_sorted_portfolio <span class="sc">%&gt;%</span></span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(R_Me, R_M)) <span class="sc">%&gt;%</span> <span class="co"># 重複するので除外しておく</span></span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(factor_data, <span class="at">by =</span> <span class="st">"month_ID"</span>) </span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a>FF3_results <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="cn">NA</span>)  <span class="co"># 空のリストを準備</span></span>
+<span id="cb69-6"><a href="#cb69-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-7"><a href="#cb69-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) {</span>
+<span id="cb69-8"><a href="#cb69-8" aria-hidden="true" tabindex="-1"></a>  FF3_results[[i]] <span class="ot">&lt;-</span> ME_sorted_portfolio <span class="sc">%&gt;%</span></span>
+<span id="cb69-9"><a href="#cb69-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(ME_rank10 <span class="sc">==</span> i) <span class="sc">%&gt;%</span></span>
+<span id="cb69-10"><a href="#cb69-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lm</span>(Re <span class="sc">~</span> R_Me <span class="sc">+</span> SMB <span class="sc">+</span> HML, <span class="at">data =</span> .) <span class="sc">%&gt;%</span> <span class="co"># 3ファクターの実現値を独立変数として重回帰</span></span>
+<span id="cb69-11"><a href="#cb69-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tidy</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb69-12"><a href="#cb69-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">ME_rank10 =</span> i) <span class="sc">%&gt;%</span> <span class="co"># 推定対象のポートフォリオ名を保存</span></span>
+<span id="cb69-13"><a href="#cb69-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(ME_rank10, <span class="fu">everything</span>()) <span class="co"># ME_rank10を第一列に移動</span></span>
+<span id="cb69-14"><a href="#cb69-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb69-15"><a href="#cb69-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-16"><a href="#cb69-16" aria-hidden="true" tabindex="-1"></a>FF3_results <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, FF3_results)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>FF3モデルを推定して得られた回帰式の切片であるFF3アルファを，棒グラフにしてみます。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>df_g <span class="ot">&lt;-</span> FF3_results <span class="sc">%&gt;%</span> <span class="co"># FF3推定結果</span></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"(Intercept)"</span>) <span class="sc">%&gt;%</span> <span class="co"># 切片のみ</span></span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ME_rank10 =</span> <span class="fu">as.factor</span>(ME_rank10)) <span class="co"># ME_rank10をファクター</span></span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df_g) <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x =</span> ME_rank10, <span class="at">y =</span> estimate) <span class="co"># 軸を設定</span></span>
+<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> g <span class="sc">+</span> <span class="fu">geom_col</span>() <span class="sc">+</span> <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="co"># 棒グラフと直線</span></span>
+<span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> g <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">"時価総額ランク"</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"FF3アルファ"</span>) <span class="co"># 軸ラベル</span></span>
+<span id="cb70-8"><a href="#cb70-8" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> g <span class="sc">+</span> <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.003</span>, <span class="fl">0.013</span>)) <span class="sc">+</span> mystyle</span>
+<span id="cb70-9"><a href="#cb70-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(g) <span class="co"># 出力</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Chap06_files/figure-html/ch06_40-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>FF3アルファの統計的な有意性を評価するため，切片がゼロである，という帰無仮説を検定します。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>FF3_results <span class="sc">%&gt;%</span></span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"(Intercept)"</span>) <span class="sc">%&gt;%</span> <span class="co"># 切片のみ</span></span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">FF3_alpha =</span> estimate, <span class="at">p_value =</span> p.value) <span class="sc">%&gt;%</span> <span class="co"># 列名を変更</span></span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">significance =</span> <span class="fu">cut</span>(p_value,</span>
+<span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a>                            <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.01</span>, <span class="fl">0.05</span>, <span class="fl">0.1</span>, <span class="dv">1</span>),</span>
+<span id="cb71-6"><a href="#cb71-6" aria-hidden="true" tabindex="-1"></a>                            <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"***"</span>, <span class="st">"**"</span>, <span class="st">"*"</span>, <span class="st">""</span>),</span>
+<span id="cb71-7"><a href="#cb71-7" aria-hidden="true" tabindex="-1"></a>                            <span class="at">include.lowest =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> <span class="co"># 統計的に有意な結果を*で強調</span></span>
+<span id="cb71-8"><a href="#cb71-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ME_rank10, FF3_alpha, p_value, significance) <span class="co"># 出力したい列を指定</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 4
+   ME_rank10 FF3_alpha p_value significance
+       &lt;int&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt;       
+ 1         1  0.00244   0.181  ""          
+ 2         2  0.00134   0.412  ""          
+ 3         3  0.00246   0.0893 "*"         
+ 4         4 -0.000843  0.335  ""          
+ 5         5 -0.000924  0.336  ""          
+ 6         6  0.000957  0.456  ""          
+ 7         7 -0.00183   0.119  ""          
+ 8         8  0.000842  0.555  ""          
+ 9         9 -0.00100   0.522  ""          
+10        10 -0.00228   0.0492 "**"        </code></pre>
+</div>
+</div>
+<p>推定した結果が入った<code>factor_data</code>を<code>ch06_output.csv</code>として出力するため，<code>write_csv()</code>関数を使います。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(factor_data, <span class="st">"ch06_output.csv"</span>) <span class="co"># data.frameをcsvで保存</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="パフォーマンス評価尺度としてのアルファ" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="パフォーマンス評価尺度としてのアルファ"><span class="header-section-number">6.4</span> パフォーマンス評価尺度としてのアルファ</h2>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "コピーしました");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "コピーしました");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./Chap05.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">株式データの取得と可視化</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./summary.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Summary</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">実証会計・ファイナンスのノート</div>   
+    <div class="nav-footer-right">本書は <a href="https://quarto.org/">Quarto</a> で作成されました。</div>
+  </div>
+</footer>
+
+
+
+</body></html>
